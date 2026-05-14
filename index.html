@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Yuşa Çiloğlan - Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0e1a;--card:#0d1221;--blue:#00aaff;--muted:#8892a4;--border:#1a2235;--white:#e8eef8}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;scroll-behavior:smooth}
+.mono{font-family:'Fira Code',monospace}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,14,26,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 24px;width:100%;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Fira Code',monospace;color:var(--blue);font-weight:700;font-size:16px;display:flex;align-items:center;gap:8px}
+.blink{animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{font-family:'Fira Code',monospace;font-size:13px;color:var(--muted);text-decoration:none;transition:.2s}
+.nav-links a:hover{color:var(--blue)}
+.nav-links a.contact-btn{color:var(--blue);border:1px solid rgba(0,170,255,.3);padding:6px 14px;border-radius:4px}
+.nav-links a.contact-btn:hover{background:rgba(0,170,255,.1)}
+.grid-bg{background-size:40px 40px;background-image:linear-gradient(to right,rgba(0,170,255,.05) 1px,transparent 1px),linear-gradient(to bottom,rgba(0,170,255,.05) 1px,transparent 1px)}
+section{padding:96px 24px}
+.container{max-width:1100px;margin:0 auto}
+.container-sm{max-width:900px;margin:0 auto}
+.section-divider{border-top:1px solid var(--border)}
+/* Hero */
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:flex-start;padding-top:80px;position:relative}
+#hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,14,26,.5),rgba(10,14,26,.8),var(--bg));pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:900px;margin:0 auto;width:100%}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:4px 14px;border-radius:999px;border:1px solid rgba(0,170,255,.3);background:rgba(0,170,255,.05);font-family:'Fira Code',monospace;font-size:12px;color:var(--blue);margin-bottom:24px}
+.dot-green{width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;animation:pulse-green 2s infinite}
+@keyframes pulse-green{0%,100%{opacity:1}50%{opacity:.5}}
+h1.name{font-size:clamp(40px,8vw,80px);font-weight:700;letter-spacing:-1px;color:#fff;line-height:1.1;margin-bottom:16px}
+.typing-line{display:flex;align-items:center;gap:8px;font-family:'Fira Code',monospace;font-size:clamp(16px,3vw,28px);color:var(--muted);height:44px;margin-bottom:24px}
+.prompt{color:var(--blue)}
+.cursor{display:inline-block;width:10px;height:28px;background:var(--blue);animation:blink 1s step-end infinite;flex-shrink:0}
+.hero-desc{font-size:17px;color:rgba(232,238,248,.7);line-height:1.7;max-width:520px;margin-bottom:40px}
+.btn-row{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{font-family:'Fira Code',monospace;font-size:14px;padding:10px 20px;border:1px solid var(--blue);background:rgba(0,170,255,.1);color:var(--blue);cursor:pointer;transition:.2s;border-radius:0}
+.btn-primary:hover{background:rgba(0,170,255,.2)}
+.btn-outline{font-family:'Fira Code',monospace;font-size:14px;padding:10px 20px;border:1px solid rgba(136,146,164,.3);background:transparent;color:var(--white);cursor:pointer;transition:.2s;border-radius:0}
+.btn-outline:hover{border-color:rgba(0,170,255,.5);color:var(--blue)}
+.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;font-family:'Fira Code',monospace;font-size:11px;color:rgba(136,146,164,.5);cursor:pointer;z-index:2;animation:float 2s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+/* About */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.about-text p{color:var(--muted);line-height:1.8;margin-bottom:16px}
+.terminal-box{margin-top:24px;padding:16px;border:1px solid rgba(0,170,255,.2);background:rgba(0,170,255,.05);font-family:'Fira Code',monospace;font-size:13px;border-radius:4px}
+.terminal-box .cmd{color:var(--blue);margin-bottom:6px}
+.terminal-box .out{color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:24px}
+.card-title{font-family:'Fira Code',monospace;color:var(--blue);font-size:13px;margin-bottom:16px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{padding:6px 12px;background:var(--bg);border:1px solid var(--border);border-radius:4px;font-family:'Fira Code',monospace;font-size:13px;color:var(--white);display:flex;align-items:center;gap:6px}
+/* Section headings */
+.section-title{font-size:28px;font-weight:700;font-family:'Fira Code',monospace;color:#fff;margin-bottom:8px;display:flex;align-items:baseline;gap:12px}
+.section-title::before{content:'> ';color:var(--blue)}
+.section-sub{font-size:13px;color:var(--muted);font-family:'Inter',sans-serif;font-weight:400}
+/* Projects */
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.project-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:24px;transition:.2s;position:relative;overflow:hidden}
+.project-card::before{content:'';position:absolute;inset:0;background:rgba(0,170,255,.05);opacity:0;transition:.2s}
+.project-card:hover{border-color:rgba(0,170,255,.4)}
+.project-card:hover::before{opacity:1}
+.project-icon{width:48px;height:48px;background:rgba(0,170,255,.1);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--blue);margin-bottom:16px;font-size:20px}
+.project-title{font-size:17px;font-weight:700;color:#fff;margin-bottom:4px}
+.project-sub{font-family:'Fira Code',monospace;font-size:11px;color:var(--blue);margin-bottom:12px}
+.project-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px}
+.project-tags{display:flex;flex-wrap:wrap;gap:6px}
+.project-tag{font-family:'Fira Code',monospace;font-size:10px;padding:3px 8px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--muted)}
+/* Skills */
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.skill-section-title{font-family:'Fira Code',monospace;font-size:13px;color:var(--blue);display:flex;align-items:center;gap:8px;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.skill-row{margin-bottom:20px}
+.skill-label{display:flex;justify-content:space-between;font-family:'Fira Code',monospace;font-size:13px;margin-bottom:8px}
+.skill-name{color:#fff;display:flex;align-items:center;gap:8px}
+.skill-pct{color:var(--blue)}
+.skill-bar{height:4px;background:var(--card);border-radius:2px;overflow:hidden}
+.skill-fill{height:100%;background:var(--blue);border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform 1.2s ease}
+.skill-fill.animate{transform:scaleX(1)}
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:2fr 3fr;gap:48px}
+.contact-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:24px}
+.contact-links{display:flex;flex-direction:column;gap:16px;margin-top:16px}
+.contact-link{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none;transition:.2s;font-size:15px}
+.contact-link:hover{color:var(--blue)}
+.contact-link svg{color:var(--blue);flex-shrink:0}
+.status-row{display:flex;align-items:center;gap:8px;font-family:'Fira Code',monospace;font-size:11px;color:var(--muted);margin-top:24px;padding-top:16px;border-top:1px solid var(--border)}
+.status-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulse-green 2s infinite}
+form{display:flex;flex-direction:column;gap:16px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-family:'Fira Code',monospace;font-size:11px;color:var(--muted)}
+.form-input,.form-textarea{background:var(--bg);border:1px solid var(--border);color:var(--white);padding:10px 14px;font-family:'Fira Code',monospace;font-size:13px;border-radius:3px;outline:none;transition:.2s;width:100%}
+.form-input:focus,.form-textarea:focus{border-color:rgba(0,170,255,.5)}
+.form-textarea{resize:none;min-height:140px}
+.btn-submit{font-family:'Fira Code',monospace;font-size:14px;padding:12px;border:none;background:var(--blue);color:#fff;cursor:pointer;transition:.2s;border-radius:3px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-submit:hover{background:#0090dd}
+footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-family:'Fira Code',monospace;font-size:12px;color:rgba(136,146,164,.5)}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .about-grid,.skills-grid,.contact-grid,.projects-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="m8 21 4-4 4 4"/><path d="M7 8l3 3-3 3"/><path d="M13 14h4"/></svg>
+      yusa_cn<span class="blink">_</span>
+    </div>
+    <div class="nav-links">
+      <a href="#hero">~/home</a>
+      <a href="#about">~/about</a>
+      <a href="#projects">~/projects</a>
+      <a href="#skills">~/skills</a>
+      <a href="#contact" class="contact-btn">./contact.sh</a>
+    </div>
+  </div>
+</nav>
+
+<section id="hero" class="grid-bg">
+  <div class="container hero-content">
+    <div class="badge"><span class="dot-green"></span> System Online</div>
+    <h1 class="name">Yuşa Çiloğlan</h1>
+    <div class="typing-line">
+      <span class="prompt">></span>
+      <span id="typed"></span>
+      <span class="cursor"></span>
+    </div>
+    <p class="hero-desc">Building secure systems, breaking vulnerable ones. Specializing in cyber attack & defense, artificial intelligence integrations, and robust web architecture.</p>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">
+        &lt;/&gt; View_Projects
+      </button>
+      <button class="btn-outline" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
+        Initialize_Contact
+      </button>
+    </div>
+  </div>
+  <div class="scroll-hint" onclick="document.querySelector('#about').scrollIntoView({behavior:'smooth'})">
+    Scroll to explore
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+  </div>
+</section>
+
+<section id="about" class="section-divider">
+  <div class="container-sm fade-in">
+    <div class="section-title">Hakkımda <span class="section-sub">/ About</span></div>
+    <br/>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>As a cybersecurity expert and ethical hacker, I specialize in identifying vulnerabilities before malicious actors do. My approach combines offensive security testing with robust defensive architecture.</p>
+        <p>Beyond traditional security audits, I actively develop AI tools and integrations to automate threat detection and response, while building secure-by-design web applications.</p>
+        <div class="terminal-box">
+          <div class="cmd">root@yusa:~$ cat current_focus.txt</div>
+          <div class="out">"Securing the web through intelligent defense systems and relentless penetration testing."</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Core Stack</div>
+        <div class="tags">
+          <span class="tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="#e44d26"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg> HTML</span>
+          <span class="tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="#264de4"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.329 4.171L12 19.351l5.379-1.443.744-8.157H8.094l-.217-2.573z"/></svg> CSS</span>
+          <span class="tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="#f7df1e"><rect width="24" height="24" rx="2"/><path d="M6.235 6.453h2.126v9.126c0 .523.03.977.09 1.36.06.382.165.69.315.923.15.233.358.407.622.52.265.115.61.172 1.036.172.44 0 .817-.08 1.13-.24.31-.16.573-.38.787-.662L14 19.04a4.1 4.1 0 0 1-1.56 1.133c-.627.263-1.347.394-2.16.394-.765 0-1.427-.12-1.986-.358-.56-.24-1.022-.582-1.387-1.026-.365-.444-.63-.98-.796-1.606-.165-.626-.248-1.33-.248-2.11V6.453z" fill="#000"/><path d="M17.58 14.477c.063.41.194.726.394.948.2.22.504.33.91.33.372 0 .673-.086.902-.258.228-.172.342-.397.342-.676 0-.17-.042-.32-.125-.447-.084-.127-.208-.238-.373-.333-.166-.095-.37-.183-.613-.264a14.52 14.52 0 0 0-.84-.24 10.25 10.25 0 0 1-1.024-.358 3.01 3.01 0 0 1-.795-.502 2.13 2.13 0 0 1-.517-.726c-.125-.286-.188-.633-.188-1.04 0-.418.08-.79.24-1.116.16-.326.38-.6.66-.822.28-.222.61-.39.992-.506.38-.115.794-.172 1.24-.172.51 0 .957.067 1.342.2.385.133.714.316.988.548.273.233.49.51.65.834.16.323.264.673.313 1.05h-2.04c-.034-.34-.15-.602-.35-.788-.2-.185-.467-.277-.802-.277-.295 0-.54.075-.733.224-.193.148-.29.354-.29.616 0 .128.03.24.09.336.06.095.155.182.285.262.13.08.296.155.498.224.202.07.44.143.715.22.322.085.63.18.924.284.294.106.554.243.78.41.227.17.408.378.543.625.135.247.202.555.202.922 0 .44-.082.83-.244 1.17-.163.34-.388.628-.676.863-.288.234-.63.413-1.026.536-.396.122-.834.184-1.314.184-.55 0-1.03-.075-1.438-.224-.41-.15-.753-.355-1.03-.617-.278-.262-.49-.574-.635-.934-.145-.36-.226-.754-.243-1.183h2.085z" fill="#000"/></svg> JavaScript</span>
+          <span class="tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="#3776ab"><path d="M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.007 2.752h5.814v.826H3.912S0 5.789 0 11.969c0 6.18 3.403 5.963 3.403 5.963h2.03v-2.867s-.11-3.402 3.348-3.402h5.77s3.24.052 3.24-3.13V3.13S18.353 0 11.914 0zm-3.21 1.818a1.046 1.046 0 1 1 0 2.092 1.046 1.046 0 0 1 0-2.092z"/><path d="M12.086 24c6.094 0 5.714-2.656 5.714-2.656l-.007-2.752h-5.814v-.826h8.109S24 18.211 24 12.031c0-6.18-3.403-5.963-3.403-5.963h-2.03v2.867s.11 3.402-3.348 3.402h-5.77s-3.24-.052-3.24 3.13V20.87S5.647 24 12.086 24zm3.21-1.818a1.046 1.046 0 1 1 0-2.092 1.046 1.046 0 0 1 0 2.092z"/></svg> Python</span>
+          <span class="tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="#339933"><path d="M11.998.016C5.373.016.01 5.38.01 12.004c0 6.623 5.363 11.986 11.988 11.986 6.624 0 11.987-5.363 11.987-11.986C23.985 5.38 18.622.016 11.998.016zm-.018 2.14c.65 0 1.254.194 1.663.596.41.402.616.977.616 1.714v.51h-.978v-.51c0-.47-.115-.808-.323-1.009-.21-.2-.542-.3-1.003-.3-.46 0-.792.1-1.001.3-.21.2-.324.539-.324 1.01v.51h-.977v-.51c0-.737.206-1.312.616-1.714.41-.402 1.013-.597 1.711-.597zm-5.128 3.44h2.06c.68 0 1.217.17 1.605.514.388.344.58.826.58 1.44 0 .614-.192 1.1-.58 1.447-.388.345-.925.518-1.605.518H7.831V5.596h-.979zm9.272 0h.978v3.919h-.978V5.596zm-9.272.81v2.3h1.082c.382 0 .672-.09.865-.27.194-.18.29-.454.29-.808 0-.354-.096-.622-.29-.8-.193-.18-.483-.268-.865-.268H6.852v-.154zm11.332 3.109c1.38 0 2.498 1.117 2.498 2.498 0 1.38-1.118 2.497-2.498 2.497-1.38 0-2.498-1.117-2.498-2.497 0-1.38 1.118-2.498 2.498-2.498zm-13.368.001c1.38 0 2.497 1.118 2.497 2.498 0 1.38-1.117 2.497-2.497 2.497-1.381 0-2.498-1.117-2.498-2.497 0-1.38 1.117-2.498 2.498-2.498zm6.682.001c1.38 0 2.498 1.117 2.498 2.497 0 1.381-1.118 2.498-2.498 2.498-1.38 0-2.498-1.117-2.498-2.498 0-1.38 1.118-2.497 2.498-2.497zM4.816 9.516c-.826 0-1.497.67-1.497 1.497 0 .827.671 1.498 1.497 1.498.827 0 1.497-.671 1.497-1.498 0-.826-.67-1.497-1.497-1.497zm6.682.001c-.826 0-1.497.671-1.497 1.497 0 .826.671 1.497 1.497 1.497.827 0 1.497-.671 1.497-1.497 0-.826-.67-1.497-1.497-1.497zm6.685 0c-.826 0-1.497.671-1.497 1.497 0 .826.671 1.497 1.497 1.497.826 0 1.497-.671 1.497-1.497 0-.826-.671-1.497-1.497-1.497zm-10.03 3.919h.978v3.918h-.978v-3.918zm3.346 0h2.06c.68 0 1.217.17 1.605.515.388.344.58.825.58 1.44 0 .613-.192 1.099-.58 1.447-.388.344-.925.517-1.605.517h-2.06v-3.919zm.979.81v2.3h1.082c.382 0 .672-.09.865-.27.194-.18.29-.453.29-.807 0-.355-.096-.623-.29-.801-.193-.18-.483-.268-.865-.268h-1.082v-.154zm5.128-.81h.978v3.918h-.978v-3.918z"/></svg> Node.js</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="section-divider grid-bg" style="position:relative">
+  <div style="position:absolute;inset:0;background:rgba(10,14,26,.9);pointer-events:none"></div>
+  <div class="container" style="position:relative;z-index:1">
+    <div class="fade-in">
+      <div class="section-title">Projeler <span class="section-sub">/ Projects</span></div>
+      <br/>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01M6 18h.01"/></svg></div>
+          <div class="project-title">Yapay Zeka Geliştirici</div>
+          <div class="project-sub">AI Developer</div>
+          <div class="project-desc">Building specialized AI tools and integrations for automated threat analysis, log parsing, and security automation.</div>
+          <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">TensorFlow</span><span class="project-tag">OpenAI API</span></div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <div class="project-title">Siber Saldırı ve Savunma</div>
+          <div class="project-sub">Cyber Attack & Defense</div>
+          <div class="project-desc">Comprehensive penetration testing, security audits, and deployment of defensive systems for corporate infrastructure.</div>
+          <div class="project-tags"><span class="project-tag">Kali Linux</span><span class="project-tag">Metasploit</span><span class="project-tag">Burp Suite</span></div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div class="project-title">Web Geliştirme</div>
+          <div class="project-sub">Web Development</div>
+          <div class="project-desc">Full-stack web projects with a focus on secure-by-design architecture and zero-trust principles.</div>
+          <div class="project-tags"><span class="project-tag">Node.js</span><span class="project-tag">R
