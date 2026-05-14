@@ -3,216 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astron | Kişisel Portfolyo</title>
+    <title>Yuşa Çiloğlan | Portfolyo</title>
     <style>
-        /* Genel Ayarlar */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --bg-body: #020408;
+            --card-bg: #0d1117;
+            --cyber-blue: #00a2ff;
+            --text-main: #e6edf3;
+            --text-dim: #8b949e;
+            --grid-line: rgba(0, 162, 255, 0.1);
         }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Consolas', 'Courier New', monospace; }
+
         body {
-            background-color: #080808;
-            color: #ffffff;
-            line-height: 1.6;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            /* Görseldeki gibi kareli arka plan */
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
             overflow-x: hidden;
         }
 
-        /* Navigasyon */
-        header {
-            background: rgba(15, 15, 15, 0.95);
-            padding: 20px 10%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #222;
-        }
+        .container { max-width: 900px; margin: 0 auto; padding: 50px 20px; }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #00d2ff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        nav a {
-            color: #ddd;
-            text-decoration: none;
-            margin-left: 25px;
-            transition: 0.3s;
-            font-size: 14px;
-        }
-
-        nav a:hover {
-            color: #00d2ff;
-        }
-
-        /* Hero Bölümü */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at center, #111 0%, #080808 100%);
-            padding: 0 20px;
-        }
-
+        /* Üst Kısım: Adın ve Mesajın */
+        .hero { margin-bottom: 60px; }
         .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #00d2ff, #3a7bd5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 3.5rem;
+            color: #fff;
+            border-right: 4px solid var(--cyber-blue);
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 2s steps(15) forwards, blink 0.7s infinite;
         }
-
+        
         .hero p {
+            color: var(--cyber-blue);
             font-size: 1.2rem;
-            color: #888;
-            max-width: 600px;
-        }
-
-        /* Bölüm Stilleri */
-        section {
-            padding: 100px 10%;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        /* İletişim Formu */
-        .contact-container {
-            max-width: 700px;
-            margin: 0 auto;
-            background: #111;
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid #222;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 15px;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 10px;
-            color: white;
-            outline: none;
-        }
-
-        input:focus, textarea:focus {
-            border-color: #00d2ff;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
-            border: none;
-            border-radius: 10px;
-            color: white;
+            margin: 15px 0;
             font-weight: bold;
-            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        @keyframes typing { from { width: 0; } to { width: 100%; } }
+        @keyframes blink { 50% { border-color: transparent; } }
+
+        .btn-link {
+            display: inline-block;
+            padding: 12px 25px;
+            border: 1px solid var(--cyber-blue);
+            color: var(--cyber-blue);
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            background: rgba(0, 162, 255, 0.05);
+        }
+        .btn-link:hover { background: var(--cyber-blue); color: #000; box-shadow: 0 0 20px var(--cyber-blue); }
+
+        .cmd { color: var(--cyber-blue); font-size: 1.2rem; margin: 40px 0 20px; }
+        .cmd::before { content: "> "; color: #fff; }
+
+        /* 1. ANALİZ ŞEMASI (ÜSTTE) */
+        .skills-container {
+            background: var(--card-bg);
+            border: 1px solid #30363d;
+            padding: 30px;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .skill-item { margin-bottom: 15px; }
+        .skill-label { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 8px; }
+        .bar-bg { background: #161b22; height: 10px; border-radius: 5px; overflow: hidden; }
+        .bar-fill { 
+            height: 100%; 
+            background: var(--cyber-blue); 
+            width: 0%; 
+            transition: width 2s ease-in-out; 
+            box-shadow: 0 0 10px var(--cyber-blue);
+        }
+
+        /* 2. PROJELER (ALTTA) */
+        .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid #30363d;
+            padding: 25px;
+            border-radius: 8px;
             transition: 0.3s;
         }
+        .project-card:hover { border-color: var(--cyber-blue); transform: scale(1.02); }
+        .project-card h3 { color: #fff; margin-bottom: 10px; font-size: 1.2rem; }
+        .project-card p { color: var(--text-dim); font-size: 0.9rem; }
 
-        .submit-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+        /* İletişim Kutusu */
+        .contact-box {
+            background: rgba(0, 162, 255, 0.03);
+            border: 2px solid var(--cyber-blue);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
         }
+        .contact-row { display: flex; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .label { width: 120px; color: var(--cyber-blue); font-weight: bold; font-size: 0.85rem; }
+        .val a { color: #fff; text-decoration: none; transition: 0.3s; }
+        .val a:hover { color: var(--cyber-blue); text-shadow: 0 0 8px var(--cyber-blue); }
 
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: #444;
-            font-size: 0.9rem;
-        }
+        footer { text-align: center; padding: 60px 0; color: #333; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">ASTRON</div>
-        <nav>
-            <a href="#home">Başlangıç</a>
-            <a href="#about">Hakkımda</a>
-            <a href="#contact">İletişim</a>
-        </nav>
+<div class="container">
+    <header class="hero">
+        <h1>Yuşa Çiloğlan</h1>
+        <p>SİBER GÜVENLİK UZMANI | ETİK HACKER</p>
+        <a href="#projeler" class="btn-link">PROJELERE GİT</a>
     </header>
 
-    <section id="home" class="hero">
-        <h1>Geleceği Kodla</h1>
-        <p>Yenilikçi web çözümleri ve interaktif sistemler üzerine geliştirilen projeler.</p>
-    </section>
-
-    <section id="about">
-        <h2>Hakkımda</h2>
-        <div style="max-width: 800px; margin: 0 auto; text-align: center; color: #aaa;">
-            <p>Web geliştirme, 3D etkileşimli sistemler ve sesli komut teknolojileri üzerine çalışmalar yapıyorum. Modern teknolojileri kullanarak kullanıcı deneyimini en üst seviyeye çıkarmayı hedefliyorum.</p>
+    <!-- ANALİZ ŞEMASI -->
+    <div class="cmd">./beceri_analizi.sh</div>
+    <div class="skills-container">
+        <div class="skill-item">
+            <div class="skill-label"><span>KALI LINUX</span><span>90%</span></div>
+            <div class="bar-bg"><div class="bar-fill" data-w="90%"></div></div>
         </div>
-    </section>
-
-    <section id="contact">
-        <h2>İletişim</h2>
-        <div class="contact-container">
-            <form id="main-contact-form">
-                <div class="form-group">
-                    <input type="text" placeholder="Adınız" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" placeholder="E-posta" required>
-                </div>
-                <div class="form-group">
-                    <textarea placeholder="Mesajınız..." rows="6" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Gönder</button>
-            </form>
+        <div class="skill-item">
+            <div class="skill-label"><span>PYTHON</span><span>85%</span></div>
+            <div class="bar-bg"><div class="bar-fill" data-w="85%"></div></div>
         </div>
-    </section>
+        <div class="skill-item">
+            <div class="skill-label"><span>WEB GÜVENLİĞİ</span><span>80%</span></div>
+            <div class="bar-bg"><div class="bar-fill" data-w="80%"></div></div>
+        </div>
+        <div class="skill-item">
+            <div class="skill-label"><span>SIZMA TESTİ</span><span>88%</span></div>
+            <div class="bar-bg"><div class="bar-fill" data-w="88%"></div></div>
+        </div>
+    </div>
 
-    <footer>
-        &copy; 2026 Astron Project. Tüm hakları saklıdır.
-    </footer>
+    <!-- PROJELER -->
+    <div id="projeler" class="cmd">ls -la ./projeler</div>
+    <div class="project-grid">
+        <div class="project-card">
+            <h3>Yapay Zeka Geliştirici</h3>
+            <p>Tehdit tespiti ve otomatik müdahale için AI destekli siber güvenlik araçları[span_1](start_span)[span_1](end_span).</p>
+        </div>
+        <div class="project-card">
+            <h3>Siber Saldırı & Savunma</h3>
+            <p>Zafiyet araştırması ve ağ güvenliği için geliştirilen özel saldırı senaryoları[span_2](start_span)[span_2](end_span).</p>
+        </div>
+    </div>
 
-    <script>
-        // Form Gönderim İşlemi
-        document.getElementById('main-contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = this.querySelector('.submit-btn');
-            btn.textContent = 'İletiliyor...';
-            btn.disabled = true;
+    <!-- İLETİŞİM -->
+    <div class="cmd">ssh iletisim@hedef</div>
+    <div class="contact-box">
+        <div class="contact-row">
+            <div class="label">INSTAGRAM</div>
+            <div class="val"><a href="https://instagram.com/yusa_cn" target="_blank">@yusa_cn</a></div>
+        </div>
+        <div class="contact-row">
+            <div class="label">E-POSTA</div>
+            <div class="val"><a href="mailto:yusa@sibtr.vercel.app">yusa@sibtr.vercel.app</a></div>
+        </div>
+        <div class="contact-row">
+            <div class="label">GITHUB</div>
+            <div class="val"><a href="https://github.com/yusa-cn" target="_blank">github.com/yusa-cn</a></div>
+        </div>
+    </div>
 
-            setTimeout(() => {
-                alert('Mesaj başarıyla gönderildi! Sizinle en kısa sürede iletişime geçeceğiz.');
-                btn.textContent = 'Gönder';
-                btn.disabled = false;
-                this.reset();
-            }, 1500);
-        });
+    <footer>© 2026 Yuşa Çiloğlan. Tüm Hakları Saklıdır.</footer>
+</div>
 
-        // Smooth Scroll (Yumuşak Kaydırma)
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const section = document.querySelector(this.getAttribute('href'));
-                section.scrollIntoView({ behavior: 'smooth' });
+<script>
+    window.onload = () => {
+        setTimeout(() => {
+            document.querySelectorAll('.bar-fill').forEach(bar => {
+                bar.style.width = bar.getAttribute('data-w');
             });
-        });
-    </script>
+        }, 2200);
+    };
+</script>
+
 </body>
 </html>
