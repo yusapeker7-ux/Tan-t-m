@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yuşa Çiloğlan | Security Researcher</title>
+    <title>Yuşa Çiloğlan | Professional Cyber Suite</title>
     <style>
         :root {
             --bg-dark: #010409;
@@ -11,140 +11,149 @@
             --deep-blue: rgba(0, 162, 255, 0.2);
             --text-white: #ffffff;
             --text-gray: #8b949e;
-            --card-bg: rgba(13, 17, 23, 0.9);
+            --card-bg: rgba(13, 17, 23, 0.95);
         }
 
         html { scroll-behavior: smooth; }
-
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Consolas', 'Courier New', monospace; }
 
         body {
             background-color: var(--bg-dark);
             color: var(--text-white);
-            /* Arka plan siber grid yapısı */
             background-image: 
-                linear-gradient(var(--deep-blue) 1.5px, transparent 1.5px),
-                linear-gradient(90deg, var(--deep-blue) 1.5px, transparent 1.5px);
-            background-size: 45px 45px;
+                linear-gradient(var(--deep-blue) 2px, transparent 2px),
+                linear-gradient(90deg, var(--deep-blue) 2px, transparent 2px);
+            background-size: 50px 50px;
             overflow-x: hidden;
         }
 
-        /* HERO SECTION - SOL KÖŞE HİZALAMA */
+        /* HERO - DEVASA GİRİŞ */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            padding-left: 8%;
-            background: radial-gradient(circle at 10%, rgba(0, 162, 255, 0.15) 0%, transparent 60%);
+            padding: 50px 10%;
+            background: radial-gradient(circle at 15%, rgba(0, 162, 255, 0.2) 0%, transparent 70%);
         }
 
+        /* DAKTİLO ANİMASYONU */
         .hero h1 {
-            font-size: clamp(3rem, 10vw, 5rem);
+            font-size: clamp(2.5rem, 12vw, 6rem);
             color: var(--cyber-blue);
-            text-shadow: 0 0 25px rgba(0, 162, 255, 0.5);
-            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 4px solid var(--cyber-blue);
+            width: 0;
+            animation: typing 2.5s steps(15) forwards, blink 0.8s infinite;
+            text-shadow: 0 0 30px rgba(0, 162, 255, 0.6);
         }
 
-        .hero .intro-msg {
-            max-width: 650px;
-            border-left: 4px solid var(--cyber-blue);
-            padding: 10px 0 10px 25px;
-            margin-bottom: 40px;
-            background: rgba(0, 162, 255, 0.03);
+        .hero .intro-box {
+            max-width: 800px;
+            margin-top: 20px;
+            border-left: 5px solid var(--cyber-blue);
+            padding: 20px 30px;
+            background: rgba(0, 162, 255, 0.05);
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            line-height: 1.6;
         }
 
-        .hero p { font-size: 1.1rem; color: var(--text-gray); line-height: 1.6; }
-        .highlight { color: #fff; font-weight: bold; border-bottom: 1px solid var(--cyber-blue); }
+        @keyframes typing { from { width: 0; } to { width: 100%; } }
+        @keyframes blink { 50% { border-color: transparent; } }
 
-        .btn-main {
-            padding: 18px 50px;
-            border: 1px solid var(--cyber-blue);
+        .btn-scroll {
+            margin-top: 50px;
+            padding: 20px 60px;
+            border: 2px solid var(--cyber-blue);
             color: var(--cyber-blue);
             text-decoration: none;
             font-weight: bold;
-            background: rgba(0, 162, 255, 0.05);
+            font-size: 1.2rem;
             transition: 0.4s;
-            letter-spacing: 2px;
+            background: transparent;
+            display: inline-block;
         }
 
-        .btn-main:hover {
+        .btn-scroll:hover {
             background: var(--cyber-blue);
             color: #000;
-            box-shadow: 0 0 50px var(--cyber-blue);
+            box-shadow: 0 0 60px var(--cyber-blue);
+            transform: scale(1.05);
         }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
 
-        .cmd-header {
+        .cmd-label {
             color: var(--cyber-blue);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin: 100px 0 30px;
-            font-weight: bold;
+            display: block;
         }
-        .cmd-header::before { content: "root@yusa:~# "; color: #fff; }
+        .cmd-label::before { content: "root@yusa:~$ "; color: #fff; }
 
-        /* ANALİZ ŞEMASI */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+        /* ANALİZ PANELİ - TÜM PROGRAMLAR */
+        .analysis-panel {
             background: var(--card-bg);
             border: 1px solid #30363d;
-            padding: 30px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
         }
 
-        .skill-box { margin-bottom: 5px; }
-        .skill-info { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px; }
-        .progress-bg { background: #161b22; height: 10px; border-radius: 2px; }
-        .progress-fill { 
+        .stat-item { margin-bottom: 10px; }
+        .stat-info { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 10px; }
+        .progress-track { background: #161b22; height: 12px; border-radius: 2px; }
+        .progress-bar { 
             height: 100%; 
             background: var(--cyber-blue); 
             width: 0; 
-            transition: width 2s cubic-bezier(0.1, 0, 0.2, 1);
-            box-shadow: 0 0 15px var(--cyber-blue);
+            transition: width 2.5s ease-out;
+            box-shadow: 0 0 20px var(--cyber-blue);
         }
 
-        /* PROJELER - GENİŞLETİLMİŞ */
-        .projects-layout {
+        /* PROJELER - SQLMAP & SIZMA */
+        .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
+            gap: 30px;
         }
 
-        .p-card {
+        .project-card {
             background: var(--card-bg);
             border: 1px solid #30363d;
-            padding: 25px;
+            padding: 30px;
             transition: 0.3s;
-            border-left: 2px solid transparent;
+            position: relative;
         }
-        .p-card:hover { 
-            border-left-color: var(--cyber-blue); 
-            background: rgba(0, 162, 255, 0.02);
-            transform: translateY(-5px);
+        .project-card:hover {
+            border-color: var(--cyber-blue);
+            background: rgba(0, 162, 255, 0.05);
+            transform: translateY(-10px);
         }
-        .p-card h3 { color: var(--cyber-blue); margin-bottom: 12px; font-size: 1.1rem; }
-        .p-card p { color: var(--text-gray); font-size: 0.9rem; line-height: 1.5; }
-        .tag-list { margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap; }
-        .tag { font-size: 0.7rem; background: #161b22; padding: 4px 8px; border: 1px solid #30363d; color: var(--cyber-blue); }
+        .project-card h3 { color: var(--cyber-blue); margin-bottom: 15px; }
+        .project-card p { color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; }
 
-        /* İLETİŞİM */
-        .footer-panel {
-            background: var(--card-bg);
+        .badge-row { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+        .badge { font-size: 0.75rem; color: var(--cyber-blue); border: 1px solid var(--cyber-blue); padding: 5px 12px; }
+
+        /* İLETİŞİM & SİTE */
+        .terminal-box {
             border: 1px solid var(--cyber-blue);
             padding: 40px;
-            margin-top: 60px;
+            background: #000;
         }
-        .info-row { display: flex; margin-bottom: 20px; }
-        .info-label { width: 150px; color: var(--cyber-blue); font-weight: bold; }
-        .info-value a { color: #fff; text-decoration: none; }
-        .info-value a:hover { text-shadow: 0 0 10px var(--cyber-blue); }
+        .term-row { display: flex; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .term-key { width: 180px; color: var(--cyber-blue); font-weight: bold; }
+        .term-val a { color: #fff; text-decoration: none; }
 
         @media (max-width: 768px) {
-            .hero { padding-left: 5%; }
-            .hero h1 { font-size: 2.8rem; }
+            .hero { padding: 30px 5%; align-items: center; text-align: center; }
+            .hero h1 { white-space: normal; width: 100%; animation: none; border: none; }
+            .hero .intro-box { border-left: none; border-top: 3px solid var(--cyber-blue); padding: 20px 10px; }
+            .analysis-panel { grid-template-columns: 1fr; padding: 20px; }
         }
     </style>
 </head>
@@ -152,117 +161,93 @@
 
     <section class="hero">
         <h1>Yuşa Çiloğlan</h1>
-        <div class="intro-msg">
+        <div class="intro-box">
             <p>
-                <span class="highlight">14 yaşında</span> Siber Güvenlik Araştırmacısı. <br>
-                Zafiyet analizi, ağ güvenliği ve <span class="highlight">Python/JS</span> tabanlı 
-                otomasyon araçları üzerine uzmanlaşıyorum[span_2](start_span)[span_2](end_span).
+                Ben <span style="color:#fff">14 yaşında</span> bir Siber Güvenlik Araştırmacısıyım. <br>
+                Sistem mimarilerini analiz ederek <span style="color:#fff">Kali Linux, Python ve SQLmap</span> 
+                metodolojileriyle zafiyet tespiti gerçekleştiriyor, hibrit güvenlik çözümleri geliştiriyorum[span_1](start_span)[span_1](end_span).
             </p>
         </div>
-        <a href="#content" class="btn-main">SİSTEMİ BAŞLAT</a>
+        <a href="#analyze" class="btn-scroll">TERMİNALİ BAŞLAT</a>
     </section>
 
-    <div class="container" id="content">
-        <!-- BECERİLER -->
-        <div class="cmd-header">nmap -sV localhost</div>
-        <div class="skills-grid">
-            <div class="skill-box">
-                <div class="skill-info"><span>KALI LINUX / METASPLOIT</span><span>92%</span></div>
-                <div class="progress-bg"><div class="progress-fill" data-p="92%"></div></div>
+    <div class="container" id="analyze">
+        <span class="cmd-label">system_audit --full-scan</span>
+        <div class="analysis-panel">
+            <div class="stat-item">
+                <div class="stat-info"><span>KALI LINUX (PENTESTING)</span><span>95%</span></div>
+                <div class="progress-track"><div class="progress-bar" data-val="95%"></div></div>
             </div>
-            <div class="skill-box">
-                <div class="skill-info"><span>PYTHON (EXPLOIT DEV)</span><span>88%</span></div>
-                <div class="progress-bg"><div class="progress-fill" data-p="88%"></div></div>
+            <div class="stat-item">
+                <div class="stat-info"><span>SQLMAP (DB INJECTION)</span><span>88%</span></div>
+                <div class="progress-track"><div class="progress-bar" data-val="88%"></div></div>
             </div>
-            <div class="skill-box">
-                <div class="skill-info"><span>JS / CODEPEN WEB UI</span><span>95%</span></div>
-                <div class="progress-bg"><div class="progress-fill" data-p="95%"></div></div>
+            <div class="stat-item">
+                <div class="stat-info"><span>PYTHON (EXPLOIT DEV)</span><span>90%</span></div>
+                <div class="progress-track"><div class="progress-bar" data-p="90%"></div></div>
             </div>
-            <div class="skill-box">
-                <div class="skill-info"><span>ACODE / MOBILE DEV</span><span>90%</span></div>
-                <div class="progress-bg"><div class="progress-fill" data-p="90%"></div></div>
+            <div class="stat-item">
+                <div class="stat-info"><span>JS / ACODE / CODEPEN</span><span>93%</span></div>
+                <div class="progress-track"><div class="progress-bar" data-val="93%"></div></div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-info"><span>METASPLOIT FRAMEWORK</span><span>85%</span></div>
+                <div class="progress-track"><div class="progress-bar" data-val="85%"></div></div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-info"><span>WIRESHARK (NET ANALYZE)</span><span>80%</span></div>
+                <div class="progress-track"><div class="progress-bar" data-val="80%"></div></div>
             </div>
         </div>
 
-        <!-- PROJELER -->
-        <div class="cmd-header">ls -R /home/yusa/projects</div>
-        <div class="projects-layout">
-            <!-- PROJE 1 -->
-            <div class="p-card">
-                <h3>XSS & SQLi Scanner</h3>
-                <p>Web uygulamalarındaki Cross-Site Scripting (XSS) ve SQL Injection açıklarını otomatik tespit eden Python scripti[span_3](start_span)[span_3](end_span).</p>
-                <div class="tag-list">
-                    <span class="tag">Python</span><span class="tag">Web Security</span><span class="tag">Requests</span>
-                </div>
+        <span class="cmd-label">ls -la ./exploits_and_tools</span>
+        <div class="project-grid">
+            <div class="project-card">
+                <h3>SQLmap Automation Suite</h3>
+                <p>Veritabanı açıklarını tespit etmek ve sömürmek için SQLmap API kullanan özel bir otomasyon aracı[span_2](start_span)[span_2](end_span).</p>
+                <div class="badge-row"><span class="badge">SQL Injection</span><span class="badge">Python</span></div>
             </div>
-            <!-- PROJE 2 -->
-            <div class="p-card">
-                <h3>Acode Cloud Sync</h3>
-                <p>Acode editörü üzerinde yazdığım projeleri anlık olarak bulut sistemine yedekleyen JS tabanlı eklenti çalışması[span_4](start_span)[span_4](end_span).</p>
-                <div class="tag-list">
-                    <span class="tag">JavaScript</span><span class="tag">Acode</span><span class="tag">API</span>
-                </div>
+            <div class="project-card">
+                <h3>Brute Force Protection</h3>
+                <p>Saldırı denemelerini anlık tespit edip IP tabanlı engelleme yapan siber savunma kalkanı[span_3](start_span)[span_3](end_span).</p>
+                <div class="badge-row"><span class="badge">Defense</span><span class="badge">Networking</span></div>
             </div>
-            <!-- PROJE 3 -->
-            <div class="p-card">
+            <div class="project-card">
+                <h3>XSS Payload Collector</h3>
+                <p>Modern tarayıcılarda güvenlik duvarlarını aşabilen güncel XSS vektörleri kütüphanesi[span_4](start_span)[span_4](end_span).</p>
+                <div class="badge-row"><span class="badge">Web Security</span><span class="badge">JS</span></div>
+            </div>
+            <div class="project-card">
                 <h3>CodePen Cyber UI Kit</h3>
-                <p>CodePen üzerinde paylaştığım, tamamen CSS/JS ile hazırlanan fütüristik siber arayüz bileşenleri[span_5](start_span)[span_5](end_span).</p>
-                <div class="tag-list">
-                    <span class="tag">CSS3</span><span class="tag">CodePen</span><span class="tag">Animation</span>
-                </div>
-            </div>
-            <!-- PROJE 4 -->
-            <div class="p-card">
-                <h3>Kali Payload Generator</h3>
-                <p>Kali Linux üzerinde farklı işletim sistemleri için hızlı payload ve backdoor oluşturma aracı[span_6](start_span)[span_6](end_span).</p>
-                <div class="tag-list">
-                    <span class="tag">Kali</span><span class="tag">Metasploit</span><span class="tag">Bash</span>
-                </div>
-            </div>
-            <!-- PROJE 5 -->
-            <div class="p-card">
-                <h3>Phishing Defense AI</h3>
-                <p>Gelen e-postaların ve linklerin oltalama (phishing) saldırısı olup olmadığını analiz eden yapay zeka modeli[span_7](start_span)[span_7](end_span).</p>
-                <div class="tag-list">
-                    <span class="tag">AI</span><span class="tag">Cyber Defense</span><span class="tag">Security</span>
-                </div>
+                <p>Acode ve CodePen için geliştirilmiş, siber güvenlik temalı fütüristik arayüz bileşenleri[span_5](start_span)[span_5](end_span).</p>
+                <div class="badge-row"><span class="badge">Acode</span><span class="badge">Frontend</span></div>
             </div>
         </div>
 
-        <!-- İLETİŞİM -->
-        <div class="cmd-header">ssh -p 22 yusa@network</div>
-        <div class="footer-panel">
-            <div class="info-row">
-                <div class="info-label">INSTAGRAM</div>
-                <div class="info-value"><a href="https://instagram.com/yusa_cn" target="_blank">@yusa_cn</a></div>
-            </div>
-            <div class="info-row">
-                <div class="info-label">CODEPEN</div>
-                <div class="info-value"><a href="https://codepen.io/yusa-cn" target="_blank">codepen.io/yusa-cn</a></div>
-            </div>
-            <div class="info-row">
-                <div class="info-label">GITHUB</div>
-                <div class="info-value"><a href="https://github.com/yusa-cn" target="_blank">github.com/yusa-cn</a></div>
-            </div>
+        <span class="cmd-label">connect --target external_node</span>
+        <div class="terminal-box">
+            <div class="term-row"><div class="term-key">ASIL PORTFOLYO:</div><div class="term-val"><a href="https://sibtr.vercel.app" target="_blank">sibtr.vercel.app</a></div></div>
+            <div class="term-row"><div class="term-key">INSTAGRAM:</div><div class="term-val"><a href="https://instagram.com/yusa_cn" target="_blank">@yusa_cn</a></div></div>
+            <div class="term-row"><div class="term-key">CODEPEN:</div><div class="term-val"><a href="https://codepen.io/yusa-cn" target="_blank">codepen.io/yusa-cn</a></div></div>
         </div>
     </div>
 
-    <footer style="text-align: center; padding: 40px; color: #222; font-size: 0.8rem;">
-        &copy; 2026 Yuşa Çiloğlan. Tüm hakları saklıdır.
+    <footer style="text-align: center; padding: 60px; color: #222; font-size: 0.8rem;">
+        SİSTEM DURUMU: AKTİF | &copy; 2026 Yuşa Çiloğlan
     </footer>
 
     <script>
-        const obs = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.querySelectorAll('.progress-fill').forEach(bar => {
-                        bar.style.width = bar.getAttribute('data-p');
+                    entry.target.querySelectorAll('.progress-bar').forEach(bar => {
+                        bar.style.width = bar.getAttribute('data-val') || bar.getAttribute('data-p');
                     });
                 }
             });
-        }, { threshold: 0.4 });
-
-        obs.observe(document.querySelector('.skills-grid'));
+        }, { threshold: 0.3 });
+        observer.observe(document.querySelector('.analysis-panel'));
     </script>
 </body>
 </html>
+
