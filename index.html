@@ -3,145 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yuşa Çiloğlan | Cyber Portfolio</title>
+    <title>Yuşa Çiloğlan | Security Researcher</title>
     <style>
         :root {
             --bg-dark: #010409;
             --cyber-blue: #00a2ff;
-            --deep-blue: rgba(0, 162, 255, 0.15);
+            --deep-blue: rgba(0, 162, 255, 0.2);
             --text-white: #ffffff;
             --text-gray: #8b949e;
-            --card-bg: #0d1117;
+            --card-bg: rgba(13, 17, 23, 0.9);
         }
 
         html { scroll-behavior: smooth; }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Consolas', monospace; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Consolas', 'Courier New', monospace; }
 
         body {
             background-color: var(--bg-dark);
             color: var(--text-white);
-            /* Arka plan mavisi ve karesi güçlendirildi */
+            /* Arka plan siber grid yapısı */
             background-image: 
-                linear-gradient(var(--deep-blue) 2px, transparent 2px),
-                linear-gradient(90deg, var(--deep-blue) 2px, transparent 2px);
-            background-size: 50px 50px;
+                linear-gradient(var(--deep-blue) 1.5px, transparent 1.5px),
+                linear-gradient(90deg, var(--deep-blue) 1.5px, transparent 1.5px);
+            background-size: 45px 45px;
             overflow-x: hidden;
         }
 
-        /* GİRİŞ - TANITIM SOL KÖŞEYE YAKIN */
+        /* HERO SECTION - SOL KÖŞE HİZALAMA */
         .hero {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-start; /* Sola hizalama */
-            padding-left: 10%; /* Köşeye yakınlık ayarı */
-            background: radial-gradient(circle at 10%, rgba(0, 162, 255, 0.1) 0%, transparent 50%);
+            align-items: flex-start;
+            padding-left: 8%;
+            background: radial-gradient(circle at 10%, rgba(0, 162, 255, 0.15) 0%, transparent 60%);
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 10vw, 5.5rem);
+            font-size: clamp(3rem, 10vw, 5rem);
             color: var(--cyber-blue);
-            text-shadow: 0 0 20px rgba(0, 162, 255, 0.4);
-            margin-bottom: 10px;
+            text-shadow: 0 0 25px rgba(0, 162, 255, 0.5);
+            margin-bottom: 5px;
         }
 
-        .hero .intro-box {
-            max-width: 600px;
-            border-left: 3px solid var(--cyber-blue);
-            padding-left: 20px;
+        .hero .intro-msg {
+            max-width: 650px;
+            border-left: 4px solid var(--cyber-blue);
+            padding: 10px 0 10px 25px;
             margin-bottom: 40px;
+            background: rgba(0, 162, 255, 0.03);
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-gray);
-            line-height: 1.6;
-        }
+        .hero p { font-size: 1.1rem; color: var(--text-gray); line-height: 1.6; }
+        .highlight { color: #fff; font-weight: bold; border-bottom: 1px solid var(--cyber-blue); }
 
-        .highlight { color: #fff; font-weight: bold; }
-
-        .btn-action {
-            padding: 15px 45px;
+        .btn-main {
+            padding: 18px 50px;
             border: 1px solid var(--cyber-blue);
             color: var(--cyber-blue);
             text-decoration: none;
-            text-transform: uppercase;
             font-weight: bold;
             background: rgba(0, 162, 255, 0.05);
             transition: 0.4s;
+            letter-spacing: 2px;
         }
 
-        .btn-action:hover {
+        .btn-main:hover {
             background: var(--cyber-blue);
             color: #000;
-            box-shadow: 0 0 40px var(--cyber-blue);
+            box-shadow: 0 0 50px var(--cyber-blue);
         }
 
-        .content-wrap { max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
 
-        .header-cmd {
+        .cmd-header {
             color: var(--cyber-blue);
             font-size: 1.4rem;
-            margin: 80px 0 30px;
+            margin: 100px 0 30px;
+            font-weight: bold;
         }
-        .header-cmd::before { content: "> "; color: #fff; }
+        .cmd-header::before { content: "root@yusa:~# "; color: #fff; }
 
         /* ANALİZ ŞEMASI */
-        .skills-container {
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
             background: var(--card-bg);
             border: 1px solid #30363d;
             padding: 30px;
-            border-radius: 4px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
         }
 
-        .skill-row { margin-bottom: 10px; }
-        .skill-meta { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 8px; }
-        .bar-outer { background: #161b22; height: 8px; border-radius: 4px; }
-        .bar-inner { 
+        .skill-box { margin-bottom: 5px; }
+        .skill-info { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px; }
+        .progress-bg { background: #161b22; height: 10px; border-radius: 2px; }
+        .progress-fill { 
             height: 100%; 
             background: var(--cyber-blue); 
             width: 0; 
-            transition: width 2s ease-in-out;
+            transition: width 2s cubic-bezier(0.1, 0, 0.2, 1);
             box-shadow: 0 0 15px var(--cyber-blue);
         }
 
-        /* PROJELER */
-        .grid-layout {
+        /* PROJELER - GENİŞLETİLMİŞ */
+        .projects-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
         }
 
-        .card {
+        .p-card {
             background: var(--card-bg);
             border: 1px solid #30363d;
-            padding: 30px;
+            padding: 25px;
             transition: 0.3s;
-            position: relative;
-            overflow: hidden;
+            border-left: 2px solid transparent;
         }
-        .card:hover { border-color: var(--cyber-blue); transform: scale(1.02); }
-        .card h3 { color: #fff; margin-bottom: 15px; }
-        .card p { color: var(--text-gray); font-size: 0.95rem; }
+        .p-card:hover { 
+            border-left-color: var(--cyber-blue); 
+            background: rgba(0, 162, 255, 0.02);
+            transform: translateY(-5px);
+        }
+        .p-card h3 { color: var(--cyber-blue); margin-bottom: 12px; font-size: 1.1rem; }
+        .p-card p { color: var(--text-gray); font-size: 0.9rem; line-height: 1.5; }
+        .tag-list { margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap; }
+        .tag { font-size: 0.7rem; background: #161b22; padding: 4px 8px; border: 1px solid #30363d; color: var(--cyber-blue); }
 
         /* İLETİŞİM */
-        .contact-area {
-            background: rgba(0, 162, 255, 0.02);
+        .footer-panel {
+            background: var(--card-bg);
             border: 1px solid var(--cyber-blue);
             padding: 40px;
+            margin-top: 60px;
         }
-        .contact-item { display: flex; margin-bottom: 15px; font-size: 1rem; }
-        .tag { width: 140px; color: var(--cyber-blue); font-weight: bold; }
-        .link a { color: #fff; text-decoration: none; }
+        .info-row { display: flex; margin-bottom: 20px; }
+        .info-label { width: 150px; color: var(--cyber-blue); font-weight: bold; }
+        .info-value a { color: #fff; text-decoration: none; }
+        .info-value a:hover { text-shadow: 0 0 10px var(--cyber-blue); }
 
         @media (max-width: 768px) {
             .hero { padding-left: 5%; }
-            .hero h1 { font-size: 3rem; }
+            .hero h1 { font-size: 2.8rem; }
         }
     </style>
 </head>
@@ -149,89 +152,117 @@
 
     <section class="hero">
         <h1>Yuşa Çiloğlan</h1>
-        <div class="intro-box">
+        <div class="intro-msg">
             <p>
-                <span class="highlight">14 yaşında</span> bir Siber Güvenlik Uzmanıyım. <br>
-                Sistem açıklarını analiz ediyor ve <span class="highlight">Ethical Hacker</span> olarak 
-                yapay zeka destekli savunma sistemleri üzerine çalışıyorum[span_3](start_span)[span_3](end_span).
+                <span class="highlight">14 yaşında</span> Siber Güvenlik Araştırmacısı. <br>
+                Zafiyet analizi, ağ güvenliği ve <span class="highlight">Python/JS</span> tabanlı 
+                otomasyon araçları üzerine uzmanlaşıyorum[span_2](start_span)[span_2](end_span).
             </p>
         </div>
-        <a href="#main" class="btn-action">Projeleri İncele</a>
+        <a href="#content" class="btn-main">SİSTEMİ BAŞLAT</a>
     </section>
 
-    <div class="content-wrap" id="main">
-        <!-- ANALİZ -->
-        <div class="header-cmd">becerileri_tara.exe</div>
-        <div class="skills-container">
-            <div class="skill-row">
-                <div class="skill-meta"><span>KALI LINUX</span><span>%90</span></div>
-                <div class="bar-outer"><div class="bar-inner" data-w="90%"></div></div>
+    <div class="container" id="content">
+        <!-- BECERİLER -->
+        <div class="cmd-header">nmap -sV localhost</div>
+        <div class="skills-grid">
+            <div class="skill-box">
+                <div class="skill-info"><span>KALI LINUX / METASPLOIT</span><span>92%</span></div>
+                <div class="progress-bg"><div class="progress-fill" data-p="92%"></div></div>
             </div>
-            <div class="skill-row">
-                <div class="skill-meta"><span>PYTHON</span><span>%85</span></div>
-                <div class="bar-outer"><div class="bar-inner" data-w="85%"></div></div>
+            <div class="skill-box">
+                <div class="skill-info"><span>PYTHON (EXPLOIT DEV)</span><span>88%</span></div>
+                <div class="progress-bg"><div class="progress-fill" data-p="88%"></div></div>
             </div>
-            <div class="skill-row">
-                <div class="skill-meta"><span>WEB GÜVENLİĞİ</span><span>%95</span></div>
-                <div class="bar-outer"><div class="bar-inner" data-w="95%"></div></div>
+            <div class="skill-box">
+                <div class="skill-info"><span>JS / CODEPEN WEB UI</span><span>95%</span></div>
+                <div class="progress-bg"><div class="progress-fill" data-p="95%"></div></div>
             </div>
-            <div class="skill-row">
-                <div class="skill-meta"><span>AĞ ANALİZİ</span><span>%88</span></div>
-                <div class="bar-outer"><div class="bar-inner" data-w="88%"></div></div>
+            <div class="skill-box">
+                <div class="skill-info"><span>ACODE / MOBILE DEV</span><span>90%</span></div>
+                <div class="progress-bg"><div class="progress-fill" data-p="90%"></div></div>
             </div>
         </div>
 
         <!-- PROJELER -->
-        <div class="header-cmd">projeleri_listele --all</div>
-        <div class="grid-layout">
-            <div class="card">
-                <h3>AI Tehdit Algılama</h3>
-                <p>Anomali tespiti yapan ve ağ trafiğini süzerek saldırıları önleyen yapay zeka modülleri[span_4](start_span)[span_4](end_span).</p>
+        <div class="cmd-header">ls -R /home/yusa/projects</div>
+        <div class="projects-layout">
+            <!-- PROJE 1 -->
+            <div class="p-card">
+                <h3>XSS & SQLi Scanner</h3>
+                <p>Web uygulamalarındaki Cross-Site Scripting (XSS) ve SQL Injection açıklarını otomatik tespit eden Python scripti[span_3](start_span)[span_3](end_span).</p>
+                <div class="tag-list">
+                    <span class="tag">Python</span><span class="tag">Web Security</span><span class="tag">Requests</span>
+                </div>
             </div>
-            <div class="card">
-                <h3>Sızma Testi Laboratuvarı</h3>
-                <p>Güvenli ortamda zafiyet sömürüsü ve sistem sertleştirme üzerine kapsamlı senaryolar[span_5](start_span)[span_5](end_span).</p>
+            <!-- PROJE 2 -->
+            <div class="p-card">
+                <h3>Acode Cloud Sync</h3>
+                <p>Acode editörü üzerinde yazdığım projeleri anlık olarak bulut sistemine yedekleyen JS tabanlı eklenti çalışması[span_4](start_span)[span_4](end_span).</p>
+                <div class="tag-list">
+                    <span class="tag">JavaScript</span><span class="tag">Acode</span><span class="tag">API</span>
+                </div>
             </div>
-            <div class="card">
-                <h3>Yazılım Güvenliği</h3>
-                <p>Güvenli kod geliştirme prensipleri ve uygulama seviyesinde siber koruma yöntemleri[span_6](start_span)[span_6](end_span).</p>
+            <!-- PROJE 3 -->
+            <div class="p-card">
+                <h3>CodePen Cyber UI Kit</h3>
+                <p>CodePen üzerinde paylaştığım, tamamen CSS/JS ile hazırlanan fütüristik siber arayüz bileşenleri[span_5](start_span)[span_5](end_span).</p>
+                <div class="tag-list">
+                    <span class="tag">CSS3</span><span class="tag">CodePen</span><span class="tag">Animation</span>
+                </div>
+            </div>
+            <!-- PROJE 4 -->
+            <div class="p-card">
+                <h3>Kali Payload Generator</h3>
+                <p>Kali Linux üzerinde farklı işletim sistemleri için hızlı payload ve backdoor oluşturma aracı[span_6](start_span)[span_6](end_span).</p>
+                <div class="tag-list">
+                    <span class="tag">Kali</span><span class="tag">Metasploit</span><span class="tag">Bash</span>
+                </div>
+            </div>
+            <!-- PROJE 5 -->
+            <div class="p-card">
+                <h3>Phishing Defense AI</h3>
+                <p>Gelen e-postaların ve linklerin oltalama (phishing) saldırısı olup olmadığını analiz eden yapay zeka modeli[span_7](start_span)[span_7](end_span).</p>
+                <div class="tag-list">
+                    <span class="tag">AI</span><span class="tag">Cyber Defense</span><span class="tag">Security</span>
+                </div>
             </div>
         </div>
 
         <!-- İLETİŞİM -->
-        <div class="header-cmd">baglanti_kur.ssh</div>
-        <div class="contact-area">
-            <div class="contact-item">
-                <span class="tag">INSTAGRAM:</span>
-                <span class="link"><a href="https://instagram.com/yusa_cn" target="_blank">@yusa_cn</a></span>
+        <div class="cmd-header">ssh -p 22 yusa@network</div>
+        <div class="footer-panel">
+            <div class="info-row">
+                <div class="info-label">INSTAGRAM</div>
+                <div class="info-value"><a href="https://instagram.com/yusa_cn" target="_blank">@yusa_cn</a></div>
             </div>
-            <div class="contact-item">
-                <span class="tag">E-POSTA:</span>
-                <span class="link"><a href="mailto:yusa@sibtr.vercel.app">yusa@sibtr.vercel.app</a></span>
+            <div class="info-row">
+                <div class="info-label">CODEPEN</div>
+                <div class="info-value"><a href="https://codepen.io/yusa-cn" target="_blank">codepen.io/yusa-cn</a></div>
             </div>
-            <div class="contact-item">
-                <span class="tag">GELİŞTİRİCİ:</span>
-                <span class="link"><a href="https://sibtr.vercel.app" target="_blank">sibtr.vercel.app</a></span>
+            <div class="info-row">
+                <div class="info-label">GITHUB</div>
+                <div class="info-value"><a href="https://github.com/yusa-cn" target="_blank">github.com/yusa-cn</a></div>
             </div>
         </div>
     </div>
 
-    <footer style="text-align: center; padding: 60px; color: #222; font-size: 0.8rem;">
-        &copy; 2026 Yuşa Çiloğlan. Tüm Hakları Saklıdır.
+    <footer style="text-align: center; padding: 40px; color: #222; font-size: 0.8rem;">
+        &copy; 2026 Yuşa Çiloğlan. Tüm hakları saklıdır.
     </footer>
 
     <script>
-        const scrollObserver = new IntersectionObserver((entries) => {
+        const obs = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const bars = entry.target.querySelectorAll('.bar-inner');
-                    bars.forEach(bar => bar.style.width = bar.getAttribute('data-w'));
+                    entry.target.querySelectorAll('.progress-fill').forEach(bar => {
+                        bar.style.width = bar.getAttribute('data-p');
+                    });
                 }
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.4 });
 
-        scrollObserver.observe(document.querySelector('.skills-container'));
+        obs.observe(document.querySelector('.skills-grid'));
     </script>
 </body>
 </html>
-
