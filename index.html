@@ -23,6 +23,7 @@
 
     body {
       background: var(--bg);
+      /* İSTEDİĞİN KARELİ MAVİ ARKA PLAN */
       background-image: 
         linear-gradient(var(--grid-color) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
@@ -39,62 +40,58 @@
     .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--accent); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: all 0.18s ease; opacity: 0.5; }
 
     /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; z-index: 100; background: rgba(1, 4, 9, 0.7); backdrop-filter: blur(5px); }
+    nav { position: fixed; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; z-index: 100; }
     .nav-logo { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--accent); text-decoration: none; }
     .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 12px; text-transform: uppercase; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 12px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
 
-    /* HERO & IMAGE */
-    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 120px 48px 80px; text-align: center; }
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 80px; position: relative; }
     
-    .profile-img {
-      width: 220px;
-      height: 220px;
-      border-radius: 20px;
-      object-fit: cover;
-      border: 2px solid var(--accent);
-      box-shadow: 0 0 30px rgba(0, 162, 255, 0.3);
-      margin-bottom: 30px;
-    }
-
+    /* DAKTİLO YAZI */
     .hero-name {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(35px, 6vw, 90px);
-      line-height: 1.1; font-weight: 700;
+      font-size: clamp(40px, 8vw, 110px);
+      line-height: 1; font-weight: 700;
       margin-bottom: 24px;
       color: var(--text);
       overflow: hidden;
       border-right: 4px solid var(--accent);
       white-space: nowrap;
       width: 0;
-      animation: typing 3s steps(20, end) forwards, blink-caret .75s step-end infinite;
+      animation: typing 3.5s steps(20, end) forwards, blink-caret .75s step-end infinite;
     }
     @keyframes typing { from { width: 0 } to { width: 100% } }
     @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent); } }
 
-    /* CAREER SECTION */
-    .career-box {
-      max-width: 800px;
-      background: rgba(13, 20, 34, 0.8);
-      border: 1px solid var(--border);
-      padding: 40px;
-      margin: 40px auto;
-      text-align: left;
-    }
-    .career-title { color: var(--accent); font-size: 18px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
-    .career-text { color: var(--text); line-height: 1.8; font-size: 15px; }
+    .hero-sub { display: flex; align-items: center; gap: 24px; color: var(--muted); font-size: 13px; }
+    .hero-sub span { color: var(--text); }
 
-    /* PERFORMANCE BARS */
-    .performance-section { padding: 60px 48px; max-width: 1000px; margin: 0 auto; }
-    .perf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-    .perf-item { margin-bottom: 20px; }
-    .perf-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 12px; }
-    .perf-bar-bg { background: #1a2a3a; height: 6px; border-radius: 3px; overflow: hidden; }
-    .perf-bar-fill { background: var(--accent); height: 100%; box-shadow: 0 0 10px var(--accent); }
+    /* STATS (2+ YIL, 10+ PROJE GERİ GELDİ) */
+    .about-stats { display: flex; gap: 48px; margin-top: 40px; }
+    .stat { border-top: 1px solid var(--border); padding-top: 24px; min-width: 150px; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 48px; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+    .stat-label { color: var(--muted); font-size: 12px; letter-spacing: 0.1em; }
+
+    /* PERFORMANS ANALİZİ (YATAY) */
+    .performance-section { padding: 80px 48px; border-top: 1px solid var(--border); }
+    .perf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .perf-item { margin-bottom: 25px; }
+    .perf-label { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 12px; color: var(--accent2); }
+    .perf-bar-bg { background: #1a2a3a; height: 8px; border-radius: 4px; overflow: hidden; }
+    .perf-bar-fill { background: var(--accent); height: 100%; width: 0; transition: width 2s ease-out; box-shadow: 0 0 15px var(--accent); }
+
+    /* PROJECTS */
+    .projects { padding: 100px 48px; border-top: 1px solid var(--border); }
+    .project-item { display: grid; grid-template-columns: 80px 1fr auto; padding: 40px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: inherit; transition: 0.3s; }
+    .project-item:hover { background: rgba(0, 162, 255, 0.03); }
+    .project-num { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--border); }
 
     @media (max-width: 768px) {
-      .hero-name { white-space: normal; width: auto; border: none; animation: none; font-size: 40px; }
+      .hero-name { font-size: 35px; white-space: normal; width: auto; border: none; animation: none; }
       .perf-grid { grid-template-columns: 1fr; }
+      .about-stats { flex-direction: column; gap: 20px; }
       nav { padding: 20px; }
       .nav-links { display: none; }
     }
@@ -108,54 +105,90 @@
 <nav id="nav">
   <a href="#" class="nav-logo">YÇ.</a>
   <ul class="nav-links">
-    <li><a href="#kariyer">Kariyerim</a></li>
+    <li><a href="#hakkimda">Hakkımda</a></li>
     <li><a href="#analiz">Performans</a></li>
-    <li><a href="https://sibtr.vercel.app">Siber İstihbarat</a></li>
+    <li><a href="#projeler">Projeler</a></li>
   </ul>
 </nav>
 
 <section class="hero">
-  <img src="1000302885.jpg" alt="Yuşa Çiloğlan" class="profile-img">
+  <p style="color: var(--accent); margin-bottom: 10px; font-size: 11px;">[ SYSTEM ONLINE ]</p>
   <h1 class="hero-name">Yuşa Çiloğlan</h1>
-  
-  <div class="career-box" id="kariyer">
-    <h2 class="career-title">Kariyerim</h2>
-    <p class="career-text">
-      Ben 2021 yılında bu işe başlayan, hafızlık süreci ile beraber siber güvenlik alanında uzmanlaşmış biriyim[span_0](start_span)[span_0](end_span). 
-      Python, C++ ve Kali Linux gibi programlama dilleri ve sistemleri üzerinde derin bilgi sahibiyim[span_1](start_span)[span_1](end_span). 
-      Şu an anonim bir mevkide görev yapmaktayım[span_2](start_span)[span_2](end_span). 15 yaşında olmama rağmen etik bir hacker ve siber güvenlik uzmanı olarak 
-      faaliyetlerimi sürdürüyorum[span_3](start_span)[span_3](end_span). Daha fazla bilgi için siber güvenlik istihbarat sitemizi ziyaret edebilirsiniz.
-    </p>
+  <div class="hero-sub">
+    <span>Siber Güvenlik Uzmanı</span>
+    <span style="color:var(--border)">—</span>
+    <span>Yapay Zeka Geliştiricisi</span>
+    <span style="color:var(--border)">—</span>
+    <span>Web Tasarımcı</span>
+  </div>
+
+  <div class="about-stats">
+    <div class="stat">
+      <div class="stat-num">2+</div>
+      <div class="stat-label">Yıl Deneyim</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Tamamlanan Proje</div>
+    </div>
   </div>
 </section>
 
+<!-- PERFORMANS ANALİZİ -->
 <section class="performance-section" id="analiz">
-  <p style="color: var(--accent); margin-bottom: 30px; font-size: 11px;">[ YETENEK ANALİZİ ]</p>
+  <p style="color: var(--accent); margin-bottom: 40px; font-size: 11px;">002 — PERFORMANS ANALİZİ</p>
   <div class="perf-grid">
     <div class="perf-item">
-      <div class="perf-label"><span>Siber Güvenlik & İstihbarat</span><span>95%</span></div>
+      <div class="perf-label"><span>Siber Güvenlik & Pentest</span><span>95%</span></div>
       <div class="perf-bar-bg"><div class="perf-bar-fill" style="width: 95%;"></div></div>
     </div>
     <div class="perf-item">
-      <div class="perf-label"><span>Python & C++ Geliştirme</span><span>90%</span></div>
-      <div class="perf-bar-bg"><div class="perf-bar-fill" style="width: 90%;"></div></div>
-    </div>
-    <div class="perf-item">
-      <div class="perf-label"><span>Kali Linux Pentest</span><span>93%</span></div>
-      <div class="perf-bar-bg"><div class="perf-bar-fill" style="width: 93%;"></div></div>
-    </div>
-    <div class="perf-item">
-      <div class="perf-label"><span>Web Tasarım & UI</span><span>88%</span></div>
+      <div class="perf-label"><span>Yapay Zeka (Python/ML)</span><span>88%</span></div>
       <div class="perf-bar-bg"><div class="perf-bar-fill" style="width: 88%;"></div></div>
+    </div>
+    <div class="perf-item">
+      <div class="perf-label"><span>Web Tasarım (UI/UX)</span><span>92%</span></div>
+      <div class="perf-bar-bg"><div class="perf-bar-fill" style="width: 92%;"></div></div>
+    </div>
+    <div class="perf-item">
+      <div class="perf-label"><span>Saha Operasyonları</span><span>85%</span></div>
+      <div class="perf-bar-bg"><div class="perf-bar-fill" style="width: 85%;"></div></div>
     </div>
   </div>
 </section>
 
-<footer style="padding: 40px; color: var(--muted); font-size: 11px; text-align: center; border-top: 1px solid var(--border);">
-  SİSTEM DURUMU: GÜVENLİ | 2026 Yuşa Çiloğlan
+<section class="projects" id="projeler">
+  <p style="color: var(--accent); margin-bottom: 40px; font-size: 11px;">003 — PROJELER & CEPHANELİK</p>
+  <div class="projects-list">
+    <a href="#" class="project-item">
+      <div class="project-num">01</div>
+      <div>
+        <h3>SQLmap Saldırı Otomasyonu</h3>
+        <p style="color: var(--muted); font-size: 12px;">Zafiyet tarama ve sızma testi süreçlerini hızlandıran özel scriptler.</p>
+      </div>
+      <div style="color: var(--accent);">↗</div>
+    </a>
+    <a href="#" class="project-item">
+      <div class="project-num">02</div>
+      <div>
+        <h3>AI Destekli Siber Savunma</h3>
+        <p style="color: var(--muted); font-size: 12px;">Anomalileri tespit eden yapay zeka tabanlı güvenlik duvarı.</p>
+      </div>
+      <div style="color: var(--accent);">↗</div>
+    </a>
+  </div>
+
+  <div style="margin-top: 60px;">
+    <a href="https://sibtr.vercel.app" style="color: var(--accent); text-decoration: none; border: 1px solid var(--accent); padding: 15px 30px;">Yedek Site: sibtr.vercel.app</a>
+  </div>
+</section>
+
+<footer style="padding: 48px; border-top: 1px solid var(--border); color: var(--muted); font-size: 11px; text-align: center;">
+  © 2026 Yuşa Çiloğlan | Tüm Hakları Saklıdır.
 </footer>
 
 <script>
+  // Custom cursor
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   let mx = 0, my = 0, rx = 0, ry = 0;
@@ -169,5 +202,5 @@
   animateCursor();
 </script>
 </body>
-</html>
+      </html>
 
