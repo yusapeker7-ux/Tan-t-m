@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Yuşa Çiloğlan | Cyber Intelligence</title>
+  <title>Yuşa Çiloğlan | Cyber Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,7 +14,7 @@
       --text: #d8e8f8;
       --muted: #5a7a99;
       --border: #1a2a3a;
-      --grid-color: rgba(0, 162, 255, 0.08);
+      --grid-color: rgba(0, 162, 255, 0.1);
     }
 
     body {
@@ -22,144 +22,167 @@
       background-image: 
         linear-gradient(var(--grid-color) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-      background-size: 40px 40px;
+      background-size: 45px 45px;
       color: var(--text);
       font-family: 'DM Mono', monospace;
-      line-height: 1.6;
       padding: 40px 20px;
     }
 
     .container { max-width: 900px; margin: 0 auto; }
 
-    /* HEADER & IMAGE */
-    .profile-header { text-align: center; margin-bottom: 60px; }
+    /* ÜST KISIM: PROFİL VE MESAJ */
+    .hero-section { text-align: center; margin-bottom: 80px; }
     .profile-img {
-      width: 180px; height: 180px;
+      width: 170px; height: 170px;
       border-radius: 15px; object-fit: cover;
       border: 1px solid var(--accent);
-      box-shadow: 0 0 20px rgba(0, 162, 255, 0.2);
+      box-shadow: 0 0 30px rgba(0, 162, 255, 0.2);
       margin-bottom: 20px;
     }
-    .main-title {
-      font-size: clamp(32px, 8vw, 64px);
+
+    .typing-title {
+      font-size: clamp(28px, 6vw, 55px);
       color: var(--accent);
-      font-weight: 500;
-      letter-spacing: -1px;
-      margin-bottom: 20px;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid var(--accent);
+      width: 0;
+      margin: 0 auto 25px;
+      animation: typing 3s steps(20, end) forwards, blink 0.8s infinite;
+    }
+    @keyframes typing { from { width: 0 } to { width: 100% } }
+    @keyframes blink { 50% { border-color: transparent } }
+
+    .career-box {
+      background: rgba(13, 20, 34, 0.8);
+      border: 1px solid var(--border);
+      padding: 30px; border-radius: 4px;
+      text-align: left;
     }
 
-    /* CAREER BOX */
-    .career-section {
-      border-left: 3px solid var(--accent);
-      background: rgba(13, 20, 34, 0.6);
-      padding: 30px;
-      margin-bottom: 40px;
-    }
-    .career-text { font-size: 16px; margin-bottom: 25px; color: #b0c4de; }
-
-    /* STATS (Deneyim & Proje) */
-    .stats-container {
-      display: flex; gap: 20px; margin-top: 20px;
+    .stats-row {
+      display: flex; gap: 20px; margin-top: 25px;
     }
     .stat-card {
-      background: rgba(0, 162, 255, 0.1);
+      flex: 1; background: rgba(0, 162, 255, 0.05);
       border: 1px solid var(--accent);
-      padding: 15px 25px;
-      flex: 1; text-align: center;
+      padding: 15px; text-align: center;
     }
-    .stat-val { display: block; font-size: 24px; font-weight: bold; color: var(--accent); }
-    .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; }
+    .stat-num { display: block; font-size: 22px; font-weight: bold; color: var(--accent); }
+    .stat-txt { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
 
-    /* CMD LABELS */
-    .cmd-label { color: var(--accent); font-size: 14px; margin: 40px 0 15px; display: block; }
+    /* ALT KISIM: SİBER SİSTEMLER VE PROJELER */
+    .cmd-label { color: var(--accent); font-size: 14px; margin: 60px 0 20px; display: block; }
     .cmd-label::before { content: "root@yusa:~$ "; color: #fff; }
 
-    /* ANALYSIS GRID */
-    .analysis-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 25px;
-      background: rgba(13, 17, 23, 0.8);
-      border: 1px solid var(--border); padding: 30px;
+    .analysis-panel {
+      background: rgba(1, 4, 9, 0.9);
+      border: 1px solid var(--border);
+      padding: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 25px;
     }
-    .bar-item { margin-bottom: 15px; }
-    .bar-info { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 6px; color: var(--muted); }
-    .bar-track { background: #161b22; height: 8px; border-radius: 1px; }
+    .bar-track { background: #161b22; height: 8px; margin-top: 8px; }
     .bar-fill { height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
 
-    /* PROJECTS */
-    .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .project-card {
+    .project-list { display: flex; flex-direction: column; gap: 20px; }
+    .project-item {
       border: 1px solid var(--border); padding: 25px;
-      background: rgba(13, 17, 23, 0.5);
+      background: rgba(13, 20, 34, 0.5);
     }
-    .project-card h3 { color: var(--accent); font-size: 16px; margin-bottom: 10px; }
-    .project-card p { font-size: 13px; color: var(--muted); }
+    .project-item h3 { color: var(--accent); font-size: 16px; margin-bottom: 10px; }
+    .project-item p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* FOOTER LİNKLER */
+    .footer-links {
+      margin-top: 80px; padding: 40px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .link-box {
+      display: inline-block; margin: 10px;
+      color: var(--accent); text-decoration: none;
+      font-size: 13px; border: 1px solid var(--accent);
+      padding: 8px 20px; transition: 0.3s;
+    }
+    .link-box:hover { background: var(--accent); color: #000; }
 
     @media (max-width: 600px) {
-      .analysis-grid, .project-grid, .stats-container { grid-template-columns: 1fr; flex-direction: column; }
+      .analysis-panel { grid-template-columns: 1fr; }
+      .typing-title { white-space: normal; width: auto; border: none; animation: none; }
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <header class="profile-header">
+  <!-- ÜST: MESAJ VE İSTATİSTİKLER -->
+  <section class="hero-section">
     <img src="1000307451.jpg" alt="Yuşa Çiloğlan" class="profile-img">
-    <h1 class="main-title">Yuşa Çiloğlan</h1>
-  </header>
-
-  <section class="career-section">
-    <p class="career-text">
-      Ben 2021 yılında bu işe başlayan, siber güvenlik uzmanı ve web tasarımcısıyım[span_0](start_span)[span_0](end_span). 
-      Hafızlık süreci ile beraber sistem mimarilerini analiz ederek Kali Linux, Python ve SQLmap 
-      metodolojileriyle zafiyet tespiti gerçekleştiriyor, hibrit güvenlik çözümleri geliştiriyorum[span_1](start_span)[span_1](end_span). 
-      Şu an anonim bir mevkide etik bir hacker olarak faaliyetlerimi sürdürmekteyim[span_2](start_span)[span_2](end_span).
-    </p>
-    <div class="stats-container">
-      <div class="stat-card">
-        <span class="stat-val">2 YIL+</span>
-        <span class="stat-label">Deneyim</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-val">10+</span>
-        <span class="stat-label">Tamamlanan Proje</span>
+    <div class="typing-title">Yuşa Çiloğlan</div>
+    
+    <div class="career-box">
+      <p style="font-size: 15px;">
+        Ben 2021 yılında teknoloji dünyasına adım atan, siber güvenlik uzmanı ve web tasarımcısıyım[span_1](start_span)[span_1](end_span). 
+        Hafızlık süreci ile beraber Python, C++ ve Kali Linux üzerinde uzmanlaşarak siber istihbarat 
+        ve zafiyet tespiti alanlarında profesyonel bir seviyeye ulaştım[span_2](start_span)[span_2](end_span). Şu an anonim bir mevkide 
+        etik hacker olarak faaliyetlerime devam ediyorum[span_3](start_span)[span_3](end_span).
+      </p>
+      <div class="stats-row">
+        <div class="stat-card">
+          <span class="stat-num">2+ YIL</span>
+          <span class="stat-txt">Deneyim</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">19+</span>
+          <span class="stat-txt">Proje</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <span class="cmd-label">Yazılım Programları Bilgi Performansları</span>
-  <div class="analysis-grid">
-    <div class="bar-item">
-      <div class="bar-info"><span>KALI LINUX (PENTESTING)</span><span>95%</span></div>
+  <!-- ALT: ANALİZ VE PROJELER -->
+  <span class="cmd-label">system_analysis --deep-scan</span>
+  <div class="analysis-panel">
+    <div>
+      <div style="display: flex; justify-content: space-between; font-size: 11px;"><span>KALI LINUX / PENTEST</span><span>95%</span></div>
       <div class="bar-track"><div class="bar-fill" style="width: 95%;"></div></div>
     </div>
-    <div class="bar-item">
-      <div class="bar-info"><span>SQLMAP (DB INJECTION)</span><span>88%</span></div>
-      <div class="bar-track"><div class="bar-fill" style="width: 88%;"></div></div>
-    </div>
-    <div class="bar-item">
-      <div class="bar-info"><span>PYTHON (EXPLOIT DEV)</span><span>90%</span></div>
+    <div>
+      <div style="display: flex; justify-content: space-between; font-size: 11px;"><span>PYTHON (EXPLOIT DEV)</span><span>90%</span></div>
       <div class="bar-track"><div class="bar-fill" style="width: 90%;"></div></div>
     </div>
-    <div class="bar-item">
-      <div class="bar-info"><span>JS / ACODE / CODEPEN</span><span>93%</span></div>
-      <div class="bar-track"><div class="bar-fill" style="width: 93%;"></div></div>
+    <div>
+      <div style="display: flex; justify-content: space-between; font-size: 11px;"><span>AI / YAPAY ZEKA</span><span>87%</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width: 87%;"></div></div>
+    </div>
+    <div>
+      <div style="display: flex; justify-content: space-between; font-size: 11px;"><span>SİBER SAVUNMA</span><span>92%</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width: 92%;"></div></div>
     </div>
   </div>
 
-  <span class="cmd-label">Yapılan Projeler Ve Savunmalar</span>
-  <div class="project-grid">
-    <div class="project-card">
-      <h3>SQLmap Automation Suite</h3>
-      <p>Veritabanı açıklarını tespit etmek ve sömürmek için SQLmap API kullanan özel bir otomasyon aracı.</p>
+  <span class="cmd-label">ls -la ./projelerim</span>
+  <div class="project-list">
+    <div class="project-item">
+      <h3>SQLmap Automation Suite (Siber Savunma & Saldırı)</h3>
+      <p>Veritabanı açıklarını otomatik olarak tespit eden ve SQL injection metodolojilerini analiz eden özel bir yazılım paketi[span_4](start_span)[span_4](end_span).</p>
     </div>
-    <div class="project-card">
-      <h3>Brute Force Protection</h3>
-      <p>Saldırı denemelerini anlık tespit edip IP tabanlı engelleme yapan siber savunma kalkanı.</p>
+    <div class="project-item">
+      <h3>AI-Based Firewall (Yapay Zeka Savunma)</h3>
+      <p>Gelen ağ trafiğini yapay zeka algoritmalarıyla tarayarak siber saldırıları (Brute Force, XSS) anlık olarak engelleyen savunma kalkanı[span_5](start_span)[span_5](end_span).</p>
+    </div>
+    <div class="project-item">
+      <h3>Cyber UI Kit (Web Tasarım)</h3>
+      <p>Siber güvenlik temalı, tamamen interaktif ve futuristik web arayüz bileşenleri kütüphanesi[span_6](start_span)[span_6](end_span).</p>
     </div>
   </div>
 
-  <footer style="margin-top: 80px; text-align: center; color: var(--muted); font-size: 10px; letter-spacing: 2px;">
-    &copy; 2026 YUŞA ÇİLOĞLAN | SİSTEM AKTİF
+  <!-- EN ALT: LİNKLER -->
+  <footer class="footer-links">
+    <p style="margin-bottom: 20px; font-size: 12px; color: var(--muted);">BAĞLANTILAR</p>
+    <a href="https://sibtr.vercel.app" class="link-box">Yedek Site</a>
+    <a href="https://instagram.com/yusa_cn" class="link-box">Instagram</a>
+    <p style="margin-top: 40px; font-size: 10px; opacity: 0.5;">&copy; 2026 YUŞA ÇİLOĞLAN | SİSTEM AKTİF</p>
   </footer>
 </div>
 
