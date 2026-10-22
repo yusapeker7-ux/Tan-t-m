@@ -675,7 +675,7 @@
           card.querySelector(".game-connection").textContent = "Roblox verisi canlı";
           card.classList.add("is-live");
         }
-        if (!loaded) throw new Error("Oyun verisi bulunamadı");
+        if (!loaded) throw new Error("Oyun verisi aktif değil");
         summary.dataset.state = "live";
         summaryText.textContent = numberFormat.format(totalPlayers) + " aktif oyuncu · " + loaded + "/" + gameCards.length + " oyun";
         profileStatus.textContent = "Canlı oyuncu izleme aktif";
@@ -718,13 +718,13 @@
     if (!DISCORD_PROFILE_URL) {
       document.getElementById("discordButton").addEventListener("click", event => {
         event.preventDefault();
-        showToast("Discord profil bağlantısını ekleyince bu düğme doğrudan profiline açılacak.");
+        showToast("Discord Sunucusuna Yönlendiriliyorsunuz.");
       });
     }
     if (!DISCORD_SERVER_URL) {
       discordServerButton.addEventListener("click", event => {
         event.preventDefault();
-        showToast("Sunucu davet bağlantısını DISCORD_SERVER_URL alanına ekleyebilirsin.");
+        showToast("https://discord.gg/xkST7p8rs");
       });
     }
   </script>
