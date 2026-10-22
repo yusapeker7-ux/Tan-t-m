@@ -1,616 +1,732 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portfolyo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#060a12">
+  <meta name="description" content="Sancaktar Teknoloji — oyun, yazılım ve web güvenliği.">
+  <title>Sancaktar Teknoloji | Dijital Güvenlik</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #080c14;
-      --surface: #0d1422;
-      --accent: #4da6ff;
-      --accent2: #7ec8ff;
-      --text: #d8e8f8;
-      --muted: #5a7a99;
-      --border: #1a2a3a;
+      color-scheme: dark;
+      --bg: #060a12;
+      --panel: rgba(13, 21, 35, .76);
+      --panel-strong: #0d1523;
+      --line: rgba(155, 189, 224, .13);
+      --text: #eef5ff;
+      --muted: #91a1b8;
+      --blue: #4ca8ff;
+      --cyan: #5ce1ec;
+      --green: #65e6ae;
+      --max: 1180px;
     }
-
+    * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
     body {
+      margin: 0;
+      min-width: 320px;
       background: var(--bg);
       color: var(--text);
-      font-family: 'DM Mono', monospace;
-      font-size: 14px;
-      line-height: 1.7;
-      cursor: none;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      overflow-x: hidden;
     }
-
-    /* Custom cursor */
-    .cursor {
-      position: fixed;
-      width: 12px; height: 12px;
-      background: var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s ease;
-      mix-blend-mode: difference;
-    }
-    .cursor-ring {
-      position: fixed;
-      width: 36px; height: 36px;
-      border: 1px solid var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: all 0.18s ease;
-      opacity: 0.5;
-    }
-
-    /* Noise overlay */
     body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      position: fixed;
+      z-index: -3;
+      inset: 0;
+      content: "";
+      background:
+        radial-gradient(ellipse at 18% 17%, rgba(20, 83, 148, .20), transparent 35%),
+        radial-gradient(ellipse at 84% 58%, rgba(11, 117, 157, .13), transparent 36%),
+        linear-gradient(150deg, #05080e 0%, #07111e 52%, #060a12 100%);
+    }
+    body::after {
+      position: fixed;
+      z-index: -2;
+      content: "";
+      width: 75vw;
+      height: 42vw;
+      min-height: 360px;
+      right: -24vw;
+      top: 16vh;
+      border: 1px solid rgba(73, 165, 241, .15);
+      border-radius: 48%;
+      transform: rotate(-18deg);
+      box-shadow: 0 0 100px rgba(17, 118, 190, .10), inset 0 0 100px rgba(17, 118, 190, .07);
+      animation: current 18s ease-in-out infinite alternate;
       pointer-events: none;
-      z-index: 1000;
-      opacity: 0.4;
     }
-
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 24px 48px;
-      z-index: 100;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.3s, background 0.3s;
+    .wavefield {
+      position: fixed;
+      z-index: -2;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: .62;
+      background: radial-gradient(ellipse at 50% 110%, rgba(20, 105, 171, .13), transparent 47%);
     }
-    nav.scrolled {
-      border-color: var(--border);
-      background: rgba(13,13,13,0.9);
+    .wavefield::before, .wavefield::after {
+      position: absolute;
+      content: "";
+      left: -15%;
+      width: 130%;
+      height: 43vh;
+      min-height: 280px;
+      border: 1px solid rgba(71, 164, 230, .13);
+      border-radius: 48% 52% 0 0 / 22% 28% 0 0;
+      box-shadow: 0 -18px 80px rgba(30, 131, 202, .07), inset 0 14px 50px rgba(47, 137, 206, .04);
+      transform: rotate(-4deg);
+      animation: wave-drift 17s ease-in-out infinite alternate;
+    }
+    .wavefield::before { bottom: -24vh; }
+    .wavefield::after { bottom: -28vh; opacity: .48; transform: rotate(3deg) scaleX(1.08); animation-delay: -8s; }
+    @keyframes wave-drift {
+      from { translate: -2% 1%; rotate: -2deg; }
+      to { translate: 2% -4%; rotate: 2deg; }
+    }
+    .ambient-wave {
+      position: fixed;
+      z-index: -1;
+      pointer-events: none;
+      width: 88vw;
+      height: 43vw;
+      min-height: 330px;
+      left: -35vw;
+      bottom: 3vh;
+      border: 1px solid rgba(50, 130, 205, .11);
+      border-radius: 48%;
+      transform: rotate(20deg);
+      box-shadow: 0 0 90px rgba(14, 97, 160, .09), inset 0 0 90px rgba(14, 97, 160, .06);
+      animation: current 24s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes current {
+      from { translate: -2% -1%; rotate: -2deg; }
+      to { translate: 4% 3%; rotate: 3deg; }
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .wrap { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(160, 191, 225, .09);
+      background: rgba(6, 10, 18, .74);
+      backdrop-filter: blur(18px);
+    }
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 12px; min-width: 215px; }
+    .brand-mark {
+      width: 40px;
+      height: 44px;
+      color: var(--cyan);
+      filter: drop-shadow(0 0 12px rgba(77, 182, 255, .38));
+    }
+    .brand-name { display: grid; gap: 1px; line-height: 1.1; }
+    .brand-name strong { font-size: 14px; letter-spacing: .19em; font-weight: 750; }
+    .brand-name span { color: #8295ad; font-size: 9px; letter-spacing: .22em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 28px; color: #aab8ca; font-size: 12px; }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .menu-button {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #c7d5e7;
+      background: rgba(17, 28, 44, .66);
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 11px;
+      transition: border-color .2s ease, background .2s ease, color .2s ease;
+    }
+    .menu-button { display: none; }
+    .hero { min-height: 620px; padding: 76px 0 92px; display: grid; align-items: center; }
+    .hero-grid { display: grid; grid-template-columns: 1.06fr .94fr; align-items: center; gap: 68px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #a4d9ff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 23px; height: 1px; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+    h1 { max-width: 660px; margin: 22px 0 22px; font-size: clamp(44px, 6.2vw, 78px); line-height: 1.03; letter-spacing: -.065em; font-weight: 650; }
+    h1 span { color: transparent; background: linear-gradient(100deg, #f3fbff 4%, #77d7ff 48%, #5097ff 94%); background-clip: text; -webkit-background-clip: text; }
+    .hero-copy { max-width: 520px; color: #a2b0c4; font-size: 15px; }
+    .hero-copy strong { color: #dce9f8; font-weight: 600; }
+    .hero-buttons { margin-top: 30px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 19px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: #06111c; background: linear-gradient(110deg, #6be2ec, #62aaff); box-shadow: 0 8px 30px rgba(54, 160, 224, .18); }
+    .button-primary:hover { box-shadow: 0 10px 36px rgba(54, 160, 224, .32); }
+    .button-ghost { border-color: var(--line); color: #d5e2f1; background: rgba(14, 22, 35, .55); }
+    .button-ghost:hover { border-color: rgba(104, 189, 255, .42); }
+    .arrow { font-size: 16px; line-height: 1; }
+    .hero-footnote { margin-top: 25px; color: #73859c; font-size: 10px; letter-spacing: .04em; }
+    .hero-visual { position: relative; min-height: 440px; display: grid; place-items: center; }
+    .visual-orbit { position: absolute; width: min(100%, 440px); aspect-ratio: 1; border: 1px solid rgba(72, 165, 236, .13); border-radius: 50%; animation: spin 44s linear infinite; }
+    .visual-orbit::before, .visual-orbit::after { position: absolute; content: ""; inset: 25px; border: 1px dashed rgba(89, 205, 226, .14); border-radius: 50%; }
+    .visual-orbit::after { inset: 64px; border-style: solid; border-color: rgba(81, 147, 222, .09); }
+    @keyframes spin { to { rotate: 360deg; } }
+    .orbit-dot { position: absolute; top: 16%; left: 14%; width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 20px var(--cyan); }
+    .profile-shell {
+      position: relative;
+      z-index: 1;
+      width: 310px;
+      padding: 25px 23px 20px;
+      border: 1px solid rgba(139, 188, 231, .19);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(17, 31, 49, .90), rgba(8, 14, 24, .88));
+      box-shadow: 0 28px 90px rgba(0, 0, 0, .42), 0 0 70px rgba(28, 127, 204, .12), inset 0 1px rgba(255,255,255,.05);
+      text-align: center;
+      animation: profile-neon 4.2s ease-in-out infinite;
+    }
+    .profile-shell::before { position:absolute; inset:9px; content:""; border:1px solid rgba(92,225,236,.12); border-radius:11px; pointer-events:none; }
+    .profile-shell > * { position:relative; z-index:1; }
+    @keyframes profile-neon { 50% { border-color:rgba(92,225,236,.53); box-shadow:0 28px 90px rgba(0,0,0,.42),0 0 72px rgba(39,159,226,.26),inset 0 0 30px rgba(67,174,226,.08); } }
+    .profile-label { color: #88a1bd; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; }
+    .profile-name { display:flex; justify-content:center; margin-top:13px; color:#ecfcff; font-size:clamp(28px,4vw,38px); font-weight:750; letter-spacing:.07em; text-shadow:0 0 8px rgba(92,225,236,.92),0 0 24px rgba(66,164,255,.68); }
+    .typing-name { display:inline-block; width:0; max-width:100%; overflow:hidden; padding-right:3px; border-right:2px solid var(--cyan); white-space:nowrap; animation:typing-name 1.25s steps(5,end) .2s forwards,caret-blink .8s step-end .2s infinite; animation-play-state:paused; }
+    .profile-shell.is-visible .typing-name { animation-play-state:running; }
+    @keyframes typing-name { from { width:0; } to { width:5ch; } }
+    @keyframes caret-blink { 50% { border-color:transparent; } }
+    .profile-role { margin-top: 2px; color: #8da2bc; font-size: 11px; }
+    .profile-tags { display:flex; justify-content:center; flex-wrap:wrap; gap:6px; margin-top:15px; }
+    .profile-tags span { padding:5px 8px; border:1px solid rgba(92,225,236,.18); border-radius:999px; color:#a8d8ed; background:rgba(18,57,78,.33); font-size:7px; letter-spacing:.12em; animation:tag-float 3.4s ease-in-out infinite; }
+    .profile-tags span:nth-child(2) { animation-delay:-1.1s; }
+    .profile-tags span:nth-child(3) { animation-delay:-2.2s; }
+    @keyframes tag-float { 50% { transform:translateY(-3px); border-color:rgba(92,225,236,.4); } }
+    .founder-terminal { margin-top:15px; padding:11px 12px; border:1px solid rgba(145,180,213,.14); border-radius:9px; background:rgba(3,9,16,.55); color:#9bb0c7; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; text-align:left; }
+    .terminal-head { display:flex; align-items:center; justify-content:space-between; gap:8px; padding-bottom:8px; border-bottom:1px solid rgba(145,180,213,.12); color:#70cfe4; font-size:8px; letter-spacing:.12em; }
+    .terminal-head span:last-child { display:inline-flex; align-items:center; gap:6px; color:#7ee0ad; }
+    .terminal-head span:last-child::before { width:5px; height:5px; content:""; border-radius:50%; background:var(--green); box-shadow:0 0 9px var(--green); animation:pulse 1.8s ease-out infinite; }
+    .terminal-row { display:grid; grid-template-columns:54px 1fr; gap:7px; margin-top:8px; font-size:8px; }
+    .terminal-row span { color:#68829d; letter-spacing:.08em; }
+    .terminal-row strong { color:#c2d7ea; font-weight:550; }
+    .profile-divider { height: 1px; margin: 14px 0 12px; background: var(--line); }
+    .profile-status { display: flex; align-items: center; justify-content: center; gap: 8px; color: #bbcadb; font-size: 10px; }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px rgba(101, 230, 174, .7); }
+    .float-label {
+      position: absolute;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 13px;
+      border: 1px solid rgba(140, 187, 228, .16);
+      border-radius: 8px;
+      background: rgba(9, 17, 28, .85);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, .25);
+      color: #c5d5e7;
+      font-size: 10px;
       backdrop-filter: blur(12px);
     }
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px;
-      color: var(--accent);
-      text-decoration: none;
-      letter-spacing: 0.02em;
-    }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--accent); }
-
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 0 48px 80px;
-      position: relative;
+    .float-label svg { width: 15px; color: var(--cyan); }
+    .float-one { top: 13%; right: -1%; }
+    .float-two { bottom: 8%; left: -2%; }
+    .strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(9, 16, 27, .54); }
+    .strip-inner { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .strip-label { color: #7e91a8; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
+    .strip-items { display: flex; align-items: center; gap: clamp(14px, 4vw, 48px); color: #c6d5e6; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+    .strip-items span { display: inline-flex; align-items: center; gap: 8px; }
+    .strip-items span::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 8px var(--blue); }
+    section { scroll-margin-top: 88px; }
+    .section { padding: 104px 0; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 35px; }
+    .section-heading h2 { margin: 10px 0 0; font-size: clamp(30px, 4vw, 45px); line-height: 1.1; letter-spacing: -.045em; font-weight: 620; }
+    .section-heading p { max-width: 385px; margin: 0; color: var(--muted); font-size: 12px; }
+    .live-summary { display: flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 8px; color: #9fb2c9; font-size: 10px; white-space: nowrap; }
+    .live-summary[data-state="live"] .status-dot { animation: pulse 1.8s ease-out infinite; }
+    .live-summary[data-state="error"] { border-color:rgba(255,120,137,.28); color:#ffc0c8; }
+    .live-summary[data-state="error"] .status-dot { background:#ff7889; box-shadow:0 0 10px rgba(255,120,137,.75); }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(101,230,174,.5); } 70% { box-shadow: 0 0 0 7px rgba(101,230,174,0); } 100% { box-shadow: 0 0 0 0 rgba(101,230,174,0); } }
+    .game-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; }
+    .game-card {
       overflow: hidden;
+      border: 1px solid rgba(144, 182, 218, .13);
+      border-radius: 13px;
+      background: linear-gradient(150deg, rgba(17, 27, 42, .82), rgba(9, 15, 24, .9));
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
     }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(200,240,80,0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(240,200,80,0.04) 0%, transparent 50%);
-    }
-    .hero-line {
-      position: absolute;
-      top: 0; right: 160px;
-      width: 1px; height: 100%;
-      background: linear-gradient(to bottom, transparent, var(--border) 20%, var(--border) 80%, transparent);
-    }
-    .hero-counter {
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 32px;
-      display: flex; align-items: center; gap: 16px;
-    }
-    .hero-counter::before {
-      content: '';
-      display: block;
-      width: 40px; height: 1px;
-      background: var(--accent);
-    }
-    .hero-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(56px, 9vw, 130px);
-      line-height: 0.92;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 24px;
-    }
-    .hero-name em {
-      font-style: italic;
-      color: var(--accent);
-    }
-    .hero-sub {
-      display: flex; align-items: center; gap: 24px;
-      color: var(--muted);
-      font-size: 13px;
-      letter-spacing: 0.06em;
-    }
-    .hero-sub span { color: var(--text); }
-    .hero-scroll {
-      position: absolute;
-      right: 48px; bottom: 80px;
-      writing-mode: vertical-rl;
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--muted);
-      display: flex; align-items: center; gap: 12px;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    .hero-scroll::after {
-      content: '';
-      width: 1px; height: 60px;
-      background: linear-gradient(to bottom, var(--muted), transparent);
-    }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
-    /* Entrance animation */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeUp 0.8s ease forwards;
-    }
-    .fade-up:nth-child(1) { animation-delay: 0.2s; }
-    .fade-up:nth-child(2) { animation-delay: 0.4s; }
-    .fade-up:nth-child(3) { animation-delay: 0.6s; }
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* SECTION BASE */
-    section { padding: 120px 48px; }
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 64px;
-      display: flex; align-items: center; gap: 16px;
-    }
-    .section-label::after {
-      content: '';
-      flex: 1; max-width: 80px; height: 1px;
-      background: var(--accent);
-      opacity: 0.4;
-    }
-
-    /* ABOUT */
-    .about { border-top: 1px solid var(--border); }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-    .about-text h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(32px, 4vw, 52px);
-      line-height: 1.15;
-      font-weight: 400;
-      margin-bottom: 32px;
-    }
-    .about-text h2 em { font-style: italic; color: var(--accent2); }
-    .about-text p {
-      color: var(--muted);
-      line-height: 1.9;
-      margin-bottom: 16px;
-    }
-    .about-stats {
-      display: flex; flex-direction: column; gap: 32px;
-      padding-top: 16px;
-    }
-    .stat {
-      border-top: 1px solid var(--border);
-      padding-top: 24px;
-    }
-    .stat-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 48px;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-    .stat-label { color: var(--muted); font-size: 12px; letter-spacing: 0.1em; }
-
-    /* SKILLS */
-    .skills { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1px;
-      border: 1px solid var(--border);
-    }
-    .skill-item {
-      padding: 32px;
-      border: 1px solid transparent;
-      transition: border-color 0.2s, background 0.2s;
+    .game-card:hover { transform: translateY(-5px); border-color: rgba(85, 176, 246, .38); box-shadow: 0 22px 50px rgba(0, 0, 0, .23); }
+    .game-cover { position: relative; aspect-ratio: 1.72; overflow: hidden; background: linear-gradient(145deg, #122e48, #07111d); }
+    .game-cover img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .5s ease; }
+    .game-cover.has-image .cover-fallback { display: none; }
+    .game-card:hover .game-cover img { transform: scale(1.04); }
+    .game-cover::after { position: absolute; inset: 35% 0 0; content: ""; background: linear-gradient(transparent, rgba(7, 12, 19, .79)); pointer-events: none; }
+    .cover-fallback { position: absolute; inset: 0; display: grid; place-items: center; color: rgba(141, 208, 255, .83); font-size: 36px; font-weight: 700; letter-spacing: .08em; }
+    .game-tag { position: absolute; z-index: 2; top: 12px; left: 12px; padding: 6px 8px; border: 1px solid rgba(184, 215, 242, .2); border-radius: 5px; background: rgba(7, 13, 22, .72); color: #d7e4f2; font-size: 8px; letter-spacing: .13em; text-transform: uppercase; backdrop-filter: blur(8px); }
+    .game-body { padding: 17px 17px 15px; }
+    .game-title-row { display: flex; align-items: start; justify-content: space-between; gap: 10px; }
+    .game-title { margin: 0; font-size: 15px; font-weight: 620; letter-spacing: -.02em; }
+    .game-link-icon { color: #7fa3c8; font-size: 14px; }
+    .game-creator { margin-top: 3px; color: #7f91a8; font-size: 10px; }
+    .game-metrics { display: grid; grid-template-columns: 1fr 1fr; margin-top: 16px; padding-top: 13px; border-top: 1px solid var(--line); }
+    .metric + .metric { padding-left: 14px; border-left: 1px solid var(--line); }
+    .metric-label { color: #7d8fa5; font-size: 8px; letter-spacing: .13em; text-transform: uppercase; }
+    .metric-value { margin-top: 4px; color: #e5eef8; font-size: 16px; font-weight: 650; letter-spacing: -.03em; }
+    .metric-value.active-value { color: #88d9b4; }
+    .metric-note { margin-top: 1px; color: #70849b; font-size: 9px; }
+    .game-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 15px; color: #7c90a8; font-size: 9px; }
+    .game-connection { display: inline-flex; align-items: center; gap: 6px; }
+    .game-connection::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #64778d; }
+    .game-card.is-live .game-connection { color: #8adbb9; }
+    .game-card.is-live .game-connection::before { background: var(--green); box-shadow: 0 0 8px rgba(101,230,174,.65); }
+    .refresh-note { margin-top: 17px; color: #71839a; font-size: 10px; text-align: right; }
+    .protection-panel { position:relative; display:grid; grid-template-columns:1fr .62fr; align-items:center; gap:26px; margin-top:28px; padding:25px; overflow:hidden; border:1px solid rgba(84,163,225,.2); border-radius:13px; background:linear-gradient(120deg,rgba(12,22,36,.88),rgba(8,15,25,.82)); box-shadow:0 18px 55px rgba(0,0,0,.18); }
+    .protection-panel::before { position:absolute; content:""; width:280px; height:280px; top:-210px; right:10%; border-radius:50%; background:rgba(50,159,219,.13); filter:blur(25px); }
+    .protection-main,.protection-visual { position:relative; z-index:1; }
+    .protection-heading { display:flex; align-items:center; justify-content:space-between; gap:15px; }
+    .protection-title { margin:12px 0 5px; font-size:20px; letter-spacing:-.03em; }
+    .protection-copy { max-width:580px; margin:0; color:#91a3b8; font-size:11px; }
+    .protection-status { display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid rgba(101,230,174,.25); border-radius:6px; color:#9aebc4; background:rgba(21,91,63,.16); font-size:9px; font-weight:700; letter-spacing:.12em; white-space:nowrap; }
+    .protection-status::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 10px rgba(101,230,174,.8); animation:pulse 1.8s ease-out infinite; }
+    .protection-metrics { display:grid; grid-template-columns:repeat(2,minmax(120px,1fr)); gap:9px; margin-top:20px; }
+    .protection-metric { min-height:77px; padding:12px; border:1px solid rgba(145,180,213,.12); border-radius:8px; background:rgba(4,10,17,.36); }
+    .protection-metric span { display:block; color:#7f92a9; font-size:8px; letter-spacing:.11em; text-transform:uppercase; }
+    .protection-metric strong { display:block; margin-top:5px; color:#e8f3ff; font-size:18px; font-weight:650; }
+    .protection-metric .active-value { color:#88d9b4; }
+    .protection-visual { min-height:160px; display:grid; place-items:center; overflow:hidden; border:1px solid rgba(113,183,232,.12); border-radius:10px; background:radial-gradient(ellipse at center,rgba(34,125,184,.18),rgba(4,10,17,.2) 67%); }
+    .shield-rings { position:relative; width:118px; height:118px; display:grid; place-items:center; border:1px solid rgba(92,225,236,.22); border-radius:50%; box-shadow:0 0 38px rgba(56,160,216,.12),inset 0 0 30px rgba(56,160,216,.08); animation:shield-breathe 4s ease-in-out infinite; }
+    .shield-rings::before,.shield-rings::after { position:absolute; content:""; inset:12px; border:1px dashed rgba(92,225,236,.2); border-radius:50%; animation:spin 26s linear infinite; }
+    .shield-rings::after { inset:25px; border-style:solid; border-color:rgba(87,158,229,.17); animation-direction:reverse; animation-duration:19s; }
+    .shield-rings svg { position:relative; z-index:1; width:39px; color:#73dff0; filter:drop-shadow(0 0 13px rgba(92,225,236,.5)); }
+    @keyframes shield-breathe { 50% { transform:scale(1.04); box-shadow:0 0 50px rgba(56,160,216,.22),inset 0 0 36px rgba(56,160,216,.12); } }
+    .scan-beam { position:absolute; z-index:2; left:0; right:0; top:0; height:1px; opacity:.55; background:linear-gradient(90deg,transparent,var(--cyan),transparent); box-shadow:0 0 14px rgba(92,225,236,.7); animation:scan 5s ease-in-out infinite; }
+    @keyframes scan { 0%,100% { top:4px; opacity:0; } 15%,85% { opacity:.7; } 50% { top:calc(100% - 4px); } }
+    .services { padding-top: 14px; }
+    .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .service-card { min-height: 185px; padding: 23px; border: 1px solid var(--line); border-radius: 11px; background: rgba(12, 20, 32, .55); transition:transform .35s ease,border-color .35s ease,background .35s ease; }
+    .service-card:hover { transform:translateY(-5px); border-color:rgba(92,225,236,.3); background:rgba(14,28,44,.78); }
+    .service-icon { width: 35px; height: 35px; display: grid; place-items: center; border: 1px solid rgba(93, 180, 237, .23); border-radius: 9px; color: var(--cyan); background: rgba(28, 80, 111, .19); }
+    .service-icon svg { width: 18px; height: 18px; }
+    .service-card h3 { margin: 18px 0 7px; font-size: 14px; font-weight: 620; }
+    .service-card p { margin: 0; color: #8e9eb2; font-size: 11px; }
+    .contact-panel {
       position: relative;
-      overflow: hidden;
-    }
-    .skill-item:hover {
-      border-color: var(--accent);
-      background: rgba(200,240,80,0.04);
-    }
-    .skill-item::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 3px; height: 0;
-      background: var(--accent);
-      transition: height 0.3s ease;
-    }
-    .skill-item:hover::before { height: 100%; }
-    .skill-icon { font-size: 28px; margin-bottom: 16px; }
-    .skill-name {
-      font-size: 13px;
-      font-weight: 500;
-      margin-bottom: 8px;
-      letter-spacing: 0.05em;
-    }
-    .skill-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
-
-    /* PROJECTS */
-    .projects { border-top: 1px solid var(--border); }
-    .projects-list { display: flex; flex-direction: column; }
-    .project-item {
-      display: grid;
-      grid-template-columns: 80px 1fr auto;
+      display: flex;
       align-items: center;
-      gap: 40px;
-      padding: 40px 0;
-      border-bottom: 1px solid var(--border);
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.2s;
-      position: relative;
+      justify-content: space-between;
+      gap: 32px;
       overflow: hidden;
+      padding: 37px 40px;
+      border: 1px solid rgba(89, 167, 227, .2);
+      border-radius: 15px;
+      background: radial-gradient(ellipse at 82% 0%, rgba(37, 131, 187, .18), transparent 45%), linear-gradient(120deg, rgba(14, 25, 41, .92), rgba(8, 15, 25, .92));
     }
-    .project-item::before {
-      content: '';
-      position: absolute;
-      left: -100%; top: 0; bottom: 0;
-      width: 100%;
-      background: rgba(200,240,80,0.03);
-      transition: left 0.3s ease;
+    .contact-panel h2 { margin: 8px 0 7px; font-size: clamp(25px, 3vw, 36px); line-height: 1.12; letter-spacing: -.04em; }
+    .contact-panel p { max-width: 510px; margin: 0; color: #93a5bb; font-size: 12px; }
+    .contact-status { margin-top: 12px; color: #71869d; font-size: 10px; }
+    .contact-actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .footer { padding: 25px 0 32px; border-top: 1px solid rgba(155,189,224,.1); color: #76889f; font-size: 10px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 16px; }
+    .footer strong { color: #b4c4d7; font-weight: 600; letter-spacing: .1em; }
+    .toast { position: fixed; z-index: 50; right: 20px; bottom: 20px; max-width: 320px; padding: 12px 15px; border: 1px solid rgba(125,190,238,.25); border-radius: 9px; background: #0e1b2b; color: #dceafa; box-shadow: 0 15px 40px rgba(0,0,0,.35); font-size: 11px; opacity: 0; transform: translateY(10px); pointer-events: none; transition: .25s ease; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    @media (max-width: 900px) {
+      .hero-grid { gap: 28px; }
+      .hero-visual { min-height: 390px; }
+      .profile-shell { width: 286px; }
+      .float-one { right: -3%; }
+      .float-two { left: -2%; }
     }
-    .project-item:hover::before { left: 0; }
-    .project-item:hover .project-num { color: var(--accent); }
-    .project-item:hover .project-arrow { transform: translate(4px, -4px); color: var(--accent); }
-    .project-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 36px;
-      color: var(--border);
-      transition: color 0.2s;
-      line-height: 1;
+    @media (max-width: 720px) {
+      .wrap { width: min(var(--max), calc(100% - 34px)); }
+      .nav { min-height: 68px; }
+      .brand { min-width: 0; }
+      .nav-links { position: absolute; top: 68px; left: 0; right: 0; display: none; padding: 16px 22px 20px; border-bottom: 1px solid var(--line); background: rgba(6,10,18,.97); }
+      .nav-links.open { display: grid; gap: 15px; }
+      .menu-button { display: inline-flex; }
+      .hero { min-height: auto; padding: 64px 0 65px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 14px; }
+      h1 { max-width: 570px; font-size: clamp(43px, 13vw, 64px); }
+      .hero-copy { font-size: 14px; }
+      .hero-visual { min-height: 445px; margin-top: 4px; }
+      .visual-orbit { width: min(92vw, 360px); }
+      .profile-shell { width: min(286px, 86vw); }
+      .float-one { top: 9%; right: 1%; }
+      .float-two { bottom: 10%; left: 1%; }
+      .strip-inner { min-height: auto; padding: 16px 0; align-items: start; flex-direction: column; }
+      .strip-items { flex-wrap: wrap; row-gap: 10px; }
+      .section { padding: 72px 0; }
+      .section-heading { align-items: start; flex-direction: column; margin-bottom: 24px; }
+      .section-heading p { max-width: 540px; }
+      .game-grid { grid-template-columns: 1fr; gap: 13px; }
+      .protection-panel { grid-template-columns:1fr; padding:18px; }
+      .game-cover { aspect-ratio: 1.9; }
+      .service-grid { grid-template-columns: 1fr; }
+      .service-card { min-height: 0; }
+      .contact-panel { align-items: start; flex-direction: column; padding: 27px 23px; }
+      .contact-actions { width:100%; }
+      .footer-inner { flex-direction: column; }
     }
-    .project-info h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
-      font-weight: 400;
-      margin-bottom: 8px;
-    }
-    .project-info p { color: var(--muted); font-size: 13px; }
-    .project-tags {
-      display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;
-    }
-    .tag {
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-    .project-arrow {
-      font-size: 24px;
-      color: var(--border);
-      transition: all 0.2s;
-    }
-
-    /* CONTACT */
-    .contact { border-top: 1px solid var(--border); text-align: center; }
-    .contact-big {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(40px, 7vw, 100px);
-      line-height: 1;
-      font-weight: 700;
-      margin-bottom: 48px;
-      letter-spacing: -0.02em;
-    }
-    .contact-big em { font-style: italic; color: var(--accent); }
-    .contact-links {
-      display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
-    }
-    .contact-link {
-      display: inline-flex; align-items: center; gap: 12px;
-      padding: 14px 32px;
-      border: 1px solid var(--border);
-      color: var(--text);
-      text-decoration: none;
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: all 0.2s;
-    }
-    .contact-link:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(200,240,80,0.05);
-    }
-    .contact-link.primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #0d0d0d;
-      font-weight: 500;
-    }
-    .contact-link.primary:hover {
-      background: transparent;
-      color: var(--accent);
-    }
-
-    /* FOOTER */
-    footer {
-      padding: 32px 48px;
-      border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
-      color: var(--muted); font-size: 11px; letter-spacing: 0.1em;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      nav { padding: 20px 24px; }
-      .nav-links { display: none; }
-      .hero { padding: 0 24px 64px; }
-      section { padding: 80px 24px; }
-      .about-grid { grid-template-columns: 1fr; gap: 48px; }
-      .project-item { grid-template-columns: 48px 1fr 24px; gap: 16px; }
-      .project-num { font-size: 24px; }
-      .project-info h3 { font-size: 20px; }
-      footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
-      .hero-scroll { display: none; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     }
   </style>
 </head>
 <body>
-
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
-<!-- NAV -->
-<nav id="nav">
-  <a href="#" class="nav-logo">YÇ.</a>
-  <ul class="nav-links">
-    <li><a href="#hakkimda">Hakkımda</a></li>
-    <li><a href="#beceriler">Beceriler</a></li>
-    <li><a href="#projeler">Projeler</a></li>
-    <li><a href="#iletisim">İletişim</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-line"></div>
-
-  <p class="hero-counter fade-up">001 — Hoş Geldiniz</p>
-  <h1 class="hero-name fade-up">
-    Yuşa<br><em>Çiloğlan</em>
-  </h1>
-  <div class="hero-sub fade-up">
-    <span>Siber Güvenlik</span>
-    <span style="color:var(--border)">—</span>
-    <span>Python & Kali Linux</span>
-    <span style="color:var(--border)">—</span>
-    15 Yaşında Siberci
-  </div>
-
-  <div class="hero-scroll">Aşağı Kaydır</div>
-</section>
-
-<!-- ABOUT -->
-<section class="about" id="hakkimda">
-  <p class="section-label">002 — Hakkımda</p>
-  <div class="about-grid">
-    <div class="about-text">
-      <h2>Siber güvenliğe <em>İlk adımlarım</em>.</h2>
-      <p>Merhaba! Ben Yuşa Çiloğlan, 15 yaşında bir siber güvenlik uzmanıyım. Kali Linux ile pentest yapıyor, Python ile araçlar geliştiriyor ve Karşı Tarafdan Gelen Saldırıları engelliyor ve savunuyorum  Bunları 2021 Yılında Uzman birisinden Ve kendi çabalarımla Yavaş Yavaş Damlaya damlaya göl olur misali Ögrendim ve Şuan iyi ve anonim bir mevkiye Sahipim.......</p>
-    </div>
-    <div class="about-stats">
-      <div class="stat">
-        <div class="stat-num">2+</div>
-        <div class="stat-label">Yıl Deneyim</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">10+</div>
-        <div class="stat-label">Tamamlanan Proje</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">∞</div>
-        <div class="stat-label">Öğrenme İsteği</div>
+  <div class="wavefield" aria-hidden="true"></div>
+  <div class="ambient-wave" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Sancaktar Teknoloji ana sayfa">
+        <svg class="brand-mark" viewBox="0 0 40 46" fill="none" aria-hidden="true">
+          <path d="M20 2 36 8v13c0 10.3-6.6 17.6-16 22C10.6 38.6 4 31.3 4 21V8l16-6Z" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M20 9 30 13v8c0 6.8-4 11.8-10 15-6-3.2-10-8.2-10-15v-8l10-4Z" stroke="currentColor" stroke-opacity=".55"/>
+          <path d="m14 23 4 4 8-9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand-name"><strong>SANCAKTAR</strong><span>Teknoloji</span></span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Ana menü">
+        <a href="#hakkimizda">Hakkımızda</a>
+        <a href="#oyunlar">İzlenen Oyunlar</a>
+        <a href="#cozumler">Çözümler</a>
+        <a href="#iletisim">İletişim</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="navLinks">Menü</button>
       </div>
     </div>
-  </div>
-</section>
+  </header>
 
-<!-- SKILLS -->
-<section class="skills" id="beceriler">
-  <p class="section-label">003 — Beceriler</p>
-  <div class="skills-grid">
-    <div class="skill-item">
-      <div class="skill-icon">🐍</div>
-      <div class="skill-name">Python</div>
-      <div class="skill-desc">Script geliştirme, otomasyon, güvenlik araçları yazma.</div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-icon">⚔️</div>
-      <div class="skill-name">Kali Linux</div>
-      <div class="skill-desc">Pentest araçları, terminal kullanımı, sistem yönetimi.</div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-icon">🔍</div>
-      <div class="skill-name">Ağ Güvenliği</div>
-      <div class="skill-desc">Nmap, Wireshark, ağ protokolleri ve tarama teknikleri.</div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-icon">🛡️</div>
-      <div class="skill-name">Etik Hacking</div>
-      <div class="skill-desc">CTF çözme, zafiyet tespiti, güvenlik analizi.</div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-icon">💻</div>
-      <div class="skill-name">Linux</div>
-      <div class="skill-desc">Komut satırı, bash scripting, sistem yönetimi.</div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-icon">🌐</div>
-      <div class="skill-name">Web Güvenliği</div>
-      <div class="skill-desc">OWASP Top 10, temel web açıkları ve savunma yöntemleri.</div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section class="projects" id="projeler">
-  <p class="section-label">004 — Projeler</p>
-  <div class="projects-list">
-
-    <a href="#" class="project-item">
-      <div class="project-num">01</div>
-      <div class="project-info">
-        <h3>Python Port Scanner</h3>
-        <p>Ağdaki açık portları tarayan, hızlı ve özelleştirilebilir bir Python aracı.</p>
-        <div class="project-tags">
-          <span class="tag">Python</span>
-          <span class="tag">Networking</span>
-          <span class="tag">Socket</span>
+  <main id="top">
+    <section class="hero" id="hakkimizda">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Oyun ve web güvenliği</div>
+          <h1>Güvenlik,<br><span>oyunun</span> parçası.</h1>
+          <p class="hero-copy">Sancaktar Teknoloji; <strong>oyun güvenliği, yazılım ve web koruması</strong> odağında çalışan bağımsız bir geliştirici oluşumudur.</p>
+          <div class="hero-buttons">
+            <a class="button button-primary" href="#oyunlar">İzlenen oyunları gör <span class="arrow">↓</span></a>
+            <a class="button button-ghost" href="#iletisim">İletişime geç <span class="arrow">↗</span></a>
+          </div>
+          <div class="hero-footnote">GÜVENLİK · İZLEME · GELİŞTİRME</div>
+        </div>
+        <div class="hero-visual" aria-label="Kurucu geliştirici bilgisi">
+          <div class="visual-orbit"><span class="orbit-dot"></span></div>
+          <div class="float-label float-one">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 20 6v6c0 5-3.4 8.1-8 10-4.6-1.9-8-5-8-10V6l8-3Z" stroke="currentColor" stroke-width="1.5"/><path d="m8.5 12 2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            OYUN GÜVENLİĞİ
+          </div>
+          <div class="float-label float-two">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 17.5 9 12l3 3 7-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7h4v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            CANLI OYUNCU TAKİBİ
+          </div>
+          <div class="profile-shell" id="founderCard">
+            <div class="profile-label">Sancaktar Teknoloji // Kurucu</div>
+            <div class="profile-name" aria-label="gokbr"><span class="typing-name">gokbr</span></div>
+            <div class="profile-role">Kurucu Geliştirici · Oyun Güvenliği</div>
+            <div class="profile-tags"><span>ROBLOX SECURITY</span><span>ANTI-CHEAT</span><span>WEB DEFENSE</span></div>
+            <div class="founder-terminal" aria-label="Geliştirici uzmanlık alanları">
+              <div class="terminal-head"><span>GOKBR.DEV</span><span>FOUNDER</span></div>
+              <div class="terminal-row"><span>ROLE</span><strong>KURUCU GELİŞTİRİCİ</strong></div>
+              <div class="terminal-row"><span>FOCUS</span><strong>ROBLOX OYUN GÜVENLİĞİ</strong></div>
+              <div class="terminal-row"><span>BUILD</span><strong>ANTI-CHEAT · WEB</strong></div>
+            </div>
+            <div class="profile-divider"></div>
+            <div class="profile-status"><span class="status-dot"></span><span id="profileStatus">İzleme paneli hazırlanıyor</span></div>
+          </div>
         </div>
       </div>
-      <div class="project-arrow">↗</div>
-    </a>
+    </section>
 
-    <a href="#" class="project-item">
-      <div class="project-num">02</div>
-      <div class="project-info">
-        <h3>CTF Writeuplar</h3>
-        <p>Katıldığım Capture The Flag yarışmalarından çözüm yazıları ve notlar.</p>
-        <div class="project-tags">
-          <span class="tag">CTF</span>
-          <span class="tag">Kali Linux</span>
-          <span class="tag">Reverse Eng.</span>
+    <div class="strip" aria-label="Hizmet alanları">
+      <div class="wrap strip-inner">
+        <div class="strip-label">Odak alanlarımız</div>
+        <div class="strip-items"><span>Oyun güvenliği</span><span>Anti-cheat</span><span>Web koruması</span><span>Canlı izleme</span></div>
+      </div>
+    </div>
+
+    <section class="section" id="oyunlar">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><div class="eyebrow">Canlı oyun takibi</div><h2>Korunan deneyimler</h2></div>
+          <div>
+            <div class="live-summary" id="liveSummary" data-state="pending"><span class="status-dot"></span><span id="liveSummaryText">Roblox verisi bekleniyor</span></div>
+          </div>
+        </div>
+        <p style="margin:-18px 0 25px;color:#8294aa;font-size:11px">Oyuncu sayıları Roblox’tan alınır ve düzenli olarak yenilenir.</p>
+        <div class="game-grid" id="gameGrid">
+          <article class="game-card" data-place="16740784399">
+            <a href="https://www.roblox.com/games/16740784399" target="_blank" rel="noopener noreferrer" aria-label="Doğu Savaşı 2.5 oyununu Roblox'ta aç">
+              <div class="game-cover has-image"><img src="https://tr.rbxcdn.com/180DAY-5c1e1d1509def51cd1d1d5a07232365e/500/280/Image/Jpeg/noFilter" alt="Doğu Savaşı 2.5 Roblox oyun görseli" loading="lazy"><div class="cover-fallback">DS</div><span class="game-tag">Roblox deneyimi</span></div>
+              <div class="game-body">
+                <div class="game-title-row"><h3 class="game-title">Doğu Savaşı 2.5</h3><span class="game-link-icon">↗</span></div>
+                <div class="game-creator">Military Productions</div>
+                <div class="game-metrics">
+                  <div class="metric"><div class="metric-label">Aktif oyuncu</div><div class="metric-value players">—</div><div class="metric-note">Canlı Roblox verisi</div></div>
+                  <div class="metric"><div class="metric-label">Koruma durumu</div><div class="metric-value active-value">AKTİF</div><div class="metric-note">Anti-cheat koruması</div></div>
+                </div>
+                <div class="game-footer"><span class="game-connection">Veri bağlantısı bekleniyor</span><span>60 sn. yenileme</span></div>
+              </div>
+            </a>
+          </article>
+          <article class="game-card" data-place="9679014784">
+            <a href="https://www.roblox.com/games/9679014784" target="_blank" rel="noopener noreferrer" aria-label="Afghanistan oyununu Roblox'ta aç">
+              <div class="game-cover has-image"><img src="https://tr.rbxcdn.com/180DAY-9d1c7c9c6b0aa10634d8f1375d9b863f/500/280/Image/Jpeg/noFilter" alt="Afghanistan Roblox oyun görseli" loading="lazy"><div class="cover-fallback">AF</div><span class="game-tag">Roblox deneyimi</span></div>
+              <div class="game-body">
+                <div class="game-title-row"><h3 class="game-title">Afghanistan</h3><span class="game-link-icon">↗</span></div>
+                <div class="game-creator">League of Ghosts</div>
+                <div class="game-metrics">
+                  <div class="metric"><div class="metric-label">Aktif oyuncu</div><div class="metric-value players">—</div><div class="metric-note">Canlı Roblox verisi</div></div>
+                  <div class="metric"><div class="metric-label">Koruma durumu</div><div class="metric-value active-value">AKTİF</div><div class="metric-note">Anti-cheat koruması</div></div>
+                </div>
+                <div class="game-footer"><span class="game-connection">Veri bağlantısı bekleniyor</span><span>60 sn. yenileme</span></div>
+              </div>
+            </a>
+          </article>
+          <article class="game-card" data-place="5975613030">
+            <a href="https://www.roblox.com/games/5975613030" target="_blank" rel="noopener noreferrer" aria-label="Syria oyununu Roblox'ta aç">
+              <div class="game-cover has-image"><img src="https://tr.rbxcdn.com/180DAY-d7b394c6fd3dc7e95c6c26156ec9bc80/500/280/Image/Jpeg/noFilter" alt="Syria Roblox oyun görseli" loading="lazy"><div class="cover-fallback">SY</div><span class="game-tag">Roblox deneyimi</span></div>
+              <div class="game-body">
+                <div class="game-title-row"><h3 class="game-title">Syria</h3><span class="game-link-icon">↗</span></div>
+                <div class="game-creator">League of Ghosts</div>
+                <div class="game-metrics">
+                  <div class="metric"><div class="metric-label">Aktif oyuncu</div><div class="metric-value players">—</div><div class="metric-note">Canlı Roblox verisi</div></div>
+                  <div class="metric"><div class="metric-label">Koruma durumu</div><div class="metric-value active-value">AKTİF</div><div class="metric-note">Anti-cheat koruması</div></div>
+                </div>
+                <div class="game-footer"><span class="game-connection">Veri bağlantısı bekleniyor</span><span>60 sn. yenileme</span></div>
+              </div>
+            </a>
+          </article>
+        </div>
+        <div class="refresh-note" id="refreshNote">Oyuncu verisi Roblox bağlantısı kurulduğunda burada görünür.</div>
+        <div class="protection-panel" aria-label="Anti-cheat koruma durumu">
+          <span class="scan-beam" aria-hidden="true"></span>
+          <div class="protection-main">
+            <div class="protection-heading"><div class="eyebrow">Oyun güvenliği</div><span class="protection-status">SİSTEM AKTİF</span></div>
+            <h3 class="protection-title">Anti-cheat koruması çalışıyor</h3>
+            <p class="protection-copy">Sancaktar Teknoloji tarafından korunan Roblox oyunlarında güvenlik sistemi aktif olarak çalışmaktadır.</p>
+            <div class="protection-metrics">
+              <div class="protection-metric"><span>Sistem durumu</span><strong class="active-value">AKTİF</strong></div>
+              <div class="protection-metric"><span>Korunan deneyim</span><strong>3 oyun</strong></div>
+            </div>
+          </div>
+          <div class="protection-visual" aria-hidden="true">
+            <div class="shield-rings"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 20 6v6c0 5-3.4 8.1-8 10-4.6-1.9-8-5-8-10V6l8-3Z" stroke="currentColor" stroke-width="1.4"/><path d="m8.5 12 2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </div>
         </div>
       </div>
-      <div class="project-arrow">↗</div>
-    </a>
+    </section>
 
-    <a href="#" class="project-item">
-      <div class="project-num">03</div>
-      <div class="project-info">
-        <h3>Şifre Yöneticisi</h3>
-        <p>Python ile geliştirilmiş, şifreli yerel depolama kullanan basit şifre yöneticisi.</p>
-        <div class="project-tags">
-          <span class="tag">Python</span>
-          <span class="tag">Kriptografi</span>
-          <span class="tag">CLI</span>
+    <section class="section services" id="cozumler">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><div class="eyebrow">Çalışma alanları</div><h2>Dijital savunma katmanları</h2></div>
+          <p>Güvenlik araçları, oyunların ve dijital projelerin ihtiyaçlarına göre geliştirilir.</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card">
+            <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 20 6v6c0 5-3.4 8.1-8 10-4.6-1.9-8-5-8-10V6l8-3Z" stroke="currentColor" stroke-width="1.5"/><path d="m8.5 12 2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3>Oyun güvenliği</h3><p>Oyun deneyimleri için kötüye kullanım tespiti, koruma ve olay izleme araçları.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 9h16M8 7h.01M11 7h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="m9 14 2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3>Web koruması</h3><p>Web projelerinin güvenlik görünürlüğünü ve temel koruma ihtiyaçlarını destekleyen çözümler.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 18V6m0 12h16M8 15v-4m4 4V7m4 8v-6m4 6v-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="m5 10 5-4 4 3 6-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3>Canlı izleme</h3><p>Oyun durumu ve erişilebilir Roblox verileri tek bir görünümde takip edilir.</p>
+          </article>
         </div>
       </div>
-      <div class="project-arrow">↗</div>
-    </a>
+    </section>
 
-    <a href="#" class="project-item">
-      <div class="project-num">04</div>
-      <div class="project-info">
-        <h3>Bu Portfolyo Sitesi</h3>
-        <p>Kişisel portfolyo ve siber güvenlik projelerimi sergileyen bu web sitesi.</p>
-        <div class="project-tags">
-          <span class="tag">HTML</span>
-          <span class="tag">CSS</span>
-          <span class="tag">JavaScript</span>
+    <section class="section" id="iletisim" style="padding-top:25px">
+      <div class="wrap contact-panel">
+        <div>
+          <div class="eyebrow">İletişim</div>
+          <h2>Birlikte daha güvenli<br>projeler geliştirelim.</h2>
+          <p>İş birliği, oyun güvenliği veya web koruması hakkında konuşmak için Sancaktar Teknoloji ile iletişime geç.</p>
+          <div class="contact-status" id="contactStatus">Discord profil ve sunucu bağlantıları eklenecek.</div>
+        </div>
+        <div class="contact-actions">
+          <a class="button button-primary" id="discordButton" href="#iletisim">Discord profili <span class="arrow">↗</span></a>
+          <a class="button button-ghost" id="discordServerButton" href="#iletisim">Discord sunucusu <span class="arrow">↗</span></a>
         </div>
       </div>
-      <div class="project-arrow">↗</div>
-    </a>
+    </section>
+  </main>
 
-  </div>
-</section>
+  <footer class="footer">
+    <div class="wrap footer-inner"><span><strong>SANCAKTAR TEKNOLOJİ</strong> · Oyun ve web güvenliği</span><span>© <span id="year"></span> Sancaktar Teknoloji</span></div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<!-- CONTACT -->
-<section class="contact" id="iletisim">
-  <p class="section-label" style="justify-content:center">005 — İletişim</p>
-  <h2 class="contact-big">Birlikte<br><em>çalışalım</em></h2>
-  <div class="contact-links">
-    <a href="mailto:email@ornek.com" class="contact-link primary">✉ E-posta Gönder</a>
-    <a href="#" class="contact-link">in LinkedIn</a>
-    <a href="#" class="contact-link">⌥ GitHub</a>
-    <a href="#" class="contact-link">↓ CV İndir</a>
-  </div>
-</section>
+  <script>
+    // İleride Discord bağlantılarını bu iki alana ekle.
+    const DISCORD_PROFILE_URL = "";
+    const DISCORD_SERVER_URL = ""; // Discord sunucu davet bağlantısını buraya ekle.
 
-<!-- FOOTER -->
-<footer>
-  <span>© 2026 Adın Soyadın</span>
-  <span>Tasarım & Geliştirme — Kendi Ellerimle</span>
-</footer>
+    const gameCards = Array.from(document.querySelectorAll(".game-card"));
+    const numberFormat = new Intl.NumberFormat("tr-TR");
+    const summary = document.getElementById("liveSummary");
+    const summaryText = document.getElementById("liveSummaryText");
+    const profileStatus = document.getElementById("profileStatus");
+    const refreshNote = document.getElementById("refreshNote");
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-<script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  function animateCursor() {
-    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
-    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-  document.querySelectorAll('a, button').forEach(el => {
-    el.addEventListener('mouseenter', () => { ring.style.transform = 'translate(-50%,-50%) scale(1.8)'; ring.style.opacity = '0.8'; });
-    el.addEventListener('mouseleave', () => { ring.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.opacity = '0.5'; });
-  });
+    const founderCard = document.getElementById("founderCard");
+    if ("IntersectionObserver" in window) {
+      const founderObserver = new IntersectionObserver(entries => {
+        if (entries.some(entry => entry.isIntersecting)) {
+          founderCard.classList.add("is-visible");
+          founderObserver.disconnect();
+        }
+      }, { threshold: .35 });
+      founderObserver.observe(founderCard);
+    } else {
+      founderCard.classList.add("is-visible");
+    }
 
-  // Nav scroll effect
-  window.addEventListener('scroll', () => {
-    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
-  });
-
-  // Scroll reveal
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
+    gameCards.forEach(card => {
+      const cover = card.querySelector(".game-cover");
+      const img = cover.querySelector("img");
+      if (!img) return;
+      img.dataset.fallbackSrc = img.src;
+      img.onload = () => cover.classList.add("has-image");
+      img.onerror = () => {
+        if (img.dataset.fallbackSrc && img.src !== img.dataset.fallbackSrc) {
+          img.src = img.dataset.fallbackSrc;
+          return;
+        }
+        cover.classList.remove("has-image");
+      };
+      if (img.complete && !img.naturalWidth) cover.classList.remove("has-image");
     });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.skill-item, .project-item, .stat').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-  });
-</script>
+
+    if (DISCORD_PROFILE_URL) {
+      document.getElementById("discordButton").href = DISCORD_PROFILE_URL;
+      document.getElementById("discordButton").target = "_blank";
+      document.getElementById("discordButton").rel = "noopener noreferrer";
+      document.getElementById("contactStatus").textContent = "Discord üzerinden doğrudan iletişime geçebilirsin.";
+    }
+    const discordServerButton = document.getElementById("discordServerButton");
+    if (DISCORD_SERVER_URL) {
+      discordServerButton.href = DISCORD_SERVER_URL;
+      discordServerButton.target = "_blank";
+      discordServerButton.rel = "noopener noreferrer";
+    }
+
+    async function loadRobloxData() {
+      summary.dataset.state = "pending";
+      summaryText.textContent = "Roblox verisi yenileniyor";
+      try {
+        const response = await fetch("/api/roblox", { cache: "no-store" });
+        if (!response.ok) throw new Error("Roblox API " + response.status);
+        const payload = await response.json();
+        const gamesById = new Map((payload.games || []).map(game => [String(game.placeId), game]));
+        let totalPlayers = 0;
+        let loaded = 0;
+        for (const card of gameCards) {
+          const game = gamesById.get(card.dataset.place);
+          if (game && game.icon) {
+            const cover = card.querySelector(".game-cover");
+            let img = cover.querySelector("img");
+            if (!img) {
+              img = document.createElement("img");
+              img.alt = card.querySelector(".game-title").textContent + " oyun görseli";
+              img.loading = "lazy";
+              cover.prepend(img);
+            }
+            if (!img.dataset.fallbackSrc) img.dataset.fallbackSrc = img.src;
+            img.onload = () => cover.classList.add("has-image");
+            img.onerror = () => {
+              if (img.dataset.fallbackSrc && img.src !== img.dataset.fallbackSrc) {
+                img.src = img.dataset.fallbackSrc;
+                return;
+              }
+              cover.classList.remove("has-image");
+            };
+            if (img.src !== game.icon) img.src = game.icon;
+          }
+          if (!game || !game.available || game.playing === null) {
+            card.querySelector(".game-connection").textContent = "Roblox verisi yok";
+            continue;
+          }
+          const players = Number(game.playing || 0);
+          totalPlayers += players;
+          loaded += 1;
+          card.querySelector(".players").textContent = numberFormat.format(players);
+          card.querySelector(".metric-note").textContent = numberFormat.format(Number(game.maxPlayers || 0)) + " kişi / sunucu";
+          card.querySelector(".game-connection").textContent = "Roblox verisi canlı";
+          card.classList.add("is-live");
+        }
+        if (!loaded) throw new Error("Oyun verisi bulunamadı");
+        summary.dataset.state = "live";
+        summaryText.textContent = numberFormat.format(totalPlayers) + " aktif oyuncu · " + loaded + "/" + gameCards.length + " oyun";
+        profileStatus.textContent = "Canlı oyuncu izleme aktif";
+        refreshNote.textContent = "Son güncelleme " + new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit", second: "2-digit" }) + " · Oyuncu verisi 60 saniyede bir yenilenir.";
+      } catch (error) {
+        summary.dataset.state = "error";
+        summaryText.textContent = "Canlı oyuncu verisi alınamıyor";
+        profileStatus.textContent = "Roblox veri bağlantısı bekleniyor";
+        refreshNote.textContent = "Oyuncu sayacı için index.html ve api/roblox.js dosyalarını Vercel'e birlikte dağıt.";
+        gameCards.forEach(card => {
+          card.querySelector(".game-connection").textContent = "Veri bağlantısı bekleniyor";
+          card.classList.remove("is-live");
+        });
+      }
+    }
+
+    loadRobloxData();
+    window.setInterval(loadRobloxData, 60000);
+
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
+    menuButton.addEventListener("click", () => {
+      const open = menuButton.getAttribute("aria-expanded") !== "true";
+      menuButton.setAttribute("aria-expanded", String(open));
+      navLinks.classList.toggle("open", open);
+    });
+    navLinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+    }));
+
+    const toast = document.getElementById("toast");
+    let toastTimer;
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove("show"), 3200);
+    }
+    if (!DISCORD_PROFILE_URL) {
+      document.getElementById("discordButton").addEventListener("click", event => {
+        event.preventDefault();
+        showToast("Discord profil bağlantısını ekleyince bu düğme doğrudan profiline açılacak.");
+      });
+    }
+    if (!DISCORD_SERVER_URL) {
+      discordServerButton.addEventListener("click", event => {
+        event.preventDefault();
+        showToast("Sunucu davet bağlantısını DISCORD_SERVER_URL alanına ekleyebilirsin.");
+      });
+    }
+  </script>
 </body>
-        </html>
+</html>
