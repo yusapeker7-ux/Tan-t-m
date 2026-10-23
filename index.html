@@ -145,8 +145,8 @@
       cursor: pointer;
       font-size: 11px;
       transition: border-color .2s ease, background .2s ease, color .2s ease;
+      display: none;
     }
-    .menu-button { display: none; }
     .hero { min-height: 620px; padding: 76px 0 92px; display: grid; align-items: center; }
     .hero-grid { display: grid; grid-template-columns: 1.06fr .94fr; align-items: center; gap: 68px; }
     .eyebrow {
@@ -177,6 +177,7 @@
       font-size: 12px;
       font-weight: 700;
       transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+      cursor: pointer;
     }
     .button:hover { transform: translateY(-2px); }
     .button-primary { color: #06111c; background: linear-gradient(110deg, #6be2ec, #62aaff); box-shadow: 0 8px 30px rgba(54, 160, 224, .18); }
@@ -258,43 +259,92 @@
     .section-heading h2 { margin: 10px 0 0; font-size: clamp(30px, 4vw, 45px); line-height: 1.1; letter-spacing: -.045em; font-weight: 620; }
     .section-heading p { max-width: 385px; margin: 0; color: var(--muted); font-size: 12px; }
     .live-summary { display: flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 8px; color: #9fb2c9; font-size: 10px; white-space: nowrap; }
-    .live-summary[data-state="live"] .status-dot { animation: pulse 1.8s ease-out infinite; }
-    .live-summary[data-state="error"] { border-color:rgba(255,120,137,.28); color:#ffc0c8; }
-    .live-summary[data-state="error"] .status-dot { background:#ff7889; box-shadow:0 0 10px rgba(255,120,137,.75); }
+    .live-summary .status-dot { animation: pulse 1.8s ease-out infinite; }
     @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(101,230,174,.5); } 70% { box-shadow: 0 0 0 7px rgba(101,230,174,0); } 100% { box-shadow: 0 0 0 0 rgba(101,230,174,0); } }
-    .game-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; }
-    .game-card {
-      overflow: hidden;
+
+    /* Hakkımızda, Misyon & Vizyon Kartları */
+    .about-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+      margin-bottom: 28px;
+    }
+    .about-card {
+      position: relative;
+      padding: 24px 22px;
       border: 1px solid rgba(144, 182, 218, .13);
       border-radius: 13px;
       background: linear-gradient(150deg, rgba(17, 27, 42, .82), rgba(9, 15, 24, .9));
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
     }
-    .game-card:hover { transform: translateY(-5px); border-color: rgba(85, 176, 246, .38); box-shadow: 0 22px 50px rgba(0, 0, 0, .23); }
-    .game-cover { position: relative; aspect-ratio: 1.72; overflow: hidden; background: linear-gradient(145deg, #122e48, #07111d); }
-    .game-cover img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .5s ease; }
-    .game-cover.has-image .cover-fallback { display: none; }
-    .game-card:hover .game-cover img { transform: scale(1.04); }
-    .game-cover::after { position: absolute; inset: 35% 0 0; content: ""; background: linear-gradient(transparent, rgba(7, 12, 19, .79)); pointer-events: none; }
-    .cover-fallback { position: absolute; inset: 0; display: grid; place-items: center; color: rgba(141, 208, 255, .83); font-size: 36px; font-weight: 700; letter-spacing: .08em; }
-    .game-tag { position: absolute; z-index: 2; top: 12px; left: 12px; padding: 6px 8px; border: 1px solid rgba(184, 215, 242, .2); border-radius: 5px; background: rgba(7, 13, 22, .72); color: #d7e4f2; font-size: 8px; letter-spacing: .13em; text-transform: uppercase; backdrop-filter: blur(8px); }
-    .game-body { padding: 17px 17px 15px; }
-    .game-title-row { display: flex; align-items: start; justify-content: space-between; gap: 10px; }
-    .game-title { margin: 0; font-size: 15px; font-weight: 620; letter-spacing: -.02em; }
-    .game-link-icon { color: #7fa3c8; font-size: 14px; }
-    .game-creator { margin-top: 3px; color: #7f91a8; font-size: 10px; }
-    .game-metrics { display: grid; grid-template-columns: 1fr 1fr; margin-top: 16px; padding-top: 13px; border-top: 1px solid var(--line); }
-    .metric + .metric { padding-left: 14px; border-left: 1px solid var(--line); }
-    .metric-label { color: #7d8fa5; font-size: 8px; letter-spacing: .13em; text-transform: uppercase; }
-    .metric-value { margin-top: 4px; color: #e5eef8; font-size: 16px; font-weight: 650; letter-spacing: -.03em; }
-    .metric-value.active-value { color: #88d9b4; }
-    .metric-note { margin-top: 1px; color: #70849b; font-size: 9px; }
-    .game-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 15px; color: #7c90a8; font-size: 9px; }
-    .game-connection { display: inline-flex; align-items: center; gap: 6px; }
-    .game-connection::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #64778d; }
-    .game-card.is-live .game-connection { color: #8adbb9; }
-    .game-card.is-live .game-connection::before { background: var(--green); box-shadow: 0 0 8px rgba(101,230,174,.65); }
-    .refresh-note { margin-top: 17px; color: #71839a; font-size: 10px; text-align: right; }
+    .about-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(92, 225, 236, .35);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, .25);
+    }
+    .about-card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 9px;
+      border: 1px solid rgba(92, 225, 236, .18);
+      border-radius: 5px;
+      color: #9ee6f1;
+      background: rgba(18, 57, 78, .3);
+      font-size: 8px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      width: fit-content;
+      margin-bottom: 14px;
+    }
+    .about-card-icon {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(93, 180, 237, .23);
+      border-radius: 9px;
+      color: var(--cyan);
+      background: rgba(28, 80, 111, .19);
+      margin-bottom: 16px;
+    }
+    .about-card-icon svg { width: 20px; height: 20px; }
+    .about-card h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 620;
+      letter-spacing: -.02em;
+      color: #eef5ff;
+    }
+    .about-card p {
+      margin: 0;
+      color: #9cb1c9;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .about-card-footer {
+      margin-top: 20px;
+      padding-top: 13px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #768ea8;
+      font-size: 9px;
+      letter-spacing: .06em;
+    }
+    .about-card-footer .footer-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+    }
+
     .protection-panel { position:relative; display:grid; grid-template-columns:1fr .62fr; align-items:center; gap:26px; margin-top:28px; padding:25px; overflow:hidden; border:1px solid rgba(84,163,225,.2); border-radius:13px; background:linear-gradient(120deg,rgba(12,22,36,.88),rgba(8,15,25,.82)); box-shadow:0 18px 55px rgba(0,0,0,.18); }
     .protection-panel::before { position:absolute; content:""; width:280px; height:280px; top:-210px; right:10%; border-radius:50%; background:rgba(50,159,219,.13); filter:blur(25px); }
     .protection-main,.protection-visual { position:relative; z-index:1; }
@@ -343,8 +393,6 @@
     .footer { padding: 25px 0 32px; border-top: 1px solid rgba(155,189,224,.1); color: #76889f; font-size: 10px; }
     .footer-inner { display: flex; justify-content: space-between; gap: 16px; }
     .footer strong { color: #b4c4d7; font-weight: 600; letter-spacing: .1em; }
-    .toast { position: fixed; z-index: 50; right: 20px; bottom: 20px; max-width: 320px; padding: 12px 15px; border: 1px solid rgba(125,190,238,.25); border-radius: 9px; background: #0e1b2b; color: #dceafa; box-shadow: 0 15px 40px rgba(0,0,0,.35); font-size: 11px; opacity: 0; transform: translateY(10px); pointer-events: none; transition: .25s ease; }
-    .toast.show { opacity: 1; transform: translateY(0); }
     @media (max-width: 900px) {
       .hero-grid { gap: 28px; }
       .hero-visual { min-height: 390px; }
@@ -373,9 +421,8 @@
       .section { padding: 72px 0; }
       .section-heading { align-items: start; flex-direction: column; margin-bottom: 24px; }
       .section-heading p { max-width: 540px; }
-      .game-grid { grid-template-columns: 1fr; gap: 13px; }
+      .about-cards-grid { grid-template-columns: 1fr; gap: 14px; }
       .protection-panel { grid-template-columns:1fr; padding:18px; }
-      .game-cover { aspect-ratio: 1.9; }
       .service-grid { grid-template-columns: 1fr; }
       .service-card { min-height: 0; }
       .contact-panel { align-items: start; flex-direction: column; padding: 27px 23px; }
@@ -402,7 +449,7 @@
       </a>
       <nav class="nav-links" id="navLinks" aria-label="Ana menü">
         <a href="#hakkimizda">Hakkımızda</a>
-        <a href="#oyunlar">İzlenen Oyunlar</a>
+        <a href="#misyon-vizyon">Misyon & Vizyon</a>
         <a href="#cozumler">Çözümler</a>
         <a href="#iletisim">İletişim</a>
       </nav>
@@ -420,7 +467,7 @@
           <h1>Güvenlik,<br><span>oyunun</span> parçası.</h1>
           <p class="hero-copy">Sancaktar Teknoloji; <strong>oyun güvenliği, yazılım ve web koruması</strong> odağında çalışan bağımsız bir geliştirici oluşumudur.</p>
           <div class="hero-buttons">
-            <a class="button button-primary" href="#oyunlar">İzlenen oyunları gör <span class="arrow">↓</span></a>
+            <a class="button button-primary" href="#misyon-vizyon">Misyon & Vizyonu gör <span class="arrow">↓</span></a>
             <a class="button button-ghost" href="#iletisim">İletişime geç <span class="arrow">↗</span></a>
           </div>
           <div class="hero-footnote">GÜVENLİK · İZLEME · GELİŞTİRME</div>
@@ -433,7 +480,7 @@
           </div>
           <div class="float-label float-two">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 17.5 9 12l3 3 7-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7h4v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            CANLI OYUNCU TAKİBİ
+            PROAKTİF SAVUNMA
           </div>
           <div class="profile-shell" id="founderCard">
             <div class="profile-label">Sancaktar Teknoloji // Kurucu</div>
@@ -447,7 +494,7 @@
               <div class="terminal-row"><span>BUILD</span><strong>ANTI-CHEAT · WEB</strong></div>
             </div>
             <div class="profile-divider"></div>
-            <div class="profile-status"><span class="status-dot"></span><span id="profileStatus">İzleme paneli hazırlanıyor</span></div>
+            <div class="profile-status"><span class="status-dot"></span><span id="profileStatus">Güvenlik sistemleri aktif</span></div>
           </div>
         </div>
       </div>
@@ -460,60 +507,86 @@
       </div>
     </div>
 
-    <section class="section" id="oyunlar">
+    <!-- HAKKIMIZDA, MİSYON & VİZYON BÖLÜMÜ -->
+    <section class="section" id="misyon-vizyon">
       <div class="wrap">
         <div class="section-heading">
-          <div><div class="eyebrow">Canlı oyun takibi</div><h2>Korunan deneyimler</h2></div>
           <div>
-            <div class="live-summary" id="liveSummary" data-state="pending"><span class="status-dot"></span><span id="liveSummaryText">Roblox verisi bekleniyor</span></div>
+            <div class="eyebrow">Kurumsal & Değerlerimiz</div>
+            <h2>Hakkımızda, Misyon & Vizyon</h2>
+          </div>
+          <div>
+            <div class="live-summary">
+              <span class="status-dot"></span>
+              <span>Aktif Koruma & İnovasyon</span>
+            </div>
           </div>
         </div>
-        <p style="margin:-18px 0 25px;color:#8294aa;font-size:11px">Oyuncu sayıları Roblox’tan alınır ve düzenli olarak yenilenir.</p>
-        <div class="game-grid" id="gameGrid">
-          <article class="game-card" data-place="16740784399">
-            <a href="https://www.roblox.com/games/16740784399" target="_blank" rel="noopener noreferrer" aria-label="Doğu Savaşı 2.5 oyununu Roblox'ta aç">
-              <div class="game-cover has-image"><img src="https://tr.rbxcdn.com/180DAY-5c1e1d1509def51cd1d1d5a07232365e/500/280/Image/Jpeg/noFilter" alt="Doğu Savaşı 2.5 Roblox oyun görseli" loading="lazy"><div class="cover-fallback">DS</div><span class="game-tag">Roblox deneyimi</span></div>
-              <div class="game-body">
-                <div class="game-title-row"><h3 class="game-title">Doğu Savaşı 2.5</h3><span class="game-link-icon">↗</span></div>
-                <div class="game-creator">Military Productions</div>
-                <div class="game-metrics">
-                  <div class="metric"><div class="metric-label">Aktif oyuncu</div><div class="metric-value players">—</div><div class="metric-note">Canlı Roblox verisi</div></div>
-                  <div class="metric"><div class="metric-label">Koruma durumu</div><div class="metric-value active-value">AKTİF</div><div class="metric-note">Anti-cheat koruması</div></div>
-                </div>
-                <div class="game-footer"><span class="game-connection">Veri bağlantısı bekleniyor</span><span>60 sn. yenileme</span></div>
+        <p style="margin:-18px 0 28px;color:#8294aa;font-size:12px">Adil rekabet, güçlü yazılım altyapısı ve kesintisiz dijital güvenlik ilkeleriyle çalışıyoruz.</p>
+        
+        <div class="about-cards-grid">
+          <!-- HAKKIMIZDA -->
+          <article class="about-card">
+            <div>
+              <span class="about-card-badge">SANCAKTAR TEKNOLOJİ</span>
+              <div class="about-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="m9 12 2 2 4-4"/>
+                </svg>
               </div>
-            </a>
+              <h3>Hakkımızda</h3>
+              <p>Sancaktar Teknoloji; oyun güvenliği, özel anti-cheat altyapıları ve modern dijital koruma sistemleri üzerine odaklanmış bağımsız bir geliştirici oluşumudur. Roblox başta olmak üzere dijital platformlarda hile ve açıkları engelleyerek adil, güvenilir ve kesintisiz bir deneyim sunuyoruz.</p>
+            </div>
+            <div class="about-card-footer">
+              <span class="footer-dot"></span>
+              <span>Güvenlik & Yazılım Altyapısı</span>
+            </div>
           </article>
-          <article class="game-card" data-place="9679014784">
-            <a href="https://www.roblox.com/games/9679014784" target="_blank" rel="noopener noreferrer" aria-label="Afghanistan oyununu Roblox'ta aç">
-              <div class="game-cover has-image"><img src="https://tr.rbxcdn.com/180DAY-9d1c7c9c6b0aa10634d8f1375d9b863f/500/280/Image/Jpeg/noFilter" alt="Afghanistan Roblox oyun görseli" loading="lazy"><div class="cover-fallback">AF</div><span class="game-tag">Roblox deneyimi</span></div>
-              <div class="game-body">
-                <div class="game-title-row"><h3 class="game-title">Afghanistan</h3><span class="game-link-icon">↗</span></div>
-                <div class="game-creator">League of Ghosts</div>
-                <div class="game-metrics">
-                  <div class="metric"><div class="metric-label">Aktif oyuncu</div><div class="metric-value players">—</div><div class="metric-note">Canlı Roblox verisi</div></div>
-                  <div class="metric"><div class="metric-label">Koruma durumu</div><div class="metric-value active-value">AKTİF</div><div class="metric-note">Anti-cheat koruması</div></div>
-                </div>
-                <div class="game-footer"><span class="game-connection">Veri bağlantısı bekleniyor</span><span>60 sn. yenileme</span></div>
+
+          <!-- MİSYONUMUZ -->
+          <article class="about-card">
+            <div>
+              <span class="about-card-badge">HEDEF & SAVUNMA</span>
+              <div class="about-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="22" y1="12" x2="18" y2="12"/>
+                  <line x1="6" y1="12" x2="2" y2="12"/>
+                  <line x1="12" y1="6" x2="12" y2="2"/>
+                  <line x1="12" y1="22" x2="12" y2="18"/>
+                </svg>
               </div>
-            </a>
+              <h3>Misyonumuz</h3>
+              <p>Oyun ve yazılım ekosistemlerini her türlü kötüye kullanım, exploit ve tersine mühendislik girişimine karşı proaktif korumak. Topluluklara adil rekabet ortamı sunarken, geliştiricilere yüksek performanslı, bağımsız ve ölçeklenebilir savunma araçları ulaştırmak.</p>
+            </div>
+            <div class="about-card-footer">
+              <span class="footer-dot" style="background:var(--blue);box-shadow:0 0 8px var(--blue)"></span>
+              <span>Proaktif Koruma & Adil Oyun</span>
+            </div>
           </article>
-          <article class="game-card" data-place="5975613030">
-            <a href="https://www.roblox.com/games/5975613030" target="_blank" rel="noopener noreferrer" aria-label="Syria oyununu Roblox'ta aç">
-              <div class="game-cover has-image"><img src="https://tr.rbxcdn.com/180DAY-d7b394c6fd3dc7e95c6c26156ec9bc80/500/280/Image/Jpeg/noFilter" alt="Syria Roblox oyun görseli" loading="lazy"><div class="cover-fallback">SY</div><span class="game-tag">Roblox deneyimi</span></div>
-              <div class="game-body">
-                <div class="game-title-row"><h3 class="game-title">Syria</h3><span class="game-link-icon">↗</span></div>
-                <div class="game-creator">League of Ghosts</div>
-                <div class="game-metrics">
-                  <div class="metric"><div class="metric-label">Aktif oyuncu</div><div class="metric-value players">—</div><div class="metric-note">Canlı Roblox verisi</div></div>
-                  <div class="metric"><div class="metric-label">Koruma durumu</div><div class="metric-value active-value">AKTİF</div><div class="metric-note">Anti-cheat koruması</div></div>
-                </div>
-                <div class="game-footer"><span class="game-connection">Veri bağlantısı bekleniyor</span><span>60 sn. yenileme</span></div>
+
+          <!-- VİZYONUMUZ -->
+          <article class="about-card">
+            <div>
+              <span class="about-card-badge">GELECEK VİZYONU</span>
+              <div class="about-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                </svg>
               </div>
-            </a>
+              <h3>Vizyonumuz</h3>
+              <p>Oyun güvenliği ve dijital savunma teknolojilerinde Türkiye'de ve küresel düzeyde referans gösterilen öncü bir güç olmak. Yeni nesil dinamik analiz ve anti-cheat çözümleriyle dijital projelerin güvenlik standartlarını en üst seviyeye taşımak.</p>
+            </div>
+            <div class="about-card-footer">
+              <span class="footer-dot" style="background:var(--green);box-shadow:0 0 8px var(--green)"></span>
+              <span>Küresel Standartlar & İnovasyon</span>
+            </div>
           </article>
         </div>
-        <div class="refresh-note" id="refreshNote">Oyuncu verisi Roblox bağlantısı kurulduğunda burada görünür.</div>
+
+        <!-- ANTİ-CHEAT KORUMA PANELİ (KORUNDU) -->
         <div class="protection-panel" aria-label="Anti-cheat koruma durumu">
           <span class="scan-beam" aria-hidden="true"></span>
           <div class="protection-main">
@@ -549,23 +622,32 @@
           </article>
           <article class="service-card">
             <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 18V6m0 12h16M8 15v-4m4 4V7m4 8v-6m4 6v-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="m5 10 5-4 4 3 6-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <h3>Canlı izleme</h3><p>Oyun durumu ve erişilebilir Roblox verileri tek bir görünümde takip edilir.</p>
+            <h3>Canlı izleme</h3><p>Oyun durumu ve erişilebilir sistem metrikleri tek bir görünümde takip edilir.</p>
           </article>
         </div>
       </div>
     </section>
 
+    <!-- İLETİŞİM BÖLÜMÜ -->
     <section class="section" id="iletisim" style="padding-top:25px">
       <div class="wrap contact-panel">
         <div>
           <div class="eyebrow">İletişim</div>
           <h2>Birlikte daha güvenli<br>projeler geliştirelim.</h2>
-          <p>İş birliği, oyun güvenliği veya web koruması hakkında konuşmak için Sancaktar Teknoloji ile iletişime geç.</p>
-          <div class="contact-status" id="contactStatus">Discord profil ve sunucu bağlantıları eklenecek.</div>
+          <p>İş birliği, oyun güvenliği veya web koruması hakkında görüşmek için Sancaktar Teknoloji ile doğrudan iletişime geçin.</p>
+          <div class="contact-status" id="contactStatus">WhatsApp (+962 7 7121 2059) veya Discord sunucumuz üzerinden 7/24 ulaşabilirsiniz.</div>
         </div>
         <div class="contact-actions">
-          <a class="button button-primary" id="discordButton" href="#iletisim">Discord profili <span class="arrow">↗</span></a>
-          <a class="button button-ghost" id="discordServerButton" href="#iletisim">Discord sunucusu <span class="arrow">↗</span></a>
+          <!-- WhatsApp İrtibat Butonu -->
+          <a class="button button-primary" id="whatsappButton" href="https://wa.me/962771212059" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            WhatsApp: +962 7 7121 2059 <span class="arrow">↗</span>
+          </a>
+          <!-- Doğrudan Discord Sunucusuna Yönlendiren Buton -->
+          <a class="button button-ghost" id="discordServerButton" href="https://discord.gg/xkST7p8rs" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px" aria-hidden="true"><path d="M18 6h0a14.5 14.5 0 0 0-4-1.2 10.3 10.3 0 0 0-.4 1.2 13.6 13.6 0 0 0-3.2 0A10.3 10.3 0 0 0 10 4.8 14.5 14.5 0 0 0 6 6c-2.5 3.8-3.2 7.5-2.8 11.2a14.8 14.8 0 0 0 4.5 2.3c.4-.5.7-1.1 1-1.7-.5-.2-1-.4-1.5-.7.1-.1.2-.2.4-.3 3-.1 5.8-.1 8.8 0 .1.1.3.2.4.3-.5.3-1 .5-1.5.7.3.6.6 1.2 1 1.7a14.8 14.8 0 0 0 4.5-2.3c.5-4.2-.6-7.9-2.8-11.2z"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/></svg>
+            Discord Sunucusu <span class="arrow">↗</span>
+          </a>
         </div>
       </div>
     </section>
@@ -574,21 +656,11 @@
   <footer class="footer">
     <div class="wrap footer-inner"><span><strong>SANCAKTAR TEKNOLOJİ</strong> · Oyun ve web güvenliği</span><span>© <span id="year"></span> Sancaktar Teknoloji</span></div>
   </footer>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    // İleride Discord bağlantılarını bu iki alana ekle.
-    const DISCORD_PROFILE_URL = "";
-    const DISCORD_SERVER_URL = ""; // Discord sunucu davet bağlantısını buraya ekle.
-
-    const gameCards = Array.from(document.querySelectorAll(".game-card"));
-    const numberFormat = new Intl.NumberFormat("tr-TR");
-    const summary = document.getElementById("liveSummary");
-    const summaryText = document.getElementById("liveSummaryText");
-    const profileStatus = document.getElementById("profileStatus");
-    const refreshNote = document.getElementById("refreshNote");
     document.getElementById("year").textContent = new Date().getFullYear();
 
+    // Kurucu profil kartı animasyonu
     const founderCard = document.getElementById("founderCard");
     if ("IntersectionObserver" in window) {
       const founderObserver = new IntersectionObserver(entries => {
@@ -602,99 +674,7 @@
       founderCard.classList.add("is-visible");
     }
 
-    gameCards.forEach(card => {
-      const cover = card.querySelector(".game-cover");
-      const img = cover.querySelector("img");
-      if (!img) return;
-      img.dataset.fallbackSrc = img.src;
-      img.onload = () => cover.classList.add("has-image");
-      img.onerror = () => {
-        if (img.dataset.fallbackSrc && img.src !== img.dataset.fallbackSrc) {
-          img.src = img.dataset.fallbackSrc;
-          return;
-        }
-        cover.classList.remove("has-image");
-      };
-      if (img.complete && !img.naturalWidth) cover.classList.remove("has-image");
-    });
-
-    if (DISCORD_PROFILE_URL) {
-      document.getElementById("discordButton").href = DISCORD_PROFILE_URL;
-      document.getElementById("discordButton").target = "_blank";
-      document.getElementById("discordButton").rel = "noopener noreferrer";
-      document.getElementById("contactStatus").textContent = "Discord üzerinden doğrudan iletişime geçebilirsin.";
-    }
-    const discordServerButton = document.getElementById("discordServerButton");
-    if (DISCORD_SERVER_URL) {
-      discordServerButton.href = DISCORD_SERVER_URL;
-      discordServerButton.target = "_blank";
-      discordServerButton.rel = "noopener noreferrer";
-    }
-
-    async function loadRobloxData() {
-      summary.dataset.state = "pending";
-      summaryText.textContent = "Roblox verisi yenileniyor";
-      try {
-        const response = await fetch("/api/roblox", { cache: "no-store" });
-        if (!response.ok) throw new Error("Roblox API " + response.status);
-        const payload = await response.json();
-        const gamesById = new Map((payload.games || []).map(game => [String(game.placeId), game]));
-        let totalPlayers = 0;
-        let loaded = 0;
-        for (const card of gameCards) {
-          const game = gamesById.get(card.dataset.place);
-          if (game && game.icon) {
-            const cover = card.querySelector(".game-cover");
-            let img = cover.querySelector("img");
-            if (!img) {
-              img = document.createElement("img");
-              img.alt = card.querySelector(".game-title").textContent + " oyun görseli";
-              img.loading = "lazy";
-              cover.prepend(img);
-            }
-            if (!img.dataset.fallbackSrc) img.dataset.fallbackSrc = img.src;
-            img.onload = () => cover.classList.add("has-image");
-            img.onerror = () => {
-              if (img.dataset.fallbackSrc && img.src !== img.dataset.fallbackSrc) {
-                img.src = img.dataset.fallbackSrc;
-                return;
-              }
-              cover.classList.remove("has-image");
-            };
-            if (img.src !== game.icon) img.src = game.icon;
-          }
-          if (!game || !game.available || game.playing === null) {
-            card.querySelector(".game-connection").textContent = "Roblox verisi yok";
-            continue;
-          }
-          const players = Number(game.playing || 0);
-          totalPlayers += players;
-          loaded += 1;
-          card.querySelector(".players").textContent = numberFormat.format(players);
-          card.querySelector(".metric-note").textContent = numberFormat.format(Number(game.maxPlayers || 0)) + " kişi / sunucu";
-          card.querySelector(".game-connection").textContent = "Roblox verisi canlı";
-          card.classList.add("is-live");
-        }
-        if (!loaded) throw new Error("Oyun verisi aktif değil");
-        summary.dataset.state = "live";
-        summaryText.textContent = numberFormat.format(totalPlayers) + " aktif oyuncu · " + loaded + "/" + gameCards.length + " oyun";
-        profileStatus.textContent = "Canlı oyuncu izleme aktif";
-        refreshNote.textContent = "Son güncelleme " + new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit", second: "2-digit" }) + " · Oyuncu verisi 60 saniyede bir yenilenir.";
-      } catch (error) {
-        summary.dataset.state = "error";
-        summaryText.textContent = "Canlı oyuncu verisi alınamıyor";
-        profileStatus.textContent = "Roblox veri bağlantısı bekleniyor";
-        refreshNote.textContent = "Oyuncu sayacı için index.html ve api/roblox.js dosyalarını Vercel'e birlikte dağıt.";
-        gameCards.forEach(card => {
-          card.querySelector(".game-connection").textContent = "Veri bağlantısı bekleniyor";
-          card.classList.remove("is-live");
-        });
-      }
-    }
-
-    loadRobloxData();
-    window.setInterval(loadRobloxData, 60000);
-
+    // Mobil menü açılıp kapanması
     const menuButton = document.getElementById("menuButton");
     const navLinks = document.getElementById("navLinks");
     menuButton.addEventListener("click", () => {
@@ -706,27 +686,6 @@
       navLinks.classList.remove("open");
       menuButton.setAttribute("aria-expanded", "false");
     }));
-
-    const toast = document.getElementById("toast");
-    let toastTimer;
-    function showToast(message) {
-      toast.textContent = message;
-      toast.classList.add("show");
-      window.clearTimeout(toastTimer);
-      toastTimer = window.setTimeout(() => toast.classList.remove("show"), 3200);
-    }
-    if (!DISCORD_PROFILE_URL) {
-      document.getElementById("discordButton").addEventListener("click", event => {
-        event.preventDefault();
-        showToast("Discord Sunucusuna Yönlendiriliyorsunuz.");
-      });
-    }
-    if (!DISCORD_SERVER_URL) {
-      discordServerButton.addEventListener("click", event => {
-        event.preventDefault();
-        showToast("https://discord.gg/xkST7p8rs");
-      });
-    }
   </script>
 </body>
 </html>
