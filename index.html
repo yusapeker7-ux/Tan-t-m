@@ -17,7 +17,7 @@
   <style>
     :root {
       --bg-dark: #08080c;
-      --card-bg: rgba(12, 14, 24, 0.68);
+      --card-bg: rgba(12, 14, 24, 0.72);
       --card-border: rgba(255, 255, 255, 0.12);
       --accent: #5865f2;
       --accent-glow: rgba(88, 101, 242, 0.35);
@@ -44,13 +44,13 @@
       overflow-x: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end; /* Kartı aşağı alarak videonun üst kısmını tamamen açıkta bırakır */
+      justify-content: flex-end;
       align-items: center;
       position: relative;
-      padding: 60px 16px 28px 16px;
+      padding: 60px 16px 20px 16px;
     }
 
-    /* Arka Plan Videosu */
+    /* Arka Plan Videosu - RTE'yi Aşağıya İndiren Ayar */
     .video-background {
       position: fixed;
       top: 0;
@@ -58,6 +58,7 @@
       width: 100vw;
       height: 100vh;
       object-fit: cover;
+      object-position: center 18%; /* Yüzü ve kafayı ekranın içine aşağıya indirir */
       z-index: -3;
       filter: brightness(0.88) contrast(1.05);
       transition: filter 0.5s ease;
@@ -70,7 +71,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: linear-gradient(to bottom, rgba(5,5,8,0.1) 0%, rgba(5,5,8,0.3) 40%, rgba(5,5,8,0.7) 100%);
+      background: linear-gradient(to bottom, rgba(5,5,8,0.05) 0%, rgba(5,5,8,0.25) 45%, rgba(5,5,8,0.7) 100%);
       z-index: -2;
       pointer-events: none;
     }
@@ -81,7 +82,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      box-shadow: inset 0 0 90px rgba(0, 0, 0, 0.6);
+      box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.55);
       z-index: -1;
       pointer-events: none;
     }
@@ -194,10 +195,10 @@
       100% { height: 16px; }
     }
 
-    /* Ana Profil Konteyneri - Kibarlaştırılmış Boyut */
+    /* Ana Profil Konteyneri */
     .main-container {
       width: 100%;
-      max-width: 390px;
+      max-width: 380px;
       perspective: 1000px;
       z-index: 10;
       margin-top: auto;
@@ -207,20 +208,19 @@
     .profile-card {
       position: relative;
       background: var(--card-bg);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--card-border);
-      border-radius: 24px;
+      border-radius: 22px;
       overflow: hidden;
-      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7), 0 0 25px -5px var(--accent-glow);
+      box-shadow: 0 18px 45px -15px rgba(0, 0, 0, 0.7), 0 0 25px -5px var(--accent-glow);
       transition: transform 0.2s ease, box-shadow 0.3s ease;
       transform-style: preserve-3d;
     }
 
-    /* Banner - Kompakt */
     .card-banner {
       width: 100%;
-      height: 90px;
+      height: 80px;
       position: relative;
       background: linear-gradient(135deg, #181926 0%, #2b1b3d 50%, #171b31 100%);
       background-size: cover;
@@ -237,22 +237,21 @@
     }
 
     .card-body {
-      padding: 0 18px 18px 18px;
+      padding: 0 16px 16px 16px;
       position: relative;
-      margin-top: -42px;
+      margin-top: -38px;
     }
 
-    /* Avatar - Kompakt */
     .avatar-wrapper {
       position: relative;
       display: inline-block;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .avatar-box {
       position: relative;
-      width: 76px;
-      height: 76px;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
     }
 
@@ -290,7 +289,7 @@
       display: flex;
       flex-direction: column;
       gap: 3px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .names-row {
@@ -308,7 +307,7 @@
     }
 
     .display-name {
-      font-size: 1.35rem;
+      font-size: 1.3rem;
       font-weight: 800;
       color: #fff;
       display: flex;
@@ -362,7 +361,7 @@
       background: linear-gradient(135deg, rgba(88, 101, 242, 0.25), rgba(129, 140, 248, 0.15));
       border: 1px solid rgba(129, 140, 248, 0.4);
       color: #c7d2fe;
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 700;
       padding: 2px 8px;
       border-radius: 8px;
@@ -372,7 +371,7 @@
 
     .developer-tag i {
       color: #818cf8;
-      font-size: 0.68rem;
+      font-size: 0.66rem;
     }
 
     .handle-row {
@@ -384,14 +383,14 @@
 
     .username-handle {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
       font-weight: 500;
     }
 
     .id-pill {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       color: #a5b4fc;
       background: rgba(99, 102, 241, 0.12);
       border: 1px solid rgba(99, 102, 241, 0.25);
@@ -413,9 +412,9 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      padding: 3px 9px;
+      padding: 3px 8px;
       border-radius: 16px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -438,15 +437,15 @@
     .card-divider {
       height: 1px;
       background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
-      margin: 12px 0;
+      margin: 10px 0;
     }
 
     .bio-section {
       background: rgba(0, 0, 0, 0.28);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      padding: 10px 14px;
-      margin-bottom: 12px;
+      border-radius: 13px;
+      padding: 9px 12px;
+      margin-bottom: 10px;
       position: relative;
     }
 
@@ -462,19 +461,19 @@
     }
 
     .bio-title {
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       color: #a5b4fc;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
       display: flex;
       align-items: center;
       gap: 5px;
     }
 
     .bio-content {
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 600;
       color: #f1f5f9;
       line-height: 1.45;
@@ -482,12 +481,12 @@
     }
 
     .skills-section-title {
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       color: var(--text-muted);
-      margin: 10px 0 6px 0;
+      margin: 8px 0 5px 0;
       display: flex;
       align-items: center;
       gap: 5px;
@@ -496,20 +495,20 @@
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 7px;
-      margin-bottom: 12px;
+      gap: 6px;
+      margin-bottom: 10px;
     }
 
     .skill-card {
       background: rgba(255, 255, 255, 0.035);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 13px;
-      padding: 9px 4px;
+      border-radius: 12px;
+      padding: 8px 3px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      gap: 3px;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -520,21 +519,21 @@
     }
 
     .skill-icon {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
     }
 
     .skill-name {
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 700;
       color: #fff;
     }
 
     .skill-level {
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       font-weight: 700;
       text-transform: uppercase;
-      padding: 1px 6px;
-      border-radius: 10px;
+      padding: 1px 5px;
+      border-radius: 8px;
       background: rgba(34, 197, 94, 0.15);
       color: #4ade80;
       border: 1px solid rgba(74, 222, 128, 0.25);
@@ -547,23 +546,23 @@
     .primary-dc-btn {
       width: 100%;
       background: linear-gradient(135deg, #5865f2, #4752c4);
-      border-radius: 14px;
-      padding: 11px;
+      border-radius: 13px;
+      padding: 10px;
       color: #fff;
       font-weight: 700;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       text-decoration: none;
-      box-shadow: 0 6px 18px rgba(88, 101, 242, 0.4);
+      box-shadow: 0 6px 16px rgba(88, 101, 242, 0.4);
       transition: all 0.3s;
     }
 
     .primary-dc-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(88, 101, 242, 0.6);
+      box-shadow: 0 10px 22px rgba(88, 101, 242, 0.6);
       filter: brightness(1.1);
     }
 
@@ -594,7 +593,7 @@
 </head>
 <body>
 
-  <!-- Arka Plan Videosu: Canlı Oynatma -->
+  <!-- Arka Plan Videosu: RTE'yi Aşağıya İndiren Ayar -->
   <video id="bg-video" class="video-background" autoplay loop muted playsinline preload="auto">
     <source src="VID_20261103_045008_905.mp4" type="video/mp4">
     <source src="background.mp4" type="video/mp4">
@@ -625,7 +624,7 @@
     </button>
   </div>
 
-  <!-- Ana Profil Kartı (Kibar ve Aşağıda Konumlandırılmış) -->
+  <!-- Ana Profil Kartı -->
   <div class="main-container">
     <div class="profile-card" id="profile-card">
       <div class="card-banner" id="banner-el">
@@ -678,7 +677,7 @@
         <div class="bio-section">
           <div class="bio-title"><i class="fa-solid fa-quote-left"></i> HAKKIMDA</div>
           <div class="bio-content">
-            “Aklı olanlarla yola çıkmadık, aklı olan da bizim yolumuza çıkmasın.”
+            “Aklı olmayanlarla yola çıkmadık, aklı olan da bizim yolumuza çıkmasın.”
           </div>
         </div>
 
@@ -746,7 +745,6 @@
     const copyIdBtn = document.getElementById('copy-id-btn');
     const toast = document.getElementById('toast');
 
-    // Ses Açma / Kapatma
     function enableAudio() {
       bgVideo.muted = false;
       bgVideo.volume = 0.8;
@@ -779,12 +777,10 @@
       }
     });
 
-    // Başlangıç Değerleri
     avatarImg.src = INITIAL_DATA.avatarUrl;
     displayName.textContent = INITIAL_DATA.globalName;
     usernameHandle.textContent = `@${INITIAL_DATA.username}`;
 
-    // Lanyard WebSocket Canlı Durum Akışı
     function initLanyard() {
       const ws = new WebSocket('wss://api.lanyard.rest/socket');
       ws.onopen = () => {
@@ -827,7 +823,6 @@
     initLanyard();
     fallbackREST();
 
-    // 3D Tilt
     profileCard.addEventListener('mousemove', (e) => {
       const rect = profileCard.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
@@ -838,14 +833,12 @@
       profileCard.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
     });
 
-    // ID Kopyalama
     copyIdBtn.addEventListener('click', () => {
       navigator.clipboard.writeText(DISCORD_ID);
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2000);
     });
 
-    // Parçacık Animasyonu
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
