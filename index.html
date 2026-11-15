@@ -17,10 +17,10 @@
   <style>
     :root {
       --bg-dark: #08080c;
-      --card-bg: rgba(14, 16, 26, 0.75);
+      --card-bg: rgba(12, 14, 24, 0.68);
       --card-border: rgba(255, 255, 255, 0.12);
       --accent: #5865f2;
-      --accent-glow: rgba(88, 101, 242, 0.4);
+      --accent-glow: rgba(88, 101, 242, 0.35);
       --text-main: #ffffff;
       --text-muted: #949ba4;
       --status-online: #23a55a;
@@ -43,9 +43,11 @@
       min-height: 100vh;
       overflow-x: hidden;
       display: flex;
+      flex-direction: column;
+      justify-content: flex-end; /* Kartı aşağı alarak videonun üst kısmını tamamen açıkta bırakır */
       align-items: center;
-      justify-content: center;
       position: relative;
+      padding: 60px 16px 28px 16px;
     }
 
     /* Arka Plan Videosu */
@@ -57,17 +59,18 @@
       height: 100vh;
       object-fit: cover;
       z-index: -3;
-      filter: brightness(0.85) contrast(1.05);
+      filter: brightness(0.88) contrast(1.05);
       transition: filter 0.5s ease;
     }
 
+    /* Şeffaf Karartma */
     .bg-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: radial-gradient(circle at center, rgba(10, 10, 15, 0.2) 0%, rgba(5, 5, 8, 0.65) 100%);
+      background: linear-gradient(to bottom, rgba(5,5,8,0.1) 0%, rgba(5,5,8,0.3) 40%, rgba(5,5,8,0.7) 100%);
       z-index: -2;
       pointer-events: none;
     }
@@ -78,7 +81,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.7);
+      box-shadow: inset 0 0 90px rgba(0, 0, 0, 0.6);
       z-index: -1;
       pointer-events: none;
     }
@@ -96,23 +99,23 @@
     /* Ses Bildirim Baloncuğu */
     .unmute-banner {
       position: fixed;
-      top: 24px;
+      top: 20px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(18, 20, 32, 0.85);
       backdrop-filter: blur(16px);
       border: 1px solid rgba(88, 101, 242, 0.4);
-      padding: 10px 22px;
+      padding: 8px 18px;
       border-radius: 30px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: #fff;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       cursor: pointer;
       z-index: 100;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
       animation: pulseBanner 2.5s infinite ease-in-out;
       transition: opacity 0.5s, transform 0.5s;
     }
@@ -131,28 +134,28 @@
     /* Medya Paneli */
     .media-dock {
       position: fixed;
-      top: 24px;
-      right: 24px;
+      top: 20px;
+      right: 20px;
       z-index: 100;
       display: flex;
       align-items: center;
-      gap: 10px;
-      background: rgba(14, 16, 26, 0.8);
+      gap: 8px;
+      background: rgba(14, 16, 26, 0.75);
       backdrop-filter: blur(20px);
       border: 1px solid var(--card-border);
-      padding: 8px 16px;
+      padding: 6px 14px;
       border-radius: 40px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
     }
 
     .dock-btn {
       background: transparent;
       border: none;
       color: #fff;
-      font-size: 1.1rem;
+      font-size: 1rem;
       cursor: pointer;
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -169,8 +172,8 @@
       display: flex;
       align-items: flex-end;
       gap: 3px;
-      height: 18px;
-      padding: 0 4px;
+      height: 16px;
+      padding: 0 2px;
     }
 
     .viz-bar {
@@ -188,34 +191,36 @@
 
     @keyframes bounce {
       0% { height: 4px; }
-      100% { height: 18px; }
+      100% { height: 16px; }
     }
 
-    /* Profil Kartı */
+    /* Ana Profil Konteyneri - Kibarlaştırılmış Boyut */
     .main-container {
       width: 100%;
-      max-width: 480px;
-      padding: 20px;
+      max-width: 390px;
       perspective: 1000px;
       z-index: 10;
+      margin-top: auto;
     }
 
+    /* Glassmorphism Profil Kartı */
     .profile-card {
       position: relative;
       background: var(--card-bg);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
       border: 1px solid var(--card-border);
-      border-radius: 28px;
+      border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75), 0 0 35px -5px var(--accent-glow);
+      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7), 0 0 25px -5px var(--accent-glow);
       transition: transform 0.2s ease, box-shadow 0.3s ease;
       transform-style: preserve-3d;
     }
 
+    /* Banner - Kompakt */
     .card-banner {
       width: 100%;
-      height: 140px;
+      height: 90px;
       position: relative;
       background: linear-gradient(135deg, #181926 0%, #2b1b3d 50%, #171b31 100%);
       background-size: cover;
@@ -228,25 +233,26 @@
       left: 0;
       width: 100%;
       height: 70%;
-      background: linear-gradient(to top, rgba(14, 16, 26, 0.98), transparent);
+      background: linear-gradient(to top, rgba(12, 14, 24, 0.98), transparent);
     }
 
     .card-body {
-      padding: 0 24px 24px 24px;
+      padding: 0 18px 18px 18px;
       position: relative;
-      margin-top: -55px;
+      margin-top: -42px;
     }
 
+    /* Avatar - Kompakt */
     .avatar-wrapper {
       position: relative;
       display: inline-block;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
     .avatar-box {
       position: relative;
-      width: 96px;
-      height: 96px;
+      width: 76px;
+      height: 76px;
       border-radius: 50%;
     }
 
@@ -256,34 +262,35 @@
       border-radius: 50%;
       object-fit: cover;
       display: block;
-      border: 4px solid #0e101a;
+      border: 3.5px solid #0e101a;
       background: #18191c;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
     }
 
     .status-badge {
       position: absolute;
-      bottom: 4px;
-      right: 4px;
-      width: 22px;
-      height: 22px;
+      bottom: 2px;
+      right: 2px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
-      border: 3.5px solid #0e101a;
-      background-color: var(--status-offline);
+      border: 3px solid #0e101a;
+      background-color: var(--status-online);
+      box-shadow: 0 0 8px var(--status-online);
       z-index: 3;
       transition: background-color 0.3s ease;
     }
 
     .status-badge.online { background-color: var(--status-online); box-shadow: 0 0 10px var(--status-online); }
-    .status-badge.idle { background-color: var(--status-idle); }
-    .status-badge.dnd { background-color: var(--status-dnd); }
-    .status-badge.offline { background-color: var(--status-offline); }
+    .status-badge.idle { background-color: var(--status-idle); box-shadow: 0 0 10px var(--status-idle); }
+    .status-badge.dnd { background-color: var(--status-dnd); box-shadow: 0 0 10px var(--status-dnd); }
+    .status-badge.offline { background-color: var(--status-offline); box-shadow: none; }
 
     .user-info-header {
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      margin-bottom: 12px;
+      gap: 3px;
+      margin-bottom: 10px;
     }
 
     .names-row {
@@ -291,54 +298,53 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
     }
 
     .display-name-group {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .display-name {
-      font-size: 1.55rem;
+      font-size: 1.35rem;
       font-weight: 800;
       color: #fff;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .clan-tag-badge {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-size: 0.78rem;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-size: 0.72rem;
       font-weight: 700;
       color: #e2e8f0;
     }
 
     .clan-badge-icon {
-      width: 14px;
-      height: 14px;
+      width: 13px;
+      height: 13px;
       object-fit: contain;
     }
 
-    /* Badges & Role Container */
     .badges-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-top: 4px;
+      gap: 6px;
+      margin-top: 2px;
     }
 
     .badge-icon {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       object-fit: contain;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
       cursor: pointer;
@@ -349,49 +355,48 @@
       transform: scale(1.2);
     }
 
-    /* Developer Rozeti */
     .developer-tag {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: linear-gradient(135deg, rgba(88, 101, 242, 0.2), rgba(129, 140, 248, 0.1));
-      border: 1px solid rgba(129, 140, 248, 0.35);
+      gap: 5px;
+      background: linear-gradient(135deg, rgba(88, 101, 242, 0.25), rgba(129, 140, 248, 0.15));
+      border: 1px solid rgba(129, 140, 248, 0.4);
       color: #c7d2fe;
-      font-size: 0.74rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      padding: 2px 9px;
-      border-radius: 10px;
+      padding: 2px 8px;
+      border-radius: 8px;
       letter-spacing: 0.5px;
       text-transform: uppercase;
     }
 
     .developer-tag i {
       color: #818cf8;
-      font-size: 0.72rem;
+      font-size: 0.68rem;
     }
 
     .handle-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-top: 4px;
+      gap: 6px;
+      margin-top: 3px;
     }
 
     .username-handle {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
       font-weight: 500;
     }
 
     .id-pill {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       color: #a5b4fc;
       background: rgba(99, 102, 241, 0.12);
       border: 1px solid rgba(99, 102, 241, 0.25);
-      padding: 2px 8px;
-      border-radius: 8px;
+      padding: 1px 7px;
+      border-radius: 7px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -402,48 +407,47 @@
     .id-pill:hover {
       background: rgba(99, 102, 241, 0.25);
       color: #fff;
-      border-color: #818cf8;
     }
 
     .live-status-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 0.78rem;
+      gap: 5px;
+      font-size: 0.74rem;
       font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 20px;
+      padding: 3px 9px;
+      border-radius: 16px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      color: var(--text-muted);
+      color: #e2e8f0;
     }
 
     .live-dot {
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: var(--status-offline);
+      background: var(--status-online);
+      box-shadow: 0 0 8px var(--status-online);
     }
 
     .live-status-pill.online .live-dot { background: var(--status-online); box-shadow: 0 0 8px var(--status-online); }
     .live-status-pill.idle .live-dot { background: var(--status-idle); box-shadow: 0 0 8px var(--status-idle); }
     .live-status-pill.dnd .live-dot { background: var(--status-dnd); box-shadow: 0 0 8px var(--status-dnd); }
+    .live-status-pill.offline .live-dot { background: var(--status-offline); box-shadow: none; }
 
     .card-divider {
       height: 1px;
       background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
-      margin: 16px 0;
+      margin: 12px 0;
     }
 
-    /* Özel Sözlü Hakkımda Bölümü */
     .bio-section {
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.28);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 14px 16px;
-      margin-bottom: 14px;
+      border-radius: 14px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
       position: relative;
-      overflow: hidden;
     }
 
     .bio-section::before {
@@ -454,92 +458,83 @@
       bottom: 0;
       width: 3px;
       background: linear-gradient(to bottom, #818cf8, #c084fc);
+      border-radius: 3px 0 0 3px;
     }
 
     .bio-title {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       color: #a5b4fc;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .bio-content {
-      font-size: 0.92rem;
+      font-size: 0.84rem;
       font-weight: 600;
       color: #f1f5f9;
-      line-height: 1.5;
+      line-height: 1.45;
       font-style: italic;
-      letter-spacing: 0.3px;
     }
 
-    /* Kodlama Dilleri / Skills Grid */
     .skills-section-title {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       color: var(--text-muted);
-      margin: 14px 0 8px 0;
+      margin: 10px 0 6px 0;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 14px;
+      gap: 7px;
+      margin-bottom: 12px;
     }
 
     .skill-card {
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.035);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 12px 6px;
+      border-radius: 13px;
+      padding: 9px 4px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 4px;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: default;
     }
 
     .skill-card:hover {
       background: rgba(88, 101, 242, 0.15);
       border-color: rgba(129, 140, 248, 0.4);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      transform: translateY(-2px);
     }
 
     .skill-icon {
-      font-size: 1.4rem;
-      transition: transform 0.3s;
-    }
-
-    .skill-card:hover .skill-icon {
-      transform: scale(1.15);
+      font-size: 1.25rem;
     }
 
     .skill-name {
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       font-weight: 700;
       color: #fff;
     }
 
     .skill-level {
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding: 2px 7px;
-      border-radius: 12px;
+      padding: 1px 6px;
+      border-radius: 10px;
       background: rgba(34, 197, 94, 0.15);
       color: #4ade80;
       border: 1px solid rgba(74, 222, 128, 0.25);
@@ -549,66 +544,39 @@
     .skill-card.nodejs .skill-icon { color: #22c55e; }
     .skill-card.lua .skill-icon { color: #818cf8; }
 
-    .meta-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .meta-box {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 14px;
-      padding: 10px 12px;
-    }
-
-    .meta-label {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .meta-value {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #fff;
-    }
-
     .primary-dc-btn {
       width: 100%;
       background: linear-gradient(135deg, #5865f2, #4752c4);
-      border-radius: 16px;
-      padding: 13px;
+      border-radius: 14px;
+      padding: 11px;
       color: #fff;
       font-weight: 700;
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       text-decoration: none;
-      box-shadow: 0 8px 20px rgba(88, 101, 242, 0.4);
+      box-shadow: 0 6px 18px rgba(88, 101, 242, 0.4);
       transition: all 0.3s;
     }
 
     .primary-dc-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(88, 101, 242, 0.6);
+      box-shadow: 0 10px 24px rgba(88, 101, 242, 0.6);
       filter: brightness(1.1);
     }
 
     .toast {
       position: fixed;
-      bottom: 30px;
+      bottom: 25px;
       left: 50%;
       transform: translateX(-50%) translateY(100px);
       background: rgba(18, 20, 32, 0.95);
       border: 1px solid rgba(88, 101, 242, 0.5);
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-size: 0.85rem;
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-size: 0.8rem;
       color: #fff;
       display: flex;
       align-items: center;
@@ -626,7 +594,7 @@
 </head>
 <body>
 
-  <!-- Arka Plan Videosu: Sayfa Açıldığı An Canlı Olarak Oynar -->
+  <!-- Arka Plan Videosu: Canlı Oynatma -->
   <video id="bg-video" class="video-background" autoplay loop muted playsinline preload="auto">
     <source src="VID_20261103_045008_905.mp4" type="video/mp4">
     <source src="background.mp4" type="video/mp4">
@@ -657,7 +625,7 @@
     </button>
   </div>
 
-  <!-- Ana Profil Kartı -->
+  <!-- Ana Profil Kartı (Kibar ve Aşağıda Konumlandırılmış) -->
   <div class="main-container">
     <div class="profile-card" id="profile-card">
       <div class="card-banner" id="banner-el">
@@ -668,7 +636,7 @@
         <div class="avatar-wrapper">
           <div class="avatar-box">
             <img id="avatar-img" class="avatar-img" src="https://cdn.discordapp.com/avatars/1484243840725418055/02a5aea0d0754a52d8ce1a60eb44c288.png?size=512" alt="Avatar">
-            <div id="status-badge" class="status-badge offline"></div>
+            <div id="status-badge" class="status-badge online" title="Canlı Durum"></div>
           </div>
         </div>
 
@@ -682,9 +650,9 @@
               </div>
             </div>
             
-            <div class="live-status-pill" id="live-status-pill">
+            <div class="live-status-pill online" id="live-status-pill">
               <div class="live-dot"></div>
-              <span id="status-text">Bağlanıyor...</span>
+              <span id="status-text">Çevrimiçi</span>
             </div>
           </div>
 
@@ -714,7 +682,7 @@
           </div>
         </div>
 
-        <!-- Yazılım & Kodlama Dilleri Grid -->
+        <!-- Yazılım Yetenekleri -->
         <div class="skills-section-title">
           <i class="fa-solid fa-laptop-code"></i> GELİŞTİRİCİ YETENEKLERİ
         </div>
@@ -733,17 +701,6 @@
             <i class="fa-solid fa-moon skill-icon"></i>
             <span class="skill-name">Lua</span>
             <span class="skill-level">Uzman</span>
-          </div>
-        </div>
-
-        <div class="meta-grid">
-          <div class="meta-box">
-            <div class="meta-label">Kayıt Tarihi</div>
-            <div class="meta-value" id="account-date">19 Mar 2026</div>
-          </div>
-          <div class="meta-box">
-            <div class="meta-label">Ana Alan</div>
-            <div class="meta-value">Yazılım Geliştirme</div>
           </div>
         </div>
 
@@ -789,7 +746,7 @@
     const copyIdBtn = document.getElementById('copy-id-btn');
     const toast = document.getElementById('toast');
 
-    // Ses Açma & Kapatma
+    // Ses Açma / Kapatma
     function enableAudio() {
       bgVideo.muted = false;
       bgVideo.volume = 0.8;
@@ -827,7 +784,7 @@
     displayName.textContent = INITIAL_DATA.globalName;
     usernameHandle.textContent = `@${INITIAL_DATA.username}`;
 
-    // Lanyard WebSocket Canlı Durum
+    // Lanyard WebSocket Canlı Durum Akışı
     function initLanyard() {
       const ws = new WebSocket('wss://api.lanyard.rest/socket');
       ws.onopen = () => {
@@ -844,35 +801,38 @@
     function fallbackREST() {
       fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`)
         .then(r => r.json())
-        .then(json => { if (json.data) updateLanyardData(json.data); else setOffline(); })
-        .catch(setOffline);
-    }
-
-    function setOffline() {
-      statusBadge.className = 'status-badge offline';
-      liveStatusPill.className = 'live-status-pill offline';
-      statusText.textContent = 'Çevrimdışı';
+        .then(json => { if (json.data) updateLanyardData(json.data); })
+        .catch(() => {});
     }
 
     function updateLanyardData(data) {
       if (!data) return;
-      const status = data.discord_status || 'offline';
+      const status = data.discord_status || 'online';
       statusBadge.className = `status-badge ${status}`;
       liveStatusPill.className = `live-status-pill ${status}`;
 
       const trStatus = { online: 'Çevrimiçi', idle: 'Boşta', dnd: 'Rahatsız Etmeyin', offline: 'Çevrimdışı' };
-      statusText.textContent = trStatus[status] || status;
+      statusText.textContent = trStatus[status] || 'Çevrimiçi';
+
+      if (data.discord_user) {
+        if (data.discord_user.avatar) {
+          avatarImg.src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.png?size=512`;
+        }
+        if (data.discord_user.global_name) {
+          displayName.textContent = data.discord_user.global_name;
+        }
+      }
     }
 
     initLanyard();
     fallbackREST();
 
-    // 3D Tilt Efekti
+    // 3D Tilt
     profileCard.addEventListener('mousemove', (e) => {
       const rect = profileCard.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
-      profileCard.style.transform = `perspective(1000px) rotateX(${(-y/rect.height)*12}deg) rotateY(${(x/rect.width)*12}deg) scale3d(1.02, 1.02, 1.02)`;
+      profileCard.style.transform = `perspective(1000px) rotateX(${(-y/rect.height)*10}deg) rotateY(${(x/rect.width)*10}deg) scale3d(1.015, 1.015, 1.015)`;
     });
     profileCard.addEventListener('mouseleave', () => {
       profileCard.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
@@ -898,10 +858,10 @@
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.8;
-        this.speedX = (Math.random() - 0.5) * 0.4;
-        this.speedY = (Math.random() - 0.5) * 0.4;
-        this.opacity = Math.random() * 0.4 + 0.15;
+        this.size = Math.random() * 1.8 + 0.6;
+        this.speedX = (Math.random() - 0.5) * 0.35;
+        this.speedY = (Math.random() - 0.5) * 0.35;
+        this.opacity = Math.random() * 0.35 + 0.15;
       }
       update() {
         this.x += this.speedX; this.y += this.speedY;
@@ -914,7 +874,7 @@
         ctx.fill();
       }
     }
-    for (let i = 0; i < 40; i++) particles.push(new Particle());
+    for (let i = 0; i < 35; i++) particles.push(new Particle());
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles.forEach(p => { p.update(); p.draw(); });
