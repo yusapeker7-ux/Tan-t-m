@@ -50,7 +50,7 @@
       padding: 60px 16px 20px 16px;
     }
 
-    /* Arka Plan Videosu - RTE'yi Aşağıya İndiren Ayar */
+    /* Arka Plan Videosu - 48% Milimetrik Ayar */
     .video-background {
       position: fixed;
       top: 0;
@@ -58,13 +58,12 @@
       width: 100vw;
       height: 100vh;
       object-fit: cover;
-      object-position: center 18%; /* Yüzü ve kafayı ekranın içine aşağıya indirir */
+      object-position: center 48%;
       z-index: -3;
       filter: brightness(0.88) contrast(1.05);
       transition: filter 0.5s ease;
     }
 
-    /* Şeffaf Karartma */
     .bg-overlay {
       position: fixed;
       top: 0;
@@ -440,6 +439,7 @@
       margin: 10px 0;
     }
 
+    /* Özel Sözlü Hakkımda Bölümü */
     .bio-section {
       background: rgba(0, 0, 0, 0.28);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -593,7 +593,7 @@
 </head>
 <body>
 
-  <!-- Arka Plan Videosu: RTE'yi Aşağıya İndiren Ayar -->
+  <!-- Arka Plan Videosu: 48% Hizalama -->
   <video id="bg-video" class="video-background" autoplay loop muted playsinline preload="auto">
     <source src="VID_20261103_045008_905.mp4" type="video/mp4">
     <source src="background.mp4" type="video/mp4">
