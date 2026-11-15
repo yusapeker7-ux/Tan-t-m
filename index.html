@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>☨ Fiskos | Bio</title>
-  <link rel="icon" href="https://cdn.discordapp.com/avatars/1438508951284224151/5e270d9016504abff98dccfd23a3a714.png?size=512" type="image/png">
+  <title>gokbrRevenge | Profile</title>
+  <link rel="icon" href="https://cdn.discordapp.com/avatars/1484243840725418055/02a5aea0d0754a52d8ce1a60eb44c288.png?size=512" type="image/png">
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,11 +16,11 @@
 
   <style>
     :root {
-      --bg-dark: #0a0a0f;
-      --card-bg: rgba(14, 16, 26, 0.65);
-      --card-border: rgba(255, 255, 255, 0.1);
+      --bg-dark: #08080c;
+      --card-bg: rgba(14, 16, 26, 0.72);
+      --card-border: rgba(255, 255, 255, 0.12);
       --accent: #5865f2;
-      --accent-glow: rgba(88, 101, 242, 0.35);
+      --accent-glow: rgba(88, 101, 242, 0.4);
       --text-main: #ffffff;
       --text-muted: #949ba4;
       --status-online: #23a55a;
@@ -49,6 +49,7 @@
       position: relative;
     }
 
+    /* Arka Plan Videosu - Canlı ve Parlak */
     .video-background {
       position: fixed;
       top: 0;
@@ -57,7 +58,8 @@
       height: 100vh;
       object-fit: cover;
       z-index: -3;
-      filter: brightness(0.65) contrast(1.1);
+      filter: brightness(0.85) contrast(1.05);
+      transition: filter 0.5s ease;
     }
 
     .bg-overlay {
@@ -66,7 +68,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: radial-gradient(circle at center, rgba(10, 10, 15, 0.4) 0%, rgba(5, 5, 8, 0.85) 100%);
+      background: radial-gradient(circle at center, rgba(10, 10, 15, 0.2) 0%, rgba(5, 5, 8, 0.65) 100%);
       z-index: -2;
       pointer-events: none;
     }
@@ -77,7 +79,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.85);
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.7);
       z-index: -1;
       pointer-events: none;
     }
@@ -92,61 +94,39 @@
       pointer-events: none;
     }
 
-    /* Giriş Ekranı */
-    .entry-screen {
+    /* Ses Bildirim Baloncuğu */
+    .unmute-banner {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(8, 8, 12, 0.95);
-      backdrop-filter: blur(25px);
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(18, 20, 32, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(88, 101, 242, 0.4);
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      z-index: 9999;
+      gap: 10px;
       cursor: pointer;
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      animation: pulseBanner 2.5s infinite ease-in-out;
+      transition: opacity 0.5s, transform 0.5s;
     }
 
-    .entry-screen.fade-out {
+    .unmute-banner.hidden {
       opacity: 0;
-      visibility: hidden;
       pointer-events: none;
+      transform: translateX(-50%) translateY(-30px);
     }
 
-    .entry-content {
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .entry-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, #fff 20%, #a5b4fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: pulseGlow 2.5s infinite ease-in-out;
-    }
-
-    .entry-subtitle {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      letter-spacing: 2px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.7; transform: scale(0.98); }
-      50% { opacity: 1; transform: scale(1.02); }
+    @keyframes pulseBanner {
+      0%, 100% { transform: translateX(-50%) scale(1); border-color: rgba(88, 101, 242, 0.4); }
+      50% { transform: translateX(-50%) scale(1.03); border-color: rgba(88, 101, 242, 0.9); }
     }
 
     /* Medya Paneli */
@@ -157,13 +137,13 @@
       z-index: 100;
       display: flex;
       align-items: center;
-      gap: 12px;
-      background: rgba(14, 16, 26, 0.75);
+      gap: 10px;
+      background: rgba(14, 16, 26, 0.8);
       backdrop-filter: blur(20px);
       border: 1px solid var(--card-border);
       padding: 8px 16px;
       border-radius: 40px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
     .dock-btn {
@@ -182,7 +162,7 @@
     }
 
     .dock-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.12);
       transform: scale(1.1);
     }
 
@@ -229,7 +209,7 @@
       border: 1px solid var(--card-border);
       border-radius: 28px;
       overflow: hidden;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 35px -5px var(--accent-glow);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75), 0 0 35px -5px var(--accent-glow);
       transition: transform 0.2s ease, box-shadow 0.3s ease;
       transform-style: preserve-3d;
     }
@@ -238,7 +218,7 @@
       width: 100%;
       height: 140px;
       position: relative;
-      background: linear-gradient(135deg, #1e1e2f, #2d3748);
+      background: linear-gradient(135deg, #181926 0%, #2b1b3d 50%, #171b31 100%);
       background-size: cover;
       background-position: center;
     }
@@ -248,8 +228,8 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 60%;
-      background: linear-gradient(to top, rgba(14, 16, 26, 0.95), transparent);
+      height: 70%;
+      background: linear-gradient(to top, rgba(14, 16, 26, 0.98), transparent);
     }
 
     .card-body {
@@ -279,17 +259,7 @@
       display: block;
       border: 4px solid #0e101a;
       background: #18191c;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-    }
-
-    .avatar-decoration {
-      position: absolute;
-      top: -15%;
-      left: -15%;
-      width: 130%;
-      height: 130%;
-      pointer-events: none;
-      z-index: 2;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
     }
 
     .status-badge {
@@ -305,7 +275,7 @@
       transition: background-color 0.3s ease;
     }
 
-    .status-badge.online { background-color: var(--status-online); }
+    .status-badge.online { background-color: var(--status-online); box-shadow: 0 0 10px var(--status-online); }
     .status-badge.idle { background-color: var(--status-idle); }
     .status-badge.dnd { background-color: var(--status-dnd); }
     .status-badge.offline { background-color: var(--status-offline); }
@@ -359,10 +329,31 @@
       object-fit: contain;
     }
 
+    .badges-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .badge-icon {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .badge-icon:hover {
+      transform: scale(1.2);
+    }
+
     .handle-row {
       display: flex;
       align-items: center;
       gap: 8px;
+      margin-top: 2px;
     }
 
     .username-handle {
@@ -390,6 +381,7 @@
     .id-pill:hover {
       background: rgba(99, 102, 241, 0.25);
       color: #fff;
+      border-color: #818cf8;
     }
 
     .live-status-pill {
@@ -448,11 +440,11 @@
       line-height: 1.5;
     }
 
-    /* Spotify Widget */
+    /* Spotify Kartı */
     .spotify-card {
       display: none;
-      background: linear-gradient(135deg, rgba(29, 185, 84, 0.1), rgba(0, 0, 0, 0.4));
-      border: 1px solid rgba(29, 185, 84, 0.3);
+      background: linear-gradient(135deg, rgba(29, 185, 84, 0.12), rgba(0, 0, 0, 0.4));
+      border: 1px solid rgba(29, 185, 84, 0.35);
       border-radius: 16px;
       padding: 12px 14px;
       margin-bottom: 14px;
@@ -520,7 +512,6 @@
       transition: width 1s linear;
     }
 
-    /* Bilgi Izgarası */
     .meta-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -548,7 +539,6 @@
       color: #fff;
     }
 
-    /* Sosyal Butonlar */
     .social-links {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -625,32 +615,33 @@
       transform: translateX(-50%) translateY(0);
       opacity: 1;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Arka Plan Videosu -->
-  <video id="bg-video" class="video-background" loop playsinline preload="auto">
+  <!-- Arka Plan Videosu: Sayfa Yüklendiği Anda Arka Planda Canlı Oynar -->
+  <video id="bg-video" class="video-background" autoplay loop muted playsinline preload="auto">
     <source src="background.mp4" type="video/mp4">
   </video>
   <div class="bg-overlay"></div>
   <div class="vignette"></div>
   <canvas id="particle-canvas"></canvas>
 
-  <!-- Tıkla ve Gir Ekranı -->
-  <div id="entry-screen" class="entry-screen">
-    <div class="entry-content">
-      <div class="entry-title">[ TIKLA VE GİR ]</div>
-      <div class="entry-subtitle">
-        <i class="fa-solid fa-volume-high"></i> Sesi ve efektleri etkinleştir
-      </div>
-    </div>
+  <!-- Ses Bildirim Butonu -->
+  <div id="unmute-banner" class="unmute-banner" title="Sesi Aç">
+    <i class="fa-solid fa-volume-high"></i>
+    <span>Videonun sesini açmak için tıkla</span>
   </div>
 
   <!-- Medya Kontrolleri -->
   <div class="media-dock">
     <button id="toggle-audio" class="dock-btn" title="Sesi Aç/Kapat">
-      <i class="fa-solid fa-volume-high" id="audio-icon"></i>
+      <i class="fa-solid fa-volume-xmark" id="audio-icon"></i>
     </button>
     <div class="visualizer" id="visualizer">
       <div class="viz-bar"></div>
@@ -673,8 +664,7 @@
       <div class="card-body">
         <div class="avatar-wrapper">
           <div class="avatar-box">
-            <img id="avatar-img" class="avatar-img" src="" alt="Avatar">
-            <img id="avatar-deco" class="avatar-decoration" src="" alt="Decoration">
+            <img id="avatar-img" class="avatar-img" src="https://cdn.discordapp.com/avatars/1484243840725418055/02a5aea0d0754a52d8ce1a60eb44c288.png?size=512" alt="Avatar">
             <div id="status-badge" class="status-badge offline"></div>
           </div>
         </div>
@@ -682,10 +672,10 @@
         <div class="user-info-header">
           <div class="names-row">
             <div class="display-name-group">
-              <span id="display-name" class="display-name">☨ Fiskos</span>
+              <span id="display-name" class="display-name">gokbrRevenge</span>
               <div class="clan-tag-badge">
-                <img class="clan-badge-icon" src="https://cdn.discordapp.com/clan-badges/1530290466954936520/e985287f59221651fae8813e3453f611.png" alt="Clan">
-                <span>VLRH</span>
+                <img class="clan-badge-icon" src="https://cdn.discordapp.com/clan-badges/1448320272422928386/4f280f15366d0578d6879441ff8cfc49.png" alt="Clan">
+                <span>İOME</span>
               </div>
             </div>
             
@@ -695,11 +685,15 @@
             </div>
           </div>
 
+          <div class="badges-row">
+            <img class="badge-icon" src="https://cdn.discordapp.com/badge-icons/8a88d63823d8a71cd5e390baa45efa02.png" alt="HypeSquad Bravery" title="HypeSquad Bravery">
+          </div>
+
           <div class="handle-row">
-            <span id="username-handle" class="username-handle">@fiskoselpasha</span>
-            <div class="id-pill" id="copy-id-btn" title="ID Kopyala">
+            <span id="username-handle" class="username-handle">@luxgokboruotuken</span>
+            <div class="id-pill" id="copy-id-btn" title="Discord ID Kopyala">
               <i class="fa-regular fa-copy"></i>
-              <span>1438508951284224151</span>
+              <span>1484243840725418055</span>
             </div>
           </div>
         </div>
@@ -728,17 +722,17 @@
 
         <div class="meta-grid">
           <div class="meta-box">
-            <div class="meta-label">Hesap Yaşı</div>
-            <div class="meta-value" id="account-age">1 Yıl +</div>
+            <div class="meta-label">Kayıt Tarihi</div>
+            <div class="meta-value" id="account-date">19 Mar 2026</div>
           </div>
           <div class="meta-box">
-            <div class="meta-label">Kayıt Tarihi</div>
-            <div class="meta-value" id="account-date">13 Kas 2025</div>
+            <div class="meta-label">Rozet</div>
+            <div class="meta-value">HypeSquad</div>
           </div>
         </div>
 
         <div class="social-links">
-          <a href="https://discord.com/users/1438508951284224151" target="_blank" class="social-btn">
+          <a href="https://discord.com/users/1484243840725418055" target="_blank" class="social-btn">
             <i class="fa-brands fa-discord"></i><span>Discord</span>
           </a>
           <a href="https://open.spotify.com" target="_blank" class="social-btn">
@@ -752,7 +746,7 @@
           </a>
         </div>
 
-        <a href="https://discord.com/users/1438508951284224151" target="_blank" class="primary-dc-btn">
+        <a href="https://discord.com/users/1484243840725418055" target="_blank" class="primary-dc-btn">
           <i class="fa-brands fa-discord"></i> Discord Profiline Git
         </a>
       </div>
@@ -765,18 +759,19 @@
   </div>
 
   <script>
-    const DISCORD_ID = "1438508951284224151";
+    const DISCORD_ID = "1484243840725418055";
 
     const INITIAL_DATA = {
-      username: "fiskoselpasha",
-      globalName: "☨ Fiskos",
-      avatarUrl: "https://cdn.discordapp.com/avatars/1438508951284224151/5e270d9016504abff98dccfd23a3a714.png?size=512",
-      bannerUrl: "https://cdn.discordapp.com/banners/1438508951284224151/c2cf5696261f669f7ca67c6e35c3af6d.png?size=4096",
-      decorationUrl: "https://cdn.discordapp.com/avatar-decoration-presets/a_731019cb334aa13ca110cf9e6d75b44a.png?size=160&passthrough=true"
+      username: "luxgokboruotuken",
+      globalName: "gokbrRevenge",
+      avatarUrl: "https://cdn.discordapp.com/avatars/1484243840725418055/02a5aea0d0754a52d8ce1a60eb44c288.png?size=512",
+      clanTag: "İOME",
+      clanBadgeUrl: "https://cdn.discordapp.com/clan-badges/1448320272422928386/4f280f15366d0578d6879441ff8cfc49.png",
+      badgeIconUrl: "https://cdn.discordapp.com/badge-icons/8a88d63823d8a71cd5e390baa45efa02.png"
     };
 
     const bgVideo = document.getElementById('bg-video');
-    const entryScreen = document.getElementById('entry-screen');
+    const unmuteBanner = document.getElementById('unmute-banner');
     const toggleAudio = document.getElementById('toggle-audio');
     const toggleVideo = document.getElementById('toggle-video');
     const audioIcon = document.getElementById('audio-icon');
@@ -785,8 +780,6 @@
     const profileCard = document.getElementById('profile-card');
 
     const avatarImg = document.getElementById('avatar-img');
-    const avatarDeco = document.getElementById('avatar-deco');
-    const bannerEl = document.getElementById('banner-el');
     const displayName = document.getElementById('display-name');
     const usernameHandle = document.getElementById('username-handle');
     const statusBadge = document.getElementById('status-badge');
@@ -801,21 +794,27 @@
     const spotifyArtist = document.getElementById('spotify-artist');
     const spotifyProgress = document.getElementById('spotify-progress');
 
-    // Giriş & Ses Tetikleyici
-    entryScreen.addEventListener('click', () => {
-      entryScreen.classList.add('fade-out');
+    // Video Ses Açma / Kapatma
+    function enableAudio() {
       bgVideo.muted = false;
       bgVideo.volume = 0.8;
-      bgVideo.play().then(() => {
-        visualizer.classList.add('active');
-        audioIcon.className = "fa-solid fa-volume-high";
-      }).catch(console.warn);
-    });
+      audioIcon.className = "fa-solid fa-volume-high";
+      visualizer.classList.add('active');
+      unmuteBanner.classList.add('hidden');
+    }
+
+    unmuteBanner.addEventListener('click', enableAudio);
 
     toggleAudio.addEventListener('click', () => {
       bgVideo.muted = !bgVideo.muted;
-      audioIcon.className = bgVideo.muted ? "fa-solid fa-volume-xmark" : "fa-solid fa-volume-high";
-      visualizer.classList.toggle('active', !bgVideo.muted);
+      if (bgVideo.muted) {
+        audioIcon.className = "fa-solid fa-volume-xmark";
+        visualizer.classList.remove('active');
+      } else {
+        audioIcon.className = "fa-solid fa-volume-high";
+        visualizer.classList.add('active');
+        unmuteBanner.classList.add('hidden');
+      }
     });
 
     toggleVideo.addEventListener('click', () => {
@@ -829,9 +828,7 @@
     });
 
     // Başlangıç Değerleri
-    bannerEl.style.backgroundImage = `url('${INITIAL_DATA.bannerUrl}')`;
     avatarImg.src = INITIAL_DATA.avatarUrl;
-    avatarDeco.src = INITIAL_DATA.decorationUrl;
     displayName.textContent = INITIAL_DATA.globalName;
     usernameHandle.textContent = `@${INITIAL_DATA.username}`;
 
@@ -891,7 +888,7 @@
     initLanyard();
     fallbackREST();
 
-    // 3D Tilt Efekti
+    // 3D Tilt
     profileCard.addEventListener('mousemove', (e) => {
       const rect = profileCard.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
@@ -908,6 +905,43 @@
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2000);
     });
+
+    // Parçacık Animasyonu
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.8;
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.speedY = (Math.random() - 0.5) * 0.4;
+        this.opacity = Math.random() * 0.4 + 0.15;
+      }
+      update() {
+        this.x += this.speedX; this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+      }
+      draw() {
+        ctx.fillStyle = `rgba(165, 180, 252, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    for (let i = 0; i < 40; i++) particles.push(new Particle());
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
   </script>
 </body>
 </html>
