@@ -1,691 +1,913 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#060a12">
-  <meta name="description" content="Sancaktar Teknoloji — oyun, yazılım ve web güvenliği.">
-  <title>Sancaktar Teknoloji | Dijital Güvenlik</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>☨ Fiskos | Bio</title>
+  <link rel="icon" href="https://cdn.discordapp.com/avatars/1438508951284224151/5e270d9016504abff98dccfd23a3a714.png?size=512" type="image/png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
     :root {
-      color-scheme: dark;
-      --bg: #060a12;
-      --panel: rgba(13, 21, 35, .76);
-      --panel-strong: #0d1523;
-      --line: rgba(155, 189, 224, .13);
-      --text: #eef5ff;
-      --muted: #91a1b8;
-      --blue: #4ca8ff;
-      --cyan: #5ce1ec;
-      --green: #65e6ae;
-      --max: 1180px;
+      --bg-dark: #0a0a0f;
+      --card-bg: rgba(14, 16, 26, 0.65);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --accent: #5865f2;
+      --accent-glow: rgba(88, 101, 242, 0.35);
+      --text-main: #ffffff;
+      --text-muted: #949ba4;
+      --status-online: #23a55a;
+      --status-idle: #f0b232;
+      --status-dnd: #f23f43;
+      --status-offline: #80848e;
+      --spotify-green: #1db954;
     }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
+
+    * {
       margin: 0;
-      min-width: 320px;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.55;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
       overflow-x: hidden;
-    }
-    body::before {
-      position: fixed;
-      z-index: -3;
-      inset: 0;
-      content: "";
-      background:
-        radial-gradient(ellipse at 18% 17%, rgba(20, 83, 148, .20), transparent 35%),
-        radial-gradient(ellipse at 84% 58%, rgba(11, 117, 157, .13), transparent 36%),
-        linear-gradient(150deg, #05080e 0%, #07111e 52%, #060a12 100%);
-    }
-    body::after {
-      position: fixed;
-      z-index: -2;
-      content: "";
-      width: 75vw;
-      height: 42vw;
-      min-height: 360px;
-      right: -24vw;
-      top: 16vh;
-      border: 1px solid rgba(73, 165, 241, .15);
-      border-radius: 48%;
-      transform: rotate(-18deg);
-      box-shadow: 0 0 100px rgba(17, 118, 190, .10), inset 0 0 100px rgba(17, 118, 190, .07);
-      animation: current 18s ease-in-out infinite alternate;
-      pointer-events: none;
-    }
-    .wavefield {
-      position: fixed;
-      z-index: -2;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-      opacity: .62;
-      background: radial-gradient(ellipse at 50% 110%, rgba(20, 105, 171, .13), transparent 47%);
-    }
-    .wavefield::before, .wavefield::after {
-      position: absolute;
-      content: "";
-      left: -15%;
-      width: 130%;
-      height: 43vh;
-      min-height: 280px;
-      border: 1px solid rgba(71, 164, 230, .13);
-      border-radius: 48% 52% 0 0 / 22% 28% 0 0;
-      box-shadow: 0 -18px 80px rgba(30, 131, 202, .07), inset 0 14px 50px rgba(47, 137, 206, .04);
-      transform: rotate(-4deg);
-      animation: wave-drift 17s ease-in-out infinite alternate;
-    }
-    .wavefield::before { bottom: -24vh; }
-    .wavefield::after { bottom: -28vh; opacity: .48; transform: rotate(3deg) scaleX(1.08); animation-delay: -8s; }
-    @keyframes wave-drift {
-      from { translate: -2% 1%; rotate: -2deg; }
-      to { translate: 2% -4%; rotate: 2deg; }
-    }
-    .ambient-wave {
-      position: fixed;
-      z-index: -1;
-      pointer-events: none;
-      width: 88vw;
-      height: 43vw;
-      min-height: 330px;
-      left: -35vw;
-      bottom: 3vh;
-      border: 1px solid rgba(50, 130, 205, .11);
-      border-radius: 48%;
-      transform: rotate(20deg);
-      box-shadow: 0 0 90px rgba(14, 97, 160, .09), inset 0 0 90px rgba(14, 97, 160, .06);
-      animation: current 24s ease-in-out infinite alternate-reverse;
-    }
-    @keyframes current {
-      from { translate: -2% -1%; rotate: -2deg; }
-      to { translate: 4% 3%; rotate: 3deg; }
-    }
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
-    .wrap { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; }
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      border-bottom: 1px solid rgba(160, 191, 225, .09);
-      background: rgba(6, 10, 18, .74);
-      backdrop-filter: blur(18px);
-    }
-    .nav {
-      min-height: 76px;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 28px;
-    }
-    .brand { display: inline-flex; align-items: center; gap: 12px; min-width: 215px; }
-    .brand-mark {
-      width: 40px;
-      height: 44px;
-      color: var(--cyan);
-      filter: drop-shadow(0 0 12px rgba(77, 182, 255, .38));
-    }
-    .brand-name { display: grid; gap: 1px; line-height: 1.1; }
-    .brand-name strong { font-size: 14px; letter-spacing: .19em; font-weight: 750; }
-    .brand-name span { color: #8295ad; font-size: 9px; letter-spacing: .22em; text-transform: uppercase; }
-    .nav-links { display: flex; align-items: center; gap: 28px; color: #aab8ca; font-size: 12px; }
-    .nav-links a { transition: color .2s ease; }
-    .nav-links a:hover { color: var(--cyan); }
-    .nav-actions { display: flex; align-items: center; gap: 10px; }
-    .menu-button {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: #c7d5e7;
-      background: rgba(17, 28, 44, .66);
-      padding: 10px 14px;
-      cursor: pointer;
-      font-size: 11px;
-      transition: border-color .2s ease, background .2s ease, color .2s ease;
-      display: none;
-    }
-    .hero { min-height: 620px; padding: 76px 0 92px; display: grid; align-items: center; }
-    .hero-grid { display: grid; grid-template-columns: 1.06fr .94fr; align-items: center; gap: 68px; }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: #a4d9ff;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-    }
-    .eyebrow::before { content: ""; width: 23px; height: 1px; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
-    h1 { max-width: 660px; margin: 22px 0 22px; font-size: clamp(44px, 6.2vw, 78px); line-height: 1.03; letter-spacing: -.065em; font-weight: 650; }
-    h1 span { color: transparent; background: linear-gradient(100deg, #f3fbff 4%, #77d7ff 48%, #5097ff 94%); background-clip: text; -webkit-background-clip: text; }
-    .hero-copy { max-width: 520px; color: #a2b0c4; font-size: 15px; }
-    .hero-copy strong { color: #dce9f8; font-weight: 600; }
-    .hero-buttons { margin-top: 30px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-    .button {
-      min-height: 46px;
-      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      padding: 0 19px;
-      border: 1px solid transparent;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-      cursor: pointer;
-    }
-    .button:hover { transform: translateY(-2px); }
-    .button-primary { color: #06111c; background: linear-gradient(110deg, #6be2ec, #62aaff); box-shadow: 0 8px 30px rgba(54, 160, 224, .18); }
-    .button-primary:hover { box-shadow: 0 10px 36px rgba(54, 160, 224, .32); }
-    .button-ghost { border-color: var(--line); color: #d5e2f1; background: rgba(14, 22, 35, .55); }
-    .button-ghost:hover { border-color: rgba(104, 189, 255, .42); }
-    .arrow { font-size: 16px; line-height: 1; }
-    .hero-footnote { margin-top: 25px; color: #73859c; font-size: 10px; letter-spacing: .04em; }
-    .hero-visual { position: relative; min-height: 440px; display: grid; place-items: center; }
-    .visual-orbit { position: absolute; width: min(100%, 440px); aspect-ratio: 1; border: 1px solid rgba(72, 165, 236, .13); border-radius: 50%; animation: spin 44s linear infinite; }
-    .visual-orbit::before, .visual-orbit::after { position: absolute; content: ""; inset: 25px; border: 1px dashed rgba(89, 205, 226, .14); border-radius: 50%; }
-    .visual-orbit::after { inset: 64px; border-style: solid; border-color: rgba(81, 147, 222, .09); }
-    @keyframes spin { to { rotate: 360deg; } }
-    .orbit-dot { position: absolute; top: 16%; left: 14%; width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 20px var(--cyan); }
-    .profile-shell {
       position: relative;
-      z-index: 1;
-      width: 310px;
-      padding: 25px 23px 20px;
-      border: 1px solid rgba(139, 188, 231, .19);
-      border-radius: 18px;
-      background: linear-gradient(145deg, rgba(17, 31, 49, .90), rgba(8, 14, 24, .88));
-      box-shadow: 0 28px 90px rgba(0, 0, 0, .42), 0 0 70px rgba(28, 127, 204, .12), inset 0 1px rgba(255,255,255,.05);
-      text-align: center;
-      animation: profile-neon 4.2s ease-in-out infinite;
     }
-    .profile-shell::before { position:absolute; inset:9px; content:""; border:1px solid rgba(92,225,236,.12); border-radius:11px; pointer-events:none; }
-    .profile-shell > * { position:relative; z-index:1; }
-    @keyframes profile-neon { 50% { border-color:rgba(92,225,236,.53); box-shadow:0 28px 90px rgba(0,0,0,.42),0 0 72px rgba(39,159,226,.26),inset 0 0 30px rgba(67,174,226,.08); } }
-    .profile-label { color: #88a1bd; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; }
-    .profile-name { display:flex; justify-content:center; margin-top:13px; color:#ecfcff; font-size:clamp(28px,4vw,38px); font-weight:750; letter-spacing:.07em; text-shadow:0 0 8px rgba(92,225,236,.92),0 0 24px rgba(66,164,255,.68); }
-    .typing-name { display:inline-block; width:0; max-width:100%; overflow:hidden; padding-right:3px; border-right:2px solid var(--cyan); white-space:nowrap; animation:typing-name 1.25s steps(5,end) .2s forwards,caret-blink .8s step-end .2s infinite; animation-play-state:paused; }
-    .profile-shell.is-visible .typing-name { animation-play-state:running; }
-    @keyframes typing-name { from { width:0; } to { width:5ch; } }
-    @keyframes caret-blink { 50% { border-color:transparent; } }
-    .profile-role { margin-top: 2px; color: #8da2bc; font-size: 11px; }
-    .profile-tags { display:flex; justify-content:center; flex-wrap:wrap; gap:6px; margin-top:15px; }
-    .profile-tags span { padding:5px 8px; border:1px solid rgba(92,225,236,.18); border-radius:999px; color:#a8d8ed; background:rgba(18,57,78,.33); font-size:7px; letter-spacing:.12em; animation:tag-float 3.4s ease-in-out infinite; }
-    .profile-tags span:nth-child(2) { animation-delay:-1.1s; }
-    .profile-tags span:nth-child(3) { animation-delay:-2.2s; }
-    @keyframes tag-float { 50% { transform:translateY(-3px); border-color:rgba(92,225,236,.4); } }
-    .founder-terminal { margin-top:15px; padding:11px 12px; border:1px solid rgba(145,180,213,.14); border-radius:9px; background:rgba(3,9,16,.55); color:#9bb0c7; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; text-align:left; }
-    .terminal-head { display:flex; align-items:center; justify-content:space-between; gap:8px; padding-bottom:8px; border-bottom:1px solid rgba(145,180,213,.12); color:#70cfe4; font-size:8px; letter-spacing:.12em; }
-    .terminal-head span:last-child { display:inline-flex; align-items:center; gap:6px; color:#7ee0ad; }
-    .terminal-head span:last-child::before { width:5px; height:5px; content:""; border-radius:50%; background:var(--green); box-shadow:0 0 9px var(--green); animation:pulse 1.8s ease-out infinite; }
-    .terminal-row { display:grid; grid-template-columns:54px 1fr; gap:7px; margin-top:8px; font-size:8px; }
-    .terminal-row span { color:#68829d; letter-spacing:.08em; }
-    .terminal-row strong { color:#c2d7ea; font-weight:550; }
-    .profile-divider { height: 1px; margin: 14px 0 12px; background: var(--line); }
-    .profile-status { display: flex; align-items: center; justify-content: center; gap: 8px; color: #bbcadb; font-size: 10px; }
-    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px rgba(101, 230, 174, .7); }
-    .float-label {
-      position: absolute;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      padding: 11px 13px;
-      border: 1px solid rgba(140, 187, 228, .16);
-      border-radius: 8px;
-      background: rgba(9, 17, 28, .85);
-      box-shadow: 0 14px 36px rgba(0, 0, 0, .25);
-      color: #c5d5e7;
-      font-size: 10px;
-      backdrop-filter: blur(12px);
-    }
-    .float-label svg { width: 15px; color: var(--cyan); }
-    .float-one { top: 13%; right: -1%; }
-    .float-two { bottom: 8%; left: -2%; }
-    .strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(9, 16, 27, .54); }
-    .strip-inner { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .strip-label { color: #7e91a8; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
-    .strip-items { display: flex; align-items: center; gap: clamp(14px, 4vw, 48px); color: #c6d5e6; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
-    .strip-items span { display: inline-flex; align-items: center; gap: 8px; }
-    .strip-items span::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 8px var(--blue); }
-    section { scroll-margin-top: 88px; }
-    .section { padding: 104px 0; }
-    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 35px; }
-    .section-heading h2 { margin: 10px 0 0; font-size: clamp(30px, 4vw, 45px); line-height: 1.1; letter-spacing: -.045em; font-weight: 620; }
-    .section-heading p { max-width: 385px; margin: 0; color: var(--muted); font-size: 12px; }
-    .live-summary { display: flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 8px; color: #9fb2c9; font-size: 10px; white-space: nowrap; }
-    .live-summary .status-dot { animation: pulse 1.8s ease-out infinite; }
-    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(101,230,174,.5); } 70% { box-shadow: 0 0 0 7px rgba(101,230,174,0); } 100% { box-shadow: 0 0 0 0 rgba(101,230,174,0); } }
 
-    /* Hakkımızda, Misyon & Vizyon Kartları */
-    .about-cards-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 17px;
-      margin-bottom: 28px;
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -3;
+      filter: brightness(0.65) contrast(1.1);
     }
-    .about-card {
-      position: relative;
-      padding: 24px 22px;
-      border: 1px solid rgba(144, 182, 218, .13);
-      border-radius: 13px;
-      background: linear-gradient(150deg, rgba(17, 27, 42, .82), rgba(9, 15, 24, .9));
+
+    .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, rgba(10, 10, 15, 0.4) 0%, rgba(5, 5, 8, 0.85) 100%);
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .vignette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.85);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Giriş Ekranı */
+    .entry-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(8, 8, 12, 0.95);
+      backdrop-filter: blur(25px);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-    }
-    .about-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(92, 225, 236, .35);
-      box-shadow: 0 22px 50px rgba(0, 0, 0, .25);
-    }
-    .about-card-badge {
-      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 5px 9px;
-      border: 1px solid rgba(92, 225, 236, .18);
-      border-radius: 5px;
-      color: #9ee6f1;
-      background: rgba(18, 57, 78, .3);
-      font-size: 8px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
+      justify-content: center;
+      z-index: 9999;
+      cursor: pointer;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+    }
+
+    .entry-screen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .entry-content {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .entry-title {
+      font-size: 1.8rem;
       font-weight: 700;
-      width: fit-content;
-      margin-bottom: 14px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #fff 20%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulseGlow 2.5s infinite ease-in-out;
     }
-    .about-card-icon {
-      width: 40px;
-      height: 40px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(93, 180, 237, .23);
-      border-radius: 9px;
-      color: var(--cyan);
-      background: rgba(28, 80, 111, .19);
-      margin-bottom: 16px;
-    }
-    .about-card-icon svg { width: 20px; height: 20px; }
-    .about-card h3 {
-      margin: 0 0 10px;
-      font-size: 18px;
-      font-weight: 620;
-      letter-spacing: -.02em;
-      color: #eef5ff;
-    }
-    .about-card p {
-      margin: 0;
-      color: #9cb1c9;
-      font-size: 12px;
-      line-height: 1.6;
-    }
-    .about-card-footer {
-      margin-top: 20px;
-      padding-top: 13px;
-      border-top: 1px solid var(--line);
+
+    .entry-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
       display: flex;
       align-items: center;
       gap: 8px;
-      color: #768ea8;
-      font-size: 9px;
-      letter-spacing: .06em;
-    }
-    .about-card-footer .footer-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 8px var(--cyan);
     }
 
-    .protection-panel { position:relative; display:grid; grid-template-columns:1fr .62fr; align-items:center; gap:26px; margin-top:28px; padding:25px; overflow:hidden; border:1px solid rgba(84,163,225,.2); border-radius:13px; background:linear-gradient(120deg,rgba(12,22,36,.88),rgba(8,15,25,.82)); box-shadow:0 18px 55px rgba(0,0,0,.18); }
-    .protection-panel::before { position:absolute; content:""; width:280px; height:280px; top:-210px; right:10%; border-radius:50%; background:rgba(50,159,219,.13); filter:blur(25px); }
-    .protection-main,.protection-visual { position:relative; z-index:1; }
-    .protection-heading { display:flex; align-items:center; justify-content:space-between; gap:15px; }
-    .protection-title { margin:12px 0 5px; font-size:20px; letter-spacing:-.03em; }
-    .protection-copy { max-width:580px; margin:0; color:#91a3b8; font-size:11px; }
-    .protection-status { display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid rgba(101,230,174,.25); border-radius:6px; color:#9aebc4; background:rgba(21,91,63,.16); font-size:9px; font-weight:700; letter-spacing:.12em; white-space:nowrap; }
-    .protection-status::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 10px rgba(101,230,174,.8); animation:pulse 1.8s ease-out infinite; }
-    .protection-metrics { display:grid; grid-template-columns:repeat(2,minmax(120px,1fr)); gap:9px; margin-top:20px; }
-    .protection-metric { min-height:77px; padding:12px; border:1px solid rgba(145,180,213,.12); border-radius:8px; background:rgba(4,10,17,.36); }
-    .protection-metric span { display:block; color:#7f92a9; font-size:8px; letter-spacing:.11em; text-transform:uppercase; }
-    .protection-metric strong { display:block; margin-top:5px; color:#e8f3ff; font-size:18px; font-weight:650; }
-    .protection-metric .active-value { color:#88d9b4; }
-    .protection-visual { min-height:160px; display:grid; place-items:center; overflow:hidden; border:1px solid rgba(113,183,232,.12); border-radius:10px; background:radial-gradient(ellipse at center,rgba(34,125,184,.18),rgba(4,10,17,.2) 67%); }
-    .shield-rings { position:relative; width:118px; height:118px; display:grid; place-items:center; border:1px solid rgba(92,225,236,.22); border-radius:50%; box-shadow:0 0 38px rgba(56,160,216,.12),inset 0 0 30px rgba(56,160,216,.08); animation:shield-breathe 4s ease-in-out infinite; }
-    .shield-rings::before,.shield-rings::after { position:absolute; content:""; inset:12px; border:1px dashed rgba(92,225,236,.2); border-radius:50%; animation:spin 26s linear infinite; }
-    .shield-rings::after { inset:25px; border-style:solid; border-color:rgba(87,158,229,.17); animation-direction:reverse; animation-duration:19s; }
-    .shield-rings svg { position:relative; z-index:1; width:39px; color:#73dff0; filter:drop-shadow(0 0 13px rgba(92,225,236,.5)); }
-    @keyframes shield-breathe { 50% { transform:scale(1.04); box-shadow:0 0 50px rgba(56,160,216,.22),inset 0 0 36px rgba(56,160,216,.12); } }
-    .scan-beam { position:absolute; z-index:2; left:0; right:0; top:0; height:1px; opacity:.55; background:linear-gradient(90deg,transparent,var(--cyan),transparent); box-shadow:0 0 14px rgba(92,225,236,.7); animation:scan 5s ease-in-out infinite; }
-    @keyframes scan { 0%,100% { top:4px; opacity:0; } 15%,85% { opacity:.7; } 50% { top:calc(100% - 4px); } }
-    .services { padding-top: 14px; }
-    .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-    .service-card { min-height: 185px; padding: 23px; border: 1px solid var(--line); border-radius: 11px; background: rgba(12, 20, 32, .55); transition:transform .35s ease,border-color .35s ease,background .35s ease; }
-    .service-card:hover { transform:translateY(-5px); border-color:rgba(92,225,236,.3); background:rgba(14,28,44,.78); }
-    .service-icon { width: 35px; height: 35px; display: grid; place-items: center; border: 1px solid rgba(93, 180, 237, .23); border-radius: 9px; color: var(--cyan); background: rgba(28, 80, 111, .19); }
-    .service-icon svg { width: 18px; height: 18px; }
-    .service-card h3 { margin: 18px 0 7px; font-size: 14px; font-weight: 620; }
-    .service-card p { margin: 0; color: #8e9eb2; font-size: 11px; }
-    .contact-panel {
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.7; transform: scale(0.98); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+
+    /* Medya Paneli */
+    .media-dock {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(14, 16, 26, 0.75);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      padding: 8px 16px;
+      border-radius: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .dock-btn {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .dock-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(1.1);
+    }
+
+    .visualizer {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 18px;
+      padding: 0 4px;
+    }
+
+    .viz-bar {
+      width: 3px;
+      background: #818cf8;
+      border-radius: 3px;
+      height: 4px;
+      transition: height 0.1s ease;
+    }
+
+    .visualizer.active .viz-bar:nth-child(1) { animation: bounce 0.8s ease-in-out infinite alternate; }
+    .visualizer.active .viz-bar:nth-child(2) { animation: bounce 0.6s ease-in-out infinite alternate 0.2s; }
+    .visualizer.active .viz-bar:nth-child(3) { animation: bounce 0.9s ease-in-out infinite alternate 0.1s; }
+    .visualizer.active .viz-bar:nth-child(4) { animation: bounce 0.7s ease-in-out infinite alternate 0.3s; }
+
+    @keyframes bounce {
+      0% { height: 4px; }
+      100% { height: 18px; }
+    }
+
+    /* Profil Kartı */
+    .main-container {
+      width: 100%;
+      max-width: 480px;
+      padding: 20px;
+      perspective: 1000px;
+      z-index: 10;
+    }
+
+    .profile-card {
       position: relative;
+      background: var(--card-bg);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 35px -5px var(--accent-glow);
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+    }
+
+    .card-banner {
+      width: 100%;
+      height: 140px;
+      position: relative;
+      background: linear-gradient(135deg, #1e1e2f, #2d3748);
+      background-size: cover;
+      background-position: center;
+    }
+
+    .banner-gradient {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60%;
+      background: linear-gradient(to top, rgba(14, 16, 26, 0.95), transparent);
+    }
+
+    .card-body {
+      padding: 0 24px 24px 24px;
+      position: relative;
+      margin-top: -55px;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+
+    .avatar-box {
+      position: relative;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 4px solid #0e101a;
+      background: #18191c;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+
+    .avatar-decoration {
+      position: absolute;
+      top: -15%;
+      left: -15%;
+      width: 130%;
+      height: 130%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .status-badge {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 3.5px solid #0e101a;
+      background-color: var(--status-offline);
+      z-index: 3;
+      transition: background-color 0.3s ease;
+    }
+
+    .status-badge.online { background-color: var(--status-online); }
+    .status-badge.idle { background-color: var(--status-idle); }
+    .status-badge.dnd { background-color: var(--status-dnd); }
+    .status-badge.offline { background-color: var(--status-offline); }
+
+    .user-info-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+
+    .names-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 32px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .display-name-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .display-name {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .clan-tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+
+    .clan-badge-icon {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+    }
+
+    .handle-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .username-handle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .id-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: #a5b4fc;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      padding: 2px 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+
+    .id-pill:hover {
+      background: rgba(99, 102, 241, 0.25);
+      color: #fff;
+    }
+
+    .live-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--status-offline);
+    }
+
+    .live-status-pill.online .live-dot { background: var(--status-online); box-shadow: 0 0 8px var(--status-online); }
+    .live-status-pill.idle .live-dot { background: var(--status-idle); box-shadow: 0 0 8px var(--status-idle); }
+    .live-status-pill.dnd .live-dot { background: var(--status-dnd); box-shadow: 0 0 8px var(--status-dnd); }
+
+    .card-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+      margin: 16px 0;
+    }
+
+    .bio-section {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+
+    .bio-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .bio-content {
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    /* Spotify Widget */
+    .spotify-card {
+      display: none;
+      background: linear-gradient(135deg, rgba(29, 185, 84, 0.1), rgba(0, 0, 0, 0.4));
+      border: 1px solid rgba(29, 185, 84, 0.3);
+      border-radius: 16px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+
+    .spotify-card.active {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .spotify-album-cover {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .spotify-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .spotify-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--spotify-green);
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .spotify-song {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
       overflow: hidden;
-      padding: 37px 40px;
-      border: 1px solid rgba(89, 167, 227, .2);
-      border-radius: 15px;
-      background: radial-gradient(ellipse at 82% 0%, rgba(37, 131, 187, .18), transparent 45%), linear-gradient(120deg, rgba(14, 25, 41, .92), rgba(8, 15, 25, .92));
+      text-overflow: ellipsis;
     }
-    .contact-panel h2 { margin: 8px 0 7px; font-size: clamp(25px, 3vw, 36px); line-height: 1.12; letter-spacing: -.04em; }
-    .contact-panel p { max-width: 510px; margin: 0; color: #93a5bb; font-size: 12px; }
-    .contact-status { margin-top: 12px; color: #71869d; font-size: 10px; }
-    .contact-actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-    .footer { padding: 25px 0 32px; border-top: 1px solid rgba(155,189,224,.1); color: #76889f; font-size: 10px; }
-    .footer-inner { display: flex; justify-content: space-between; gap: 16px; }
-    .footer strong { color: #b4c4d7; font-weight: 600; letter-spacing: .1em; }
-    @media (max-width: 900px) {
-      .hero-grid { gap: 28px; }
-      .hero-visual { min-height: 390px; }
-      .profile-shell { width: 286px; }
-      .float-one { right: -3%; }
-      .float-two { left: -2%; }
+
+    .spotify-artist {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    @media (max-width: 720px) {
-      .wrap { width: min(var(--max), calc(100% - 34px)); }
-      .nav { min-height: 68px; }
-      .brand { min-width: 0; }
-      .nav-links { position: absolute; top: 68px; left: 0; right: 0; display: none; padding: 16px 22px 20px; border-bottom: 1px solid var(--line); background: rgba(6,10,18,.97); }
-      .nav-links.open { display: grid; gap: 15px; }
-      .menu-button { display: inline-flex; }
-      .hero { min-height: auto; padding: 64px 0 65px; }
-      .hero-grid { grid-template-columns: 1fr; gap: 14px; }
-      h1 { max-width: 570px; font-size: clamp(43px, 13vw, 64px); }
-      .hero-copy { font-size: 14px; }
-      .hero-visual { min-height: 445px; margin-top: 4px; }
-      .visual-orbit { width: min(92vw, 360px); }
-      .profile-shell { width: min(286px, 86vw); }
-      .float-one { top: 9%; right: 1%; }
-      .float-two { bottom: 10%; left: 1%; }
-      .strip-inner { min-height: auto; padding: 16px 0; align-items: start; flex-direction: column; }
-      .strip-items { flex-wrap: wrap; row-gap: 10px; }
-      .section { padding: 72px 0; }
-      .section-heading { align-items: start; flex-direction: column; margin-bottom: 24px; }
-      .section-heading p { max-width: 540px; }
-      .about-cards-grid { grid-template-columns: 1fr; gap: 14px; }
-      .protection-panel { grid-template-columns:1fr; padding:18px; }
-      .service-grid { grid-template-columns: 1fr; }
-      .service-card { min-height: 0; }
-      .contact-panel { align-items: start; flex-direction: column; padding: 27px 23px; }
-      .contact-actions { width:100%; }
-      .footer-inner { flex-direction: column; }
+
+    .spotify-bar-wrapper {
+      margin-top: 6px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
     }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+
+    .spotify-progress-bar {
+      height: 100%;
+      background: var(--spotify-green);
+      width: 0%;
+      transition: width 1s linear;
+    }
+
+    /* Bilgi Izgarası */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .meta-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 10px 12px;
+    }
+
+    .meta-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .meta-value {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* Sosyal Butonlar */
+    .social-links {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .social-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.72rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .social-btn:hover {
+      background: rgba(88, 101, 242, 0.2);
+      border-color: rgba(88, 101, 242, 0.5);
+      transform: translateY(-3px);
+    }
+
+    .primary-dc-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #5865f2, #4752c4);
+      border-radius: 16px;
+      padding: 12px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-top: 12px;
+      box-shadow: 0 8px 20px rgba(88, 101, 242, 0.4);
+      transition: all 0.3s;
+    }
+
+    .primary-dc-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(88, 101, 242, 0.6);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(18, 20, 32, 0.95);
+      border: 1px solid rgba(88, 101, 242, 0.5);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transition: all 0.4s ease;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
     }
   </style>
 </head>
 <body>
-  <div class="wavefield" aria-hidden="true"></div>
-  <div class="ambient-wave" aria-hidden="true"></div>
-  <header class="topbar">
-    <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="Sancaktar Teknoloji ana sayfa">
-        <svg class="brand-mark" viewBox="0 0 40 46" fill="none" aria-hidden="true">
-          <path d="M20 2 36 8v13c0 10.3-6.6 17.6-16 22C10.6 38.6 4 31.3 4 21V8l16-6Z" stroke="currentColor" stroke-width="1.4"/>
-          <path d="M20 9 30 13v8c0 6.8-4 11.8-10 15-6-3.2-10-8.2-10-15v-8l10-4Z" stroke="currentColor" stroke-opacity=".55"/>
-          <path d="m14 23 4 4 8-9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="brand-name"><strong>SANCAKTAR</strong><span>Teknoloji</span></span>
-      </a>
-      <nav class="nav-links" id="navLinks" aria-label="Ana menü">
-        <a href="#hakkimizda">Hakkımızda</a>
-        <a href="#misyon-vizyon">Misyon & Vizyon</a>
-        <a href="#cozumler">Çözümler</a>
-        <a href="#iletisim">İletişim</a>
-      </nav>
-      <div class="nav-actions">
-        <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="navLinks">Menü</button>
+
+  <!-- Arka Plan Videosu -->
+  <video id="bg-video" class="video-background" loop playsinline preload="auto">
+    <source src="background.mp4" type="video/mp4">
+  </video>
+  <div class="bg-overlay"></div>
+  <div class="vignette"></div>
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Tıkla ve Gir Ekranı -->
+  <div id="entry-screen" class="entry-screen">
+    <div class="entry-content">
+      <div class="entry-title">[ TIKLA VE GİR ]</div>
+      <div class="entry-subtitle">
+        <i class="fa-solid fa-volume-high"></i> Sesi ve efektleri etkinleştir
       </div>
     </div>
-  </header>
+  </div>
 
-  <main id="top">
-    <section class="hero" id="hakkimizda">
-      <div class="wrap hero-grid">
-        <div>
-          <div class="eyebrow">Oyun ve web güvenliği</div>
-          <h1>Güvenlik,<br><span>oyunun</span> parçası.</h1>
-          <p class="hero-copy">Sancaktar Teknoloji; <strong>oyun güvenliği, yazılım ve web koruması</strong> odağında çalışan bağımsız bir geliştirici oluşumudur.</p>
-          <div class="hero-buttons">
-            <a class="button button-primary" href="#misyon-vizyon">Misyon & Vizyonu gör <span class="arrow">↓</span></a>
-            <a class="button button-ghost" href="#iletisim">İletişime geç <span class="arrow">↗</span></a>
-          </div>
-          <div class="hero-footnote">GÜVENLİK · İZLEME · GELİŞTİRME</div>
-        </div>
-        <div class="hero-visual" aria-label="Kurucu geliştirici bilgisi">
-          <div class="visual-orbit"><span class="orbit-dot"></span></div>
-          <div class="float-label float-one">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 20 6v6c0 5-3.4 8.1-8 10-4.6-1.9-8-5-8-10V6l8-3Z" stroke="currentColor" stroke-width="1.5"/><path d="m8.5 12 2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            OYUN GÜVENLİĞİ
-          </div>
-          <div class="float-label float-two">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 17.5 9 12l3 3 7-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7h4v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            PROAKTİF SAVUNMA
-          </div>
-          <div class="profile-shell" id="founderCard">
-            <div class="profile-label">Sancaktar Teknoloji // Kurucu</div>
-            <div class="profile-name" aria-label="gokbr"><span class="typing-name">gokbr</span></div>
-            <div class="profile-role">Kurucu Geliştirici · Oyun Güvenliği</div>
-            <div class="profile-tags"><span>ROBLOX SECURITY</span><span>ANTI-CHEAT</span><span>WEB DEFENSE</span></div>
-            <div class="founder-terminal" aria-label="Geliştirici uzmanlık alanları">
-              <div class="terminal-head"><span>GOKBR.DEV</span><span>FOUNDER</span></div>
-              <div class="terminal-row"><span>ROLE</span><strong>KURUCU GELİŞTİRİCİ</strong></div>
-              <div class="terminal-row"><span>FOCUS</span><strong>ROBLOX OYUN GÜVENLİĞİ</strong></div>
-              <div class="terminal-row"><span>BUILD</span><strong>ANTI-CHEAT · WEB</strong></div>
-            </div>
-            <div class="profile-divider"></div>
-            <div class="profile-status"><span class="status-dot"></span><span id="profileStatus">Güvenlik sistemleri aktif</span></div>
-          </div>
-        </div>
+  <!-- Medya Kontrolleri -->
+  <div class="media-dock">
+    <button id="toggle-audio" class="dock-btn" title="Sesi Aç/Kapat">
+      <i class="fa-solid fa-volume-high" id="audio-icon"></i>
+    </button>
+    <div class="visualizer" id="visualizer">
+      <div class="viz-bar"></div>
+      <div class="viz-bar"></div>
+      <div class="viz-bar"></div>
+      <div class="viz-bar"></div>
+    </div>
+    <button id="toggle-video" class="dock-btn" title="Videoyu Duraklat/Oynat">
+      <i class="fa-solid fa-pause" id="video-icon"></i>
+    </button>
+  </div>
+
+  <!-- Ana Profil Kartı -->
+  <div class="main-container">
+    <div class="profile-card" id="profile-card">
+      <div class="card-banner" id="banner-el">
+        <div class="banner-gradient"></div>
       </div>
-    </section>
 
-    <div class="strip" aria-label="Hizmet alanları">
-      <div class="wrap strip-inner">
-        <div class="strip-label">Odak alanlarımız</div>
-        <div class="strip-items"><span>Oyun güvenliği</span><span>Anti-cheat</span><span>Web koruması</span><span>Canlı izleme</span></div>
+      <div class="card-body">
+        <div class="avatar-wrapper">
+          <div class="avatar-box">
+            <img id="avatar-img" class="avatar-img" src="" alt="Avatar">
+            <img id="avatar-deco" class="avatar-decoration" src="" alt="Decoration">
+            <div id="status-badge" class="status-badge offline"></div>
+          </div>
+        </div>
+
+        <div class="user-info-header">
+          <div class="names-row">
+            <div class="display-name-group">
+              <span id="display-name" class="display-name">☨ Fiskos</span>
+              <div class="clan-tag-badge">
+                <img class="clan-badge-icon" src="https://cdn.discordapp.com/clan-badges/1530290466954936520/e985287f59221651fae8813e3453f611.png" alt="Clan">
+                <span>VLRH</span>
+              </div>
+            </div>
+            
+            <div class="live-status-pill" id="live-status-pill">
+              <div class="live-dot"></div>
+              <span id="status-text">Bağlanıyor...</span>
+            </div>
+          </div>
+
+          <div class="handle-row">
+            <span id="username-handle" class="username-handle">@fiskoselpasha</span>
+            <div class="id-pill" id="copy-id-btn" title="ID Kopyala">
+              <i class="fa-regular fa-copy"></i>
+              <span>1438508951284224151</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-divider"></div>
+
+        <div class="bio-section">
+          <div class="bio-title"><i class="fa-solid fa-user"></i> HAKKIMDA</div>
+          <div class="bio-content">
+            Hoş geldin! ⚡ Discord profilim ve anlık durumum canlı olarak bu kartta senkronize edilmektedir.
+          </div>
+        </div>
+
+        <!-- Canlı Spotify Kartı -->
+        <div id="spotify-card" class="spotify-card">
+          <img id="spotify-cover" class="spotify-album-cover" src="" alt="Album">
+          <div class="spotify-info">
+            <div class="spotify-header"><i class="fa-brands fa-spotify"></i> SPOTIFY DİNLİYOR</div>
+            <div id="spotify-song" class="spotify-song"></div>
+            <div id="spotify-artist" class="spotify-artist"></div>
+            <div class="spotify-bar-wrapper">
+              <div id="spotify-progress" class="spotify-progress-bar"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="meta-grid">
+          <div class="meta-box">
+            <div class="meta-label">Hesap Yaşı</div>
+            <div class="meta-value" id="account-age">1 Yıl +</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-label">Kayıt Tarihi</div>
+            <div class="meta-value" id="account-date">13 Kas 2025</div>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <a href="https://discord.com/users/1438508951284224151" target="_blank" class="social-btn">
+            <i class="fa-brands fa-discord"></i><span>Discord</span>
+          </a>
+          <a href="https://open.spotify.com" target="_blank" class="social-btn">
+            <i class="fa-brands fa-spotify"></i><span>Spotify</span>
+          </a>
+          <a href="https://steamcommunity.com" target="_blank" class="social-btn">
+            <i class="fa-brands fa-steam"></i><span>Steam</span>
+          </a>
+          <a href="https://instagram.com" target="_blank" class="social-btn">
+            <i class="fa-brands fa-instagram"></i><span>Instagram</span>
+          </a>
+        </div>
+
+        <a href="https://discord.com/users/1438508951284224151" target="_blank" class="primary-dc-btn">
+          <i class="fa-brands fa-discord"></i> Discord Profiline Git
+        </a>
       </div>
     </div>
+  </div>
 
-    <!-- HAKKIMIZDA, MİSYON & VİZYON BÖLÜMÜ -->
-    <section class="section" id="misyon-vizyon">
-      <div class="wrap">
-        <div class="section-heading">
-          <div>
-            <div class="eyebrow">Kurumsal & Değerlerimiz</div>
-            <h2>Hakkımızda, Misyon & Vizyon</h2>
-          </div>
-          <div>
-            <div class="live-summary">
-              <span class="status-dot"></span>
-              <span>Aktif Koruma & İnovasyon</span>
-            </div>
-          </div>
-        </div>
-        <p style="margin:-18px 0 28px;color:#8294aa;font-size:12px">Adil rekabet, güçlü yazılım altyapısı ve kesintisiz dijital güvenlik ilkeleriyle çalışıyoruz.</p>
-        
-        <div class="about-cards-grid">
-          <!-- HAKKIMIZDA -->
-          <article class="about-card">
-            <div>
-              <span class="about-card-badge">SANCAKTAR TEKNOLOJİ</span>
-              <div class="about-card-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  <path d="m9 12 2 2 4-4"/>
-                </svg>
-              </div>
-              <h3>Hakkımızda</h3>
-              <p>Sancaktar Teknoloji; oyun güvenliği, özel anti-cheat altyapıları ve modern dijital koruma sistemleri üzerine odaklanmış bağımsız bir geliştirici oluşumudur. Roblox başta olmak üzere dijital platformlarda hile ve açıkları engelleyerek adil, güvenilir ve kesintisiz bir deneyim sunuyoruz.</p>
-            </div>
-            <div class="about-card-footer">
-              <span class="footer-dot"></span>
-              <span>Güvenlik & Yazılım Altyapısı</span>
-            </div>
-          </article>
-
-          <!-- MİSYONUMUZ -->
-          <article class="about-card">
-            <div>
-              <span class="about-card-badge">HEDEF & SAVUNMA</span>
-              <div class="about-card-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="22" y1="12" x2="18" y2="12"/>
-                  <line x1="6" y1="12" x2="2" y2="12"/>
-                  <line x1="12" y1="6" x2="12" y2="2"/>
-                  <line x1="12" y1="22" x2="12" y2="18"/>
-                </svg>
-              </div>
-              <h3>Misyonumuz</h3>
-              <p>Oyun ve yazılım ekosistemlerini her türlü kötüye kullanım, exploit ve tersine mühendislik girişimine karşı proaktif korumak. Topluluklara adil rekabet ortamı sunarken, geliştiricilere yüksek performanslı, bağımsız ve ölçeklenebilir savunma araçları ulaştırmak.</p>
-            </div>
-            <div class="about-card-footer">
-              <span class="footer-dot" style="background:var(--blue);box-shadow:0 0 8px var(--blue)"></span>
-              <span>Proaktif Koruma & Adil Oyun</span>
-            </div>
-          </article>
-
-          <!-- VİZYONUMUZ -->
-          <article class="about-card">
-            <div>
-              <span class="about-card-badge">GELECEK VİZYONU</span>
-              <div class="about-card-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="12" r="10"/>
-                  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
-                </svg>
-              </div>
-              <h3>Vizyonumuz</h3>
-              <p>Oyun güvenliği ve dijital savunma teknolojilerinde Türkiye'de ve küresel düzeyde referans gösterilen öncü bir güç olmak. Yeni nesil dinamik analiz ve anti-cheat çözümleriyle dijital projelerin güvenlik standartlarını en üst seviyeye taşımak.</p>
-            </div>
-            <div class="about-card-footer">
-              <span class="footer-dot" style="background:var(--green);box-shadow:0 0 8px var(--green)"></span>
-              <span>Küresel Standartlar & İnovasyon</span>
-            </div>
-          </article>
-        </div>
-
-        <!-- ANTİ-CHEAT KORUMA PANELİ (KORUNDU) -->
-        <div class="protection-panel" aria-label="Anti-cheat koruma durumu">
-          <span class="scan-beam" aria-hidden="true"></span>
-          <div class="protection-main">
-            <div class="protection-heading"><div class="eyebrow">Oyun güvenliği</div><span class="protection-status">SİSTEM AKTİF</span></div>
-            <h3 class="protection-title">Anti-cheat koruması çalışıyor</h3>
-            <p class="protection-copy">Sancaktar Teknoloji tarafından korunan Roblox oyunlarında güvenlik sistemi aktif olarak çalışmaktadır.</p>
-            <div class="protection-metrics">
-              <div class="protection-metric"><span>Sistem durumu</span><strong class="active-value">AKTİF</strong></div>
-              <div class="protection-metric"><span>Korunan deneyim</span><strong>3 oyun</strong></div>
-            </div>
-          </div>
-          <div class="protection-visual" aria-hidden="true">
-            <div class="shield-rings"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 20 6v6c0 5-3.4 8.1-8 10-4.6-1.9-8-5-8-10V6l8-3Z" stroke="currentColor" stroke-width="1.4"/><path d="m8.5 12 2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section services" id="cozumler">
-      <div class="wrap">
-        <div class="section-heading">
-          <div><div class="eyebrow">Çalışma alanları</div><h2>Dijital savunma katmanları</h2></div>
-          <p>Güvenlik araçları, oyunların ve dijital projelerin ihtiyaçlarına göre geliştirilir.</p>
-        </div>
-        <div class="service-grid">
-          <article class="service-card">
-            <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 20 6v6c0 5-3.4 8.1-8 10-4.6-1.9-8-5-8-10V6l8-3Z" stroke="currentColor" stroke-width="1.5"/><path d="m8.5 12 2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <h3>Oyun güvenliği</h3><p>Oyun deneyimleri için kötüye kullanım tespiti, koruma ve olay izleme araçları.</p>
-          </article>
-          <article class="service-card">
-            <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 9h16M8 7h.01M11 7h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="m9 14 2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <h3>Web koruması</h3><p>Web projelerinin güvenlik görünürlüğünü ve temel koruma ihtiyaçlarını destekleyen çözümler.</p>
-          </article>
-          <article class="service-card">
-            <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 18V6m0 12h16M8 15v-4m4 4V7m4 8v-6m4 6v-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="m5 10 5-4 4 3 6-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <h3>Canlı izleme</h3><p>Oyun durumu ve erişilebilir sistem metrikleri tek bir görünümde takip edilir.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- İLETİŞİM BÖLÜMÜ -->
-    <section class="section" id="iletisim" style="padding-top:25px">
-      <div class="wrap contact-panel">
-        <div>
-          <div class="eyebrow">İletişim</div>
-          <h2>Birlikte daha güvenli<br>projeler geliştirelim.</h2>
-          <p>İş birliği, oyun güvenliği veya web koruması hakkında görüşmek için Sancaktar Teknoloji ile doğrudan iletişime geçin.</p>
-          <div class="contact-status" id="contactStatus">WhatsApp (+962 7 7121 2059) veya Discord sunucumuz üzerinden 7/24 ulaşabilirsiniz.</div>
-        </div>
-        <div class="contact-actions">
-          <!-- WhatsApp İrtibat Butonu -->
-          <a class="button button-primary" id="whatsappButton" href="https://wa.me/962771212059" target="_blank" rel="noopener noreferrer">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            WhatsApp: +962 7 7121 2059 <span class="arrow">↗</span>
-          </a>
-          <!-- Doğrudan Discord Sunucusuna Yönlendiren Buton -->
-          <a class="button button-ghost" id="discordServerButton" href="https://discord.gg/xkST7p8rs" target="_blank" rel="noopener noreferrer">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px" aria-hidden="true"><path d="M18 6h0a14.5 14.5 0 0 0-4-1.2 10.3 10.3 0 0 0-.4 1.2 13.6 13.6 0 0 0-3.2 0A10.3 10.3 0 0 0 10 4.8 14.5 14.5 0 0 0 6 6c-2.5 3.8-3.2 7.5-2.8 11.2a14.8 14.8 0 0 0 4.5 2.3c.4-.5.7-1.1 1-1.7-.5-.2-1-.4-1.5-.7.1-.1.2-.2.4-.3 3-.1 5.8-.1 8.8 0 .1.1.3.2.4.3-.5.3-1 .5-1.5.7.3.6.6 1.2 1 1.7a14.8 14.8 0 0 0 4.5-2.3c.5-4.2-.6-7.9-2.8-11.2z"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/></svg>
-            Discord Sunucusu <span class="arrow">↗</span>
-          </a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="wrap footer-inner"><span><strong>SANCAKTAR TEKNOLOJİ</strong> · Oyun ve web güvenliği</span><span>© <span id="year"></span> Sancaktar Teknoloji</span></div>
-  </footer>
+  <div id="toast" class="toast">
+    <i class="fa-solid fa-check-circle" style="color: #22c55e;"></i>
+    <span id="toast-msg">Discord ID Kopyalandı!</span>
+  </div>
 
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    const DISCORD_ID = "1438508951284224151";
 
-    // Kurucu profil kartı animasyonu
-    const founderCard = document.getElementById("founderCard");
-    if ("IntersectionObserver" in window) {
-      const founderObserver = new IntersectionObserver(entries => {
-        if (entries.some(entry => entry.isIntersecting)) {
-          founderCard.classList.add("is-visible");
-          founderObserver.disconnect();
-        }
-      }, { threshold: .35 });
-      founderObserver.observe(founderCard);
-    } else {
-      founderCard.classList.add("is-visible");
+    const INITIAL_DATA = {
+      username: "fiskoselpasha",
+      globalName: "☨ Fiskos",
+      avatarUrl: "https://cdn.discordapp.com/avatars/1438508951284224151/5e270d9016504abff98dccfd23a3a714.png?size=512",
+      bannerUrl: "https://cdn.discordapp.com/banners/1438508951284224151/c2cf5696261f669f7ca67c6e35c3af6d.png?size=4096",
+      decorationUrl: "https://cdn.discordapp.com/avatar-decoration-presets/a_731019cb334aa13ca110cf9e6d75b44a.png?size=160&passthrough=true"
+    };
+
+    const bgVideo = document.getElementById('bg-video');
+    const entryScreen = document.getElementById('entry-screen');
+    const toggleAudio = document.getElementById('toggle-audio');
+    const toggleVideo = document.getElementById('toggle-video');
+    const audioIcon = document.getElementById('audio-icon');
+    const videoIcon = document.getElementById('video-icon');
+    const visualizer = document.getElementById('visualizer');
+    const profileCard = document.getElementById('profile-card');
+
+    const avatarImg = document.getElementById('avatar-img');
+    const avatarDeco = document.getElementById('avatar-deco');
+    const bannerEl = document.getElementById('banner-el');
+    const displayName = document.getElementById('display-name');
+    const usernameHandle = document.getElementById('username-handle');
+    const statusBadge = document.getElementById('status-badge');
+    const liveStatusPill = document.getElementById('live-status-pill');
+    const statusText = document.getElementById('status-text');
+    const copyIdBtn = document.getElementById('copy-id-btn');
+    const toast = document.getElementById('toast');
+
+    const spotifyCard = document.getElementById('spotify-card');
+    const spotifyCover = document.getElementById('spotify-cover');
+    const spotifySong = document.getElementById('spotify-song');
+    const spotifyArtist = document.getElementById('spotify-artist');
+    const spotifyProgress = document.getElementById('spotify-progress');
+
+    // Giriş & Ses Tetikleyici
+    entryScreen.addEventListener('click', () => {
+      entryScreen.classList.add('fade-out');
+      bgVideo.muted = false;
+      bgVideo.volume = 0.8;
+      bgVideo.play().then(() => {
+        visualizer.classList.add('active');
+        audioIcon.className = "fa-solid fa-volume-high";
+      }).catch(console.warn);
+    });
+
+    toggleAudio.addEventListener('click', () => {
+      bgVideo.muted = !bgVideo.muted;
+      audioIcon.className = bgVideo.muted ? "fa-solid fa-volume-xmark" : "fa-solid fa-volume-high";
+      visualizer.classList.toggle('active', !bgVideo.muted);
+    });
+
+    toggleVideo.addEventListener('click', () => {
+      if (bgVideo.paused) {
+        bgVideo.play();
+        videoIcon.className = "fa-solid fa-pause";
+      } else {
+        bgVideo.pause();
+        videoIcon.className = "fa-solid fa-play";
+      }
+    });
+
+    // Başlangıç Değerleri
+    bannerEl.style.backgroundImage = `url('${INITIAL_DATA.bannerUrl}')`;
+    avatarImg.src = INITIAL_DATA.avatarUrl;
+    avatarDeco.src = INITIAL_DATA.decorationUrl;
+    displayName.textContent = INITIAL_DATA.globalName;
+    usernameHandle.textContent = `@${INITIAL_DATA.username}`;
+
+    // Lanyard WebSocket Canlı Durum
+    function initLanyard() {
+      const ws = new WebSocket('wss://api.lanyard.rest/socket');
+      ws.onopen = () => {
+        ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
+      };
+      ws.onmessage = (event) => {
+        const msg = JSON.parse(event.data);
+        if (msg.op === 1) setInterval(() => ws.send(JSON.stringify({ op: 3 })), msg.d.heartbeat_interval);
+        if (msg.t === 'INIT_STATE' || msg.t === 'PRESENCE_UPDATE') updateLanyardData(msg.d);
+      };
+      ws.onerror = fallbackREST;
     }
 
-    // Mobil menü açılıp kapanması
-    const menuButton = document.getElementById("menuButton");
-    const navLinks = document.getElementById("navLinks");
-    menuButton.addEventListener("click", () => {
-      const open = menuButton.getAttribute("aria-expanded") !== "true";
-      menuButton.setAttribute("aria-expanded", String(open));
-      navLinks.classList.toggle("open", open);
+    function fallbackREST() {
+      fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`)
+        .then(r => r.json())
+        .then(json => { if (json.data) updateLanyardData(json.data); else setOffline(); })
+        .catch(setOffline);
+    }
+
+    function setOffline() {
+      statusBadge.className = 'status-badge offline';
+      liveStatusPill.className = 'live-status-pill offline';
+      statusText.textContent = 'Çevrimdışı';
+    }
+
+    let spInterval;
+    function updateLanyardData(data) {
+      if (!data) return;
+      const status = data.discord_status || 'offline';
+      statusBadge.className = `status-badge ${status}`;
+      liveStatusPill.className = `live-status-pill ${status}`;
+
+      const trStatus = { online: 'Çevrimiçi', idle: 'Boşta', dnd: 'Rahatsız Etmeyin', offline: 'Çevrimdışı' };
+      statusText.textContent = trStatus[status] || status;
+
+      if (data.listening_to_spotify && data.spotify) {
+        spotifyCard.classList.add('active');
+        spotifySong.textContent = data.spotify.song;
+        spotifyArtist.textContent = data.spotify.artist;
+        spotifyCover.src = data.spotify.album_art_url;
+        clearInterval(spInterval);
+        spInterval = setInterval(() => {
+          const pct = ((Date.now() - data.spotify.timestamps.start) / (data.spotify.timestamps.end - data.spotify.timestamps.start)) * 100;
+          spotifyProgress.style.width = Math.min(100, Math.max(0, pct)) + '%';
+        }, 1000);
+      } else {
+        spotifyCard.classList.remove('active');
+        clearInterval(spInterval);
+      }
+    }
+
+    initLanyard();
+    fallbackREST();
+
+    // 3D Tilt Efekti
+    profileCard.addEventListener('mousemove', (e) => {
+      const rect = profileCard.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      profileCard.style.transform = `perspective(1000px) rotateX(${(-y/rect.height)*12}deg) rotateY(${(x/rect.width)*12}deg) scale3d(1.02, 1.02, 1.02)`;
     });
-    navLinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
-      navLinks.classList.remove("open");
-      menuButton.setAttribute("aria-expanded", "false");
-    }));
+    profileCard.addEventListener('mouseleave', () => {
+      profileCard.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+    });
+
+    // ID Kopyalama
+    copyIdBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(DISCORD_ID);
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    });
   </script>
 </body>
 </html>
